@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{FB0BB9B2-BD0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\App\WebAPI\WebAPI.csproj", "{8EC63830-5ADC-41CF-BECC-A995C52DD91B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biz", "src\App\Biz\Biz.csproj", "{D648817D-4BC4-4AB5-AD48-A27ED66C1097}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|X64 = Debug|X64
@@ -17,12 +19,17 @@ Global
 		{8EC63830-5ADC-41CF-BECC-A995C52DD91B}.Debug|X64.Build.0 = Debug|X64
 		{8EC63830-5ADC-41CF-BECC-A995C52DD91B}.Release|X64.ActiveCfg = Release|X64
 		{8EC63830-5ADC-41CF-BECC-A995C52DD91B}.Release|X64.Build.0 = Release|X64
+		{D648817D-4BC4-4AB5-AD48-A27ED66C1097}.Debug|X64.ActiveCfg = Debug|x64
+		{D648817D-4BC4-4AB5-AD48-A27ED66C1097}.Debug|X64.Build.0 = Debug|x64
+		{D648817D-4BC4-4AB5-AD48-A27ED66C1097}.Release|X64.ActiveCfg = Release|x64
+		{D648817D-4BC4-4AB5-AD48-A27ED66C1097}.Release|X64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8EC63830-5ADC-41CF-BECC-A995C52DD91B} = {FB0BB9B2-BD04-4EC3-9B35-15DC749E90D9}
+		{D648817D-4BC4-4AB5-AD48-A27ED66C1097} = {FB0BB9B2-BD04-4EC3-9B35-15DC749E90D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C66E593E-A9A2-4BB8-85E5-4C97F2694ED8}
