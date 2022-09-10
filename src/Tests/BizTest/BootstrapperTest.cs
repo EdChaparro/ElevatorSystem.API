@@ -2,6 +2,7 @@ using IntrepidProducts.Biz;
 using IntrepidProducts.Biz.RequestHandlers;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IntrepidProducts.BizTest
@@ -12,7 +13,7 @@ namespace IntrepidProducts.BizTest
         [TestMethod]
         public void ShouldRegisterDependencies()
         {
-            var bootstrapper = new Bootstrapper();
+            var bootstrapper = new Bootstrapper(new ServiceCollection());
             bootstrapper.Bootstrap();
 
             var iocContainer = bootstrapper.IocContainer;

@@ -20,7 +20,7 @@ namespace IntrepidProducts.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var bootstrapper = new Bootstrapper();
+            var bootstrapper = new Bootstrapper(services);
             bootstrapper.Bootstrap();
 
             services.AddControllers();

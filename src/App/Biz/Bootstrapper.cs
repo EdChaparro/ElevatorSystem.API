@@ -2,12 +2,14 @@
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.RequestResponseHandler;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IntrepidProducts.Biz
 {
     public class Bootstrapper : BootstrapperAbstract
     {
-        public Bootstrapper() : base(new MicrosoftStrategy())
+        public Bootstrapper(IServiceCollection serviceCollection)
+            : base(new MicrosoftStrategy(serviceCollection))
         {
             _requestHandlerRegistry = new RequestHandlerRegistry();
         }

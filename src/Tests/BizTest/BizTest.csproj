@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -44,6 +44,9 @@
     </Reference>
     <Reference Include="IntrepidProducts.RequestResponseHandler">
       <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.RequestResponseHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
 
