@@ -18,7 +18,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Shared\Common\Common.csproj" />
+	  <ProjectReference Include="..\..\Shared\ElevatorSystem.Shared\ElevatorSystem.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

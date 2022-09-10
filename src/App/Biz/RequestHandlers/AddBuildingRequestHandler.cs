@@ -1,6 +1,6 @@
 ﻿using System;
-using IntrepidProducts.Common.Requests;
-using IntrepidProducts.Common.Responses;
+using IntrepidProducts.ElevatorSystem.Shared.Requests;
+using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 
 namespace IntrepidProducts.Biz.RequestHandlers

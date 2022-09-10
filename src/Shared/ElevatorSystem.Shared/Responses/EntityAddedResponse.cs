@@ -1,8 +1,8 @@
 ﻿using System;
-using IntrepidProducts.Common.Requests;
+using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 
-namespace IntrepidProducts.Common.Responses
+namespace IntrepidProducts.ElevatorSystem.Shared.Responses
 {
     public class EntityAddedResponse : ResponseAbstract
     {

@@ -1,6 +1,6 @@
 ﻿using IntrepidProducts.RequestResponse.Requests;
 
-namespace IntrepidProducts.Common.Requests
+namespace IntrepidProducts.ElevatorSystem.Shared.Requests
 {
     public interface IEntityAddRequest : IRequest
     { }
