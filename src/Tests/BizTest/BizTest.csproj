@@ -38,4 +38,13 @@
     <ProjectReference Include="..\..\Shared\ElevatorSystem.Shared\ElevatorSystem.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="IntrepidProducts.IocContainer">
+      <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.IocContainer.dll</HintPath>
+    </Reference>
+    <Reference Include="IntrepidProducts.RequestResponseHandler">
+      <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.RequestResponseHandler.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

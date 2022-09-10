@@ -34,6 +34,12 @@
 	  <Reference Include="IntrepidProducts.RequestResponseHandler">
 	    <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.RequestResponseHandler.dll</HintPath>
 	  </Reference>
+	  <Reference Include="Microsoft.Extensions.DependencyInjection">
+	    <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+	    <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>
