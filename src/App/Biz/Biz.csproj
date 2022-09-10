@@ -22,6 +22,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Reference Include="IntrepidProducts.ElevatorSystem">
+	    <HintPath>..\..\..\dependencies\IntrepidProducts.ElevatorSystem\IntrepidProducts.ElevatorSystem.dll</HintPath>
+	  </Reference>
 	  <Reference Include="IntrepidProducts.IoC.MicrosoftStrategy">
 	    <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.IoC.MicrosoftStrategy.dll</HintPath>
 	  </Reference>

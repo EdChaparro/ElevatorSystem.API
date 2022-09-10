@@ -9,6 +9,6 @@ namespace IntrepidProducts.ElevatorSystem.Shared.Responses
         public EntityAddedResponse(IEntityAddRequest request) : base(request)
         { }
 
-        public Guid Id { get; set; }
+        public Guid EntityId { get; set; }
     }
 }

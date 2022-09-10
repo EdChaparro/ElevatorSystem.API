@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.IoC.MicrosoftStrategy;
+﻿using IntrepidProducts.ElevatorSystem;
+using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.RequestResponseHandler;
@@ -8,7 +9,7 @@ namespace IntrepidProducts.Biz
 {
     public class Bootstrapper : BootstrapperAbstract
     {
-        public Bootstrapper(IServiceCollection serviceCollection)
+        public Bootstrapper(IServiceCollection? serviceCollection = null)
             : base(new MicrosoftStrategy(serviceCollection))
         {
             _requestHandlerRegistry = new RequestHandlerRegistry();
@@ -23,6 +24,8 @@ namespace IntrepidProducts.Biz
             iocContainer.RegisterSingleton
                 (typeof(IRequestHandlerProcessor), typeof(RequestHandlerProcessor));
             iocContainer.RegisterInstance(typeof(IIocContainer), IocContainer);
+
+            iocContainer.RegisterInstance(new Buildings());
         }
 
         private void RegisterRequestHandlers()

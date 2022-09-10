@@ -26,6 +26,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Reference Include="IntrepidProducts.RequestResponse">
+	    <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.RequestResponse.dll</HintPath>
+	  </Reference>
 	  <Reference Include="IntrepidProducts.RequestResponseHandler">
 	    <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.RequestResponseHandler.dll</HintPath>
 	  </Reference>
