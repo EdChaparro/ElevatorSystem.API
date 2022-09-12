@@ -3,26 +3,20 @@ using System.Linq;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
-using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
     [Produces("application/json")]
-    public class BuildingsController : ControllerBase
+    public class BuildingsController : AbstractApiController
     {
         public BuildingsController(IRequestHandlerProcessor requestHandlerProcessor)
-        {
-            _requestHandlerProcessor = requestHandlerProcessor;
-        }
-
-        private readonly IRequestHandlerProcessor _requestHandlerProcessor;
+        : base(requestHandlerProcessor)
+        { }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(BuildingDTO), StatusCodes.Status200OK)]
@@ -35,21 +29,9 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Invalid Id");
             }
 
-            var requestBlock = new RequestBlock();
-            var request = new FindBuildingRequest { BuildingId = id };
-
-            requestBlock.Add(request);
-
-            var responseBlock
-                = _requestHandlerProcessor.Process(requestBlock);
-
-            if (responseBlock.HasErrors)
-            {
-                Problem("Find operation error", null,
-                    StatusCodes.Status500InternalServerError);
-            }
-
-            var response = (FindBuildingResponse)responseBlock.Responses.First();
+            var response = ProcessRequests<FindBuildingRequest, FindBuildingResponse>
+                    (new FindBuildingRequest { BuildingId = id })
+                .First();
 
             if (response.Building == null)
             {
@@ -69,34 +51,13 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Body empty, Building object expected");
             }
 
-            var requestBlock = new RequestBlock();
-            var request = new AddBuildingRequest
-            {
-                Building = buildingsDTO
-            };
-
-            requestBlock.Add(request);
-
-            var responseBlock
-                = _requestHandlerProcessor.Process(requestBlock);
-
-            if (responseBlock.HasErrors)
-            {
-                Problem("Persistence error", null,
-                    StatusCodes.Status500InternalServerError);
-            }
-
-            var response = (EntityAddedResponse)responseBlock.Responses.First();
-
-            if (!response.IsSuccessful)
-            {
-                return Problem("Unexpected Response from Request Handler", null,
-                    StatusCodes.Status500InternalServerError);
-            }
+            var response = ProcessRequests<AddBuildingRequest, EntityAddedResponse>
+                    (new AddBuildingRequest { Building = buildingsDTO })
+                .First();
 
             return CreatedAtAction(nameof(Get),
                 new { id = response.EntityId },
-                request.Building);
+                buildingsDTO);
         }
     }
 }
