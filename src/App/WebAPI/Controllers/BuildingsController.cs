@@ -35,7 +35,28 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Invalid Id");
             }
 
-            return Ok(new BuildingDTO());   //TODO: Finish me
+            var requestBlock = new RequestBlock();
+            var request = new FindBuildingRequest { BuildingId = id };
+
+            requestBlock.Add(request);
+
+            var responseBlock
+                = _requestHandlerProcessor.Process(requestBlock);
+
+            if (responseBlock.HasErrors)
+            {
+                Problem("Find operation error", null,
+                    StatusCodes.Status500InternalServerError);
+            }
+
+            var response = (FindBuildingResponse)responseBlock.Responses.First();
+
+            if (response.Building == null)
+            {
+                return NotFound(id);
+            }
+
+            return Ok(response.Building);
         }
 
         [HttpPost]
