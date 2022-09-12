@@ -39,8 +39,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="IntrepidProducts.ElevatorSystem">
+      <HintPath>..\..\..\dependencies\IntrepidProducts.ElevatorSystem\IntrepidProducts.ElevatorSystem.dll</HintPath>
+    </Reference>
     <Reference Include="IntrepidProducts.IocContainer">
       <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.IocContainer.dll</HintPath>
+    </Reference>
+    <Reference Include="IntrepidProducts.RequestResponse">
+      <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.RequestResponse.dll</HintPath>
     </Reference>
     <Reference Include="IntrepidProducts.RequestResponseHandler">
       <HintPath>..\..\..\dependencies\IntrepidProducts.RequestResponseHandler\IntrepidProducts.RequestResponseHandler.dll</HintPath>

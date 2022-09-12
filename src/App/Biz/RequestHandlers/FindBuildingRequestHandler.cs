@@ -1,5 +1,4 @@
-﻿using System;
-using IntrepidProducts.ElevatorSystem;
+﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
@@ -21,13 +20,17 @@ namespace IntrepidProducts.Biz.RequestHandlers
         {
             var building = _buildings.FirstOrDefault(x => x.Id == request.BuildingId);
 
+            var dto = building == null
+                ? null
+                : new BuildingDTO
+                {
+                    Id = building.Id,
+                    Name = building?.Name
+                };
+
             return new FindBuildingResponse(request)
             {
-                Building = new BuildingDTO
-                {
-                    Id = building == null ? Guid.Empty : building.Id,
-                    Name = building?.Name
-                }
+                Building = dto
             };
         }
     }
