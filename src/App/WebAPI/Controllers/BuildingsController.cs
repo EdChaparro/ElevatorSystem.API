@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
@@ -17,6 +18,17 @@ namespace IntrepidProducts.WebAPI.Controllers
         public BuildingsController(IRequestHandlerProcessor requestHandlerProcessor)
         : base(requestHandlerProcessor)
         { }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<BuildingDTO>> Get()
+        {
+            var response = ProcessRequests<FindAllBuildingsRequest, FindAllBuildingsResponse>
+                    (new FindAllBuildingsRequest())
+                .First();
+
+            return Ok(response.Buildings);
+        }
+
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(BuildingDTO), StatusCodes.Status200OK)]
