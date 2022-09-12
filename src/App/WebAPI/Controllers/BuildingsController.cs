@@ -29,7 +29,6 @@ namespace IntrepidProducts.WebAPI.Controllers
             return Ok(response.Buildings);
         }
 
-
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(BuildingDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
