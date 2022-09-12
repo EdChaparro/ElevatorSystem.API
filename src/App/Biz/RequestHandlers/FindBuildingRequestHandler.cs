@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem;
+﻿using System;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
@@ -22,7 +23,11 @@ namespace IntrepidProducts.Biz.RequestHandlers
 
             return new FindBuildingResponse(request)
             {
-                Building = new BuildingDTO { Name = building?.Name }
+                Building = new BuildingDTO
+                {
+                    Id = building == null ? Guid.Empty : building.Id,
+                    Name = building?.Name
+                }
             };
         }
     }

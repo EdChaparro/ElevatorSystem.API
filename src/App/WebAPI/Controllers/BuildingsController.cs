@@ -10,6 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
+    public class BuildingName
+    {
+        public string? Name { get; set; }
+    }
+
+    //TODO: HATEOAS - https://code-maze.com/hateoas-aspnet-core-web-api/
+
     [ApiController]
     [Route("api/v1/[controller]")]
     [Produces("application/json")]
@@ -19,6 +26,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         : base(requestHandlerProcessor)
         { }
 
+        #region GET
         [HttpGet]
         public ActionResult<IEnumerable<BuildingDTO>> Get()
         {
@@ -51,24 +59,29 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             return Ok(response.Building);
         }
+        #endregion
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] BuildingDTO? buildingsDTO)
+        public IActionResult Post([FromBody] BuildingName? postBody)
         {
-            if (buildingsDTO == null)
+            if (postBody == null)
             {
                 return BadRequest("Body empty, Building object expected");
             }
 
             var response = ProcessRequests<AddBuildingRequest, EntityAddedResponse>
-                    (new AddBuildingRequest { Building = buildingsDTO })
+                (new AddBuildingRequest
+                {
+                    Building = new BuildingDTO { Name = postBody.Name }
+
+                })
                 .First();
 
             return CreatedAtAction(nameof(Get),
                 new { id = response.EntityId },
-                buildingsDTO);
+                postBody);
         }
     }
 }
