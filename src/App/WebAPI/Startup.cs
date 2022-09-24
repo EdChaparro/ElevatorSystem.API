@@ -1,3 +1,4 @@
+using IntrepidProducts.Biz;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,9 @@ namespace IntrepidProducts.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var bootstrapper = new Bootstrapper(services);
+            bootstrapper.Bootstrap();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
