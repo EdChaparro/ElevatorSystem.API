@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
@@ -50,7 +51,10 @@ namespace IntrepidProducts.WebApiTest.Controllers
                         x.Process(It.IsAny<RequestBlock>()))
                 .Returns(expectedResponseBlock);
 
-            var controller = new BuildingsController(mockRequestHandlerProcessor.Object);
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BuildingsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object);
 
             var actionResult = controller.Get();
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -17,8 +18,10 @@ namespace IntrepidProducts.WebAPI.Controllers
     [Produces("application/json")]
     public class BuildingsController : AbstractApiController
     {
-        public BuildingsController(IRequestHandlerProcessor requestHandlerProcessor)
-            : base(requestHandlerProcessor)
+        public BuildingsController
+            (IRequestHandlerProcessor requestHandlerProcessor,
+                LinkGenerator linkGenerator)
+            : base(requestHandlerProcessor, linkGenerator)
         { }
 
         #region GET

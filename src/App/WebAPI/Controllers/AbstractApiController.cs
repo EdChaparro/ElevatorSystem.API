@@ -5,17 +5,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
     public abstract class AbstractApiController : ControllerBase
     {
-        protected AbstractApiController(IRequestHandlerProcessor requestHandlerProcessor)
+        protected AbstractApiController
+            (IRequestHandlerProcessor requestHandlerProcessor,
+                LinkGenerator linkGenerator)
         {
             _requestHandlerProcessor = requestHandlerProcessor;
+            LinkGenerator = linkGenerator;
         }
 
         private readonly IRequestHandlerProcessor _requestHandlerProcessor;
+        protected LinkGenerator LinkGenerator { get; }
 
         protected IEnumerable<TResponse> ProcessRequests<TRequest, TResponse>
             (params TRequest[] requests)
