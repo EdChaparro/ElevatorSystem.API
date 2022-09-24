@@ -11,7 +11,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 
-namespace IntrepidProducts.WebApiTest
+namespace IntrepidProducts.WebApiTest.Controllers
 {
     [TestClass]
     public class BuildingsControllerTest
