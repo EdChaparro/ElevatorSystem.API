@@ -1,20 +1,27 @@
-﻿using IntrepidProducts.RequestResponse.Requests;
+﻿using System;
+using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using IntrepidProducts.WebAPI.Models;
+using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
     public abstract class AbstractApiController : ControllerBase
     {
-        protected AbstractApiController(IRequestHandlerProcessor requestHandlerProcessor)
+        protected AbstractApiController
+            (IRequestHandlerProcessor requestHandlerProcessor,
+                LinkGenerator linkGenerator)
         {
             _requestHandlerProcessor = requestHandlerProcessor;
+            LinkGenerator = linkGenerator;
         }
 
+        #region Process Request(s)
         private readonly IRequestHandlerProcessor _requestHandlerProcessor;
 
         protected IEnumerable<TResponse> ProcessRequests<TRequest, TResponse>
@@ -58,5 +65,18 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             return responses;
         }
+        #endregion
+
+        #region HATEOAS
+        protected LinkGenerator LinkGenerator { get; }
+
+        protected Link GenerateGetByIdUri(string methodName, Guid id)
+        {
+            var uri = LinkGenerator.GetUriByAction
+                (HttpContext, methodName, values: new { id });
+
+            return new Link(uri, "self", methodName);
+        }
+        #endregion
     }
 }

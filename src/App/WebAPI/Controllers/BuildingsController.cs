@@ -2,18 +2,15 @@
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
-    public class BuildingName
-    {
-        public string? Name { get; set; }
-    }
-
     //TODO: HATEOAS - https://code-maze.com/hateoas-aspnet-core-web-api/
 
     [ApiController]
@@ -21,8 +18,10 @@ namespace IntrepidProducts.WebAPI.Controllers
     [Produces("application/json")]
     public class BuildingsController : AbstractApiController
     {
-        public BuildingsController(IRequestHandlerProcessor requestHandlerProcessor)
-        : base(requestHandlerProcessor)
+        public BuildingsController
+            (IRequestHandlerProcessor requestHandlerProcessor,
+                LinkGenerator linkGenerator)
+            : base(requestHandlerProcessor, linkGenerator)
         { }
 
         #region GET
@@ -34,7 +33,15 @@ namespace IntrepidProducts.WebAPI.Controllers
                     (new FindAllBuildingsRequest())
                 .First();
 
-            return Ok(new BuildingsDTO { Buildings = response.Buildings });
+            var buildings = new BuildingsModel();
+            foreach (var dto in response.Buildings)
+            {
+                var building = Building.MapFrom(dto);
+                building.Link = GenerateGetByIdUri(nameof(Get), building.Id);
+                buildings.Buildings.Add(building);
+            }
+
+            return Ok(buildings);
         }
 
         [HttpGet("{id}")]

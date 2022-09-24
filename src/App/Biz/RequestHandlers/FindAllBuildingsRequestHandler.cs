@@ -20,7 +20,7 @@ namespace IntrepidProducts.Biz.RequestHandlers
         {
             return new FindAllBuildingsResponse(request)
             {
-                Buildings = _buildings.Select
+                Buildings =  _buildings.Select
                     (building => new BuildingDTO
                     {
                         Id = building.Id,
