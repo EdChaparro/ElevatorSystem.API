@@ -11,6 +11,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using IntrepidProducts.WebAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebApiTest.Controllers
@@ -55,16 +56,22 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var mockLinkGenerator = new Mock<LinkGenerator>();
 
             var controller = new BuildingsController
-                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object);
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+                {
+                    ControllerContext = new ControllerContext
+                    {
+                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                    }
+                };
 
             var actionResult = controller.Get();
 
             var okObjectResult = actionResult.Result as OkObjectResult;
             Assert.IsNotNull(okObjectResult);
 
-            var model = okObjectResult.Value as Buildings;
+            var model = okObjectResult.Value as BuildingsModel;
             Assert.IsNotNull(model);
-            Assert.AreEqual(2, model.BuildingsInfo.Count);
+            Assert.AreEqual(2, model.Buildings.Count);
         }
     }
 }

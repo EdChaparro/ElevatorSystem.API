@@ -21,17 +21,17 @@ namespace IntrepidProducts.WebApiTest.Models
                 }
             };
 
-            var model = Buildings.MapFrom(dto);
+            var model = BuildingsModel.MapFrom(dto);
 
-            Assert.AreEqual(2, model.BuildingsInfo.Count);
+            Assert.AreEqual(2, model.Buildings.Count);
 
-            for (int i = 0; i < model.BuildingsInfo.Count; i++)
+            for (int i = 0; i < model.Buildings.Count; i++)
             {
                 Assert.AreEqual
-                    (dto.Buildings[i].Id, model.BuildingsInfo[i].Id);
+                    (dto.Buildings[i].Id, model.Buildings[i].Id);
 
                 Assert.AreEqual
-                    (dto.Buildings[i].Name, model.BuildingsInfo[i].Name);
+                    (dto.Buildings[i].Name, model.Buildings[i].Name);
             }
         }
     }
