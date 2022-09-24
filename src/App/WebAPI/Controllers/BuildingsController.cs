@@ -2,6 +2,7 @@
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,11 +10,6 @@ using System.Linq;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
-    public class BuildingName
-    {
-        public string? Name { get; set; }
-    }
-
     //TODO: HATEOAS - https://code-maze.com/hateoas-aspnet-core-web-api/
 
     [ApiController]
@@ -22,7 +18,7 @@ namespace IntrepidProducts.WebAPI.Controllers
     public class BuildingsController : AbstractApiController
     {
         public BuildingsController(IRequestHandlerProcessor requestHandlerProcessor)
-        : base(requestHandlerProcessor)
+            : base(requestHandlerProcessor)
         { }
 
         #region GET
