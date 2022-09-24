@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebApiTest.Controllers
@@ -61,9 +62,9 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var okObjectResult = actionResult.Result as OkObjectResult;
             Assert.IsNotNull(okObjectResult);
 
-            var buildingsDTO = okObjectResult.Value as BuildingsDTO;
-            Assert.IsNotNull(buildingsDTO);
-            Assert.AreEqual(2, buildingsDTO.Buildings.Count);
+            var model = okObjectResult.Value as Buildings;
+            Assert.IsNotNull(model);
+            Assert.AreEqual(2, model.BuildingsInfo.Count);
         }
     }
 }

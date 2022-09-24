@@ -33,7 +33,10 @@ namespace IntrepidProducts.WebAPI.Controllers
                     (new FindAllBuildingsRequest())
                 .First();
 
-            return Ok(new BuildingsDTO { Buildings = response.Buildings });
+            var buildings = response.Buildings.Select(Building.MapFrom)
+                .ToList();
+
+            return Ok(new Buildings { BuildingsInfo = buildings});
         }
 
         [HttpGet("{id}")]
