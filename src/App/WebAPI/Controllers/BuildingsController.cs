@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -34,7 +34,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                     (new FindAllBuildingsRequest())
                 .First();
 
-            return Ok(new BuildingsDTO {Buildings =  response.Buildings });
+            return Ok(new BuildingsDTO { Buildings = response.Buildings });
         }
 
         [HttpGet("{id}")]

@@ -1,9 +1,9 @@
-﻿using System;
-using IntrepidProducts.Biz.RequestHandlers;
+﻿using IntrepidProducts.Biz.RequestHandlers;
 using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace IntrepidProducts.BizTest.RequestHandlers
 {
@@ -26,7 +26,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
             var findBuildingRequestHandler = new FindBuildingRequestHandler(buildings);
 
             var findResponse = findBuildingRequestHandler
-                .Handle(new FindBuildingRequest {BuildingId = buildingId});
+                .Handle(new FindBuildingRequest { BuildingId = buildingId });
 
             //Assert
             Assert.IsTrue(findResponse.IsSuccessful);

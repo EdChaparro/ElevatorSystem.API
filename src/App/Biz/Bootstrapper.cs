@@ -1,8 +1,8 @@
 ﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer;
-using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.RequestResponseHandler;
+using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IntrepidProducts.Biz

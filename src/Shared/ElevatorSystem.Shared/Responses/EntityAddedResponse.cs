@@ -1,6 +1,6 @@
-﻿using System;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.RequestResponse.Responses;
+using System;
 
 namespace IntrepidProducts.ElevatorSystem.Shared.Responses
 {

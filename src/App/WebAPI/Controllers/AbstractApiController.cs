@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using IntrepidProducts.RequestResponse.Requests;
+﻿using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
