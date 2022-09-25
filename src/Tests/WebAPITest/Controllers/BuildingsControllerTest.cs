@@ -5,15 +5,15 @@ using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.WebAPI.Controllers;
+using IntrepidProducts.WebAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using IntrepidProducts.WebAPI.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
@@ -59,12 +59,12 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var controller = new BuildingsController
                 (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
                 {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
-                    }
-                };
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
 
             var actionResult = controller.Get();
 
@@ -102,13 +102,13 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var controller = new BuildingsController
                 (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
                 {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext()
-                    },
+                    HttpContext = new DefaultHttpContext()
+                },
 
-                    ProblemDetailsFactory = new MockProblemDetailsFactory()
+                ProblemDetailsFactory = new MockProblemDetailsFactory()
 
             };
 
@@ -152,12 +152,12 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var controller = new BuildingsController
                 (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
                 {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
-                    }
-                };
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
 
             var actionResult = controller.Post(new BuildingName { Name = "Foo" });
 
