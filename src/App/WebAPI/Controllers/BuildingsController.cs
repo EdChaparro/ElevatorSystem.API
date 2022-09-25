@@ -5,9 +5,9 @@ using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
-using Microsoft.AspNetCore.Routing;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -32,6 +32,12 @@ namespace IntrepidProducts.WebAPI.Controllers
             var response = ProcessRequests<FindAllBuildingsRequest, FindAllBuildingsResponse>
                     (new FindAllBuildingsRequest())
                 .First();
+
+            if (!response.IsSuccessful)
+            {
+                return Problem("Errors encountered processing request", null,
+                    StatusCodes.Status500InternalServerError);
+            }
 
             var buildings = new BuildingsModel();
             foreach (var dto in response.Buildings)
@@ -59,6 +65,12 @@ namespace IntrepidProducts.WebAPI.Controllers
                     (new FindBuildingRequest { BuildingId = id })
                 .First();
 
+            if (!response.IsSuccessful)
+            {
+                return Problem("Errors encountered processing request", null,
+                    StatusCodes.Status500InternalServerError);
+            }
+
             if (response.Building == null)
             {
                 return NotFound(id);
@@ -85,6 +97,12 @@ namespace IntrepidProducts.WebAPI.Controllers
 
                 })
                 .First();
+
+            if (!response.IsSuccessful)
+            {
+                return Problem("Errors encountered processing request", null,
+                    StatusCodes.Status500InternalServerError);
+            }
 
             return CreatedAtAction(nameof(Get),
                 new { id = response.EntityId },

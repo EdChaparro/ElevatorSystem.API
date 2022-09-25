@@ -1,5 +1,5 @@
-﻿using System;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
+using System;
 
 namespace IntrepidProducts.WebAPI.Models
 {

@@ -1,7 +1,7 @@
-﻿using System;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 using IntrepidProducts.WebAPI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace IntrepidProducts.WebApiTest.Models
 {
