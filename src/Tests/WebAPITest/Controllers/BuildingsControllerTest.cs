@@ -75,6 +75,50 @@ namespace IntrepidProducts.WebApiTest.Controllers
             Assert.IsNotNull(model);
             Assert.AreEqual(2, model.Buildings.Count);
         }
+
+        [TestMethod]
+        public void ShouldReturn500WhenGetAllBuildingsFails()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var request = new FindAllBuildingsRequest();
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(new FindAllBuildingsResponse(request)
+            {
+                ErrorInfo = new ErrorInfo("error", "something went wrong")
+            });
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BuildingsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+                {
+                    ControllerContext = new ControllerContext
+                    {
+                        HttpContext = new DefaultHttpContext()
+                    }
+                };
+            controller.ProblemDetailsFactory = new MockProblemDetailsFactory();
+
+            var actionResult = controller.Get();
+
+            var actionResultValue = actionResult.Result as ObjectResult;
+            Assert.IsNotNull(actionResultValue);
+
+            var problemDetails = actionResultValue.Value as ProblemDetails;
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, problemDetails?.Status);
+        }
+
         #endregion
 
         [TestMethod]

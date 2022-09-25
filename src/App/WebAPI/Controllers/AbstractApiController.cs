@@ -2,7 +2,6 @@
 using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +33,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         protected IEnumerable<TResponse> ProcessRequests<TRequest, TResponse>
         (IEnumerable<TRequest> requests,
-            ExecutionStrategy executionStrategy = ExecutionStrategy.Sequential,
-            bool ignoreErrors = false)
+            ExecutionStrategy executionStrategy = ExecutionStrategy.Sequential)
             where TRequest : class, IRequest
             where TResponse : class, IResponse
         {
@@ -47,15 +45,6 @@ namespace IntrepidProducts.WebAPI.Controllers
             }
 
             var responseBlock = _requestHandlerProcessor.Process(requestBlock);
-
-            if (!ignoreErrors)
-            {
-                if (responseBlock.HasErrors)
-                {
-                    Problem("Errors encountered processing request(s)", null,
-                        StatusCodes.Status500InternalServerError);
-                }
-            }
 
             var responses = new List<TResponse>();
             foreach (var response in responseBlock.Responses)

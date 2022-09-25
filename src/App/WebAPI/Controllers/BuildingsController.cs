@@ -33,6 +33,12 @@ namespace IntrepidProducts.WebAPI.Controllers
                     (new FindAllBuildingsRequest())
                 .First();
 
+            if (!response.IsSuccessful)
+            {
+                return Problem("Errors encountered processing request", null,
+                    StatusCodes.Status500InternalServerError);
+            }
+
             var buildings = new BuildingsModel();
             foreach (var dto in response.Buildings)
             {
