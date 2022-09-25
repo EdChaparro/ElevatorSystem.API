@@ -106,9 +106,11 @@ namespace IntrepidProducts.WebApiTest.Controllers
                     ControllerContext = new ControllerContext
                     {
                         HttpContext = new DefaultHttpContext()
-                    }
-                };
-            controller.ProblemDetailsFactory = new MockProblemDetailsFactory();
+                    },
+
+                    ProblemDetailsFactory = new MockProblemDetailsFactory()
+
+            };
 
             var actionResult = controller.Get();
 
@@ -121,6 +123,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
         #endregion
 
+        #region Post
         [TestMethod]
         public void ShouldReportSuccessfulPost()
         {
@@ -173,5 +176,52 @@ namespace IntrepidProducts.WebApiTest.Controllers
             Assert.AreEqual("id", routeValues.Keys.First());
             Assert.AreEqual(response.EntityId, routeValues.Values.First());
         }
+
+        [TestMethod]
+        public void ShouldReturn500WhenPostFails()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var request = new AddBuildingRequest();
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new EntityAddedResponse(request)
+            {
+                ErrorInfo = new ErrorInfo("error", "something went wrong")
+            };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BuildingsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                },
+
+                ProblemDetailsFactory = new MockProblemDetailsFactory()
+            };
+
+            var actionResult = controller.Post(new BuildingName { Name = "Foo" });
+
+            var objectResult = actionResult as ObjectResult;
+            Assert.IsNotNull(objectResult);
+
+            var problemDetails = objectResult.Value as ProblemDetails;
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, problemDetails?.Status);
+        }
+        #endregion
     }
 }
