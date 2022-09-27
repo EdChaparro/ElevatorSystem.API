@@ -14,7 +14,6 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.Components.DictionaryAdapter.Xml;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
@@ -230,6 +229,95 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var problemDetails = objectResult.Value as ProblemDetails;
             Assert.AreEqual(StatusCodes.Status500InternalServerError, problemDetails?.Status);
         }
+        #endregion
+
+        #region Put
+        [TestMethod]
+        public void ShouldReportSuccessfulPut()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var id = Guid.NewGuid();
+            var request = new UpdateBuildingRequest
+                { Building = new BuildingDTO { Id = id } };
+
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new OperationResponse(request) { Result = OperationResult.Successful };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BuildingsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
+
+            var actionResult = controller.Put(id, new BuildingDTO() { Name = "Foo" });
+
+            var objectResult = actionResult as NoContentResult;
+            Assert.IsNotNull(objectResult);
+
+            Assert.AreEqual(StatusCodes.Status204NoContent, objectResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void ShouldReportNotFoundOnPut()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var id = Guid.NewGuid();
+            var request = new UpdateBuildingRequest
+                { Building = new BuildingDTO { Id = id } };
+
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new OperationResponse(request) { Result = OperationResult.NotFound };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BuildingsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+                {
+                    ControllerContext = new ControllerContext
+                    {
+                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                    }
+                };
+
+            var actionResult = controller.Put(id, new BuildingDTO() { Name = "Foo" });
+
+            var objectResult = actionResult as NotFoundObjectResult;
+            Assert.IsNotNull(objectResult);
+
+            Assert.AreEqual(StatusCodes.Status404NotFound, objectResult.StatusCode);
+        }
+
         #endregion
     }
 }
