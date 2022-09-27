@@ -2,6 +2,7 @@
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.WebAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
@@ -67,5 +68,17 @@ namespace IntrepidProducts.WebAPI.Controllers
             return new Link(uri, "self", methodName);
         }
         #endregion
+
+        protected ObjectResult GetProblemDetails(IResponse response)
+        {
+            var errorInfo = response.ErrorInfo;
+            var requestName = response.OriginalRequest.GetType().Name;
+
+            var message = $"Error encountered in Request: {requestName}, " +
+                          $"Error: {errorInfo?.ErrorId} - {errorInfo?.Message}";
+
+            return Problem
+                (message, null, StatusCodes.Status500InternalServerError);
+        }
     }
 }

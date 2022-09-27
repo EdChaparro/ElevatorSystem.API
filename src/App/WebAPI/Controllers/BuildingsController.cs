@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
+using IntrepidProducts.RequestResponse.Responses;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -35,8 +36,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             if (!response.IsSuccessful)
             {
-                return Problem("Errors encountered processing request", null,
-                    StatusCodes.Status500InternalServerError);
+                return GetProblemDetails(response);
             }
 
             var buildings = new BuildingsModel();
@@ -67,8 +67,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             if (!response.IsSuccessful)
             {
-                return Problem("Errors encountered processing request", null,
-                    StatusCodes.Status500InternalServerError);
+                return GetProblemDetails(response);
             }
 
             if (response.Building == null)
@@ -100,13 +99,50 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             if (!response.IsSuccessful)
             {
-                return Problem("Errors encountered processing request", null,
-                    StatusCodes.Status500InternalServerError);
+                return GetProblemDetails(response);
             }
 
             return CreatedAtAction(nameof(Get),
                 new { id = response.EntityId },
                 postBody);
+        }
+
+        [HttpPut("{id}")]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Put(Guid id, [FromBody] BuildingDTO? postBody)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid Id");
+            }
+
+            if (postBody == null)
+            {
+                return BadRequest("Body empty, Building object expected");
+            }
+
+            var response = ProcessRequests<UpdateBuildingRequest, OperationResponse>
+                (new UpdateBuildingRequest
+                {
+                    Building = new BuildingDTO { Id = id, Name = postBody.Name }
+
+                })
+                .First();
+
+            if (!response.IsSuccessful)
+            {
+                return GetProblemDetails(response);
+            }
+
+            if (response.Result == OperationResult.NotFound)
+            {
+                return NotFound(id);
+            }
+
+            return NoContent();
         }
     }
 }
