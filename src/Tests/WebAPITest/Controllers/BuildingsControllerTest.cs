@@ -14,6 +14,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Castle.Components.DictionaryAdapter.Xml;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
@@ -82,14 +83,17 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
 
             var request = new FindAllBuildingsRequest();
+
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
 
-            var responseBlock = new ResponseBlock(requestBlock);
-            responseBlock.Add(new FindAllBuildingsResponse(request)
+            var response = new FindAllBuildingsResponse(request)
             {
                 ErrorInfo = new ErrorInfo("error", "something went wrong")
-            });
+            };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
 
             var expectedResponseBlock = responseBlock;
 
@@ -119,6 +123,10 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var problemDetails = actionResultValue.Value as ProblemDetails;
             Assert.AreEqual(StatusCodes.Status500InternalServerError, problemDetails?.Status);
+
+            var expectedErrorMsg = $"Error encountered in Request: {request.GetType().Name}, " +
+                                     $"Error: {response.ErrorInfo.ErrorId} - {response.ErrorInfo.Message}";
+            Assert.AreEqual(expectedErrorMsg, problemDetails?.Detail);
         }
 
         #endregion

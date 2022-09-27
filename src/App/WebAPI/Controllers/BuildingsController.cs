@@ -35,8 +35,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             if (!response.IsSuccessful)
             {
-                return Problem("Errors encountered processing request", null,
-                    StatusCodes.Status500InternalServerError);
+                return GetProblemDetails(response);
             }
 
             var buildings = new BuildingsModel();
@@ -67,8 +66,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             if (!response.IsSuccessful)
             {
-                return Problem("Errors encountered processing request", null,
-                    StatusCodes.Status500InternalServerError);
+                return GetProblemDetails(response);
             }
 
             if (response.Building == null)
@@ -100,8 +98,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             if (!response.IsSuccessful)
             {
-                return Problem("Errors encountered processing request", null,
-                    StatusCodes.Status500InternalServerError);
+                return GetProblemDetails(response);
             }
 
             return CreatedAtAction(nameof(Get),
