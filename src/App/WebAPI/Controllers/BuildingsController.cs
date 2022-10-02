@@ -144,5 +144,33 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult Delete(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid Id");
+            }
+
+            var response = ProcessRequests<DeleteBuildingRequest, OperationResponse>
+                    (new DeleteBuildingRequest { BuildingId = id })
+                .First();
+
+            if (!response.IsSuccessful)
+            {
+                return GetProblemDetails(response);
+            }
+
+            if (response.Result == OperationResult.NotFound)
+            {
+                return NotFound(id);
+            }
+
+            return NoContent();
+        }
     }
 }

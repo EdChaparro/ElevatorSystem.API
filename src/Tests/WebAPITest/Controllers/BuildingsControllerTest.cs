@@ -319,5 +319,91 @@ namespace IntrepidProducts.WebApiTest.Controllers
         }
 
         #endregion
+
+        #region Delete
+        [TestMethod]
+        public void ShouldReportSuccessfulDelete()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var id = Guid.NewGuid();
+            var request = new DeleteBuildingRequest { BuildingId = id };
+
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new OperationResponse(request) { Result = OperationResult.Successful };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BuildingsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
+
+            var actionResult = controller.Delete(id);
+
+            var objectResult = actionResult as NoContentResult;
+            Assert.IsNotNull(objectResult);
+
+            Assert.AreEqual(StatusCodes.Status204NoContent, objectResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void ShouldReportNotFoundOnDelete()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var id = Guid.NewGuid();
+            var request = new DeleteBuildingRequest { BuildingId = id };
+
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new OperationResponse(request) { Result = OperationResult.NotFound };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BuildingsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
+
+            var actionResult = controller.Delete(id);
+
+            var objectResult = actionResult as NotFoundObjectResult;
+            Assert.IsNotNull(objectResult);
+
+            Assert.AreEqual(StatusCodes.Status404NotFound, objectResult.StatusCode);
+        }
+        #endregion
     }
 }
