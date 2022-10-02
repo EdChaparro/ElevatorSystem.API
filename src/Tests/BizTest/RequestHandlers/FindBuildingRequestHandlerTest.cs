@@ -45,6 +45,8 @@ namespace IntrepidProducts.BizTest.RequestHandlers
                 .Handle(new FindBuildingRequest { BuildingId = Guid.NewGuid() });
 
             Assert.IsTrue(findResponse.IsSuccessful);
+
+            //TODO: Also test for NotFound enum
             Assert.IsNull(findResponse.Building);
         }
     }

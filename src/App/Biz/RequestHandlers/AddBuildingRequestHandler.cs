@@ -1,13 +1,13 @@
 ﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
-using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
+using IntrepidProducts.RequestResponse.Responses;
 
 namespace IntrepidProducts.Biz.RequestHandlers
 {
     public class AddBuildingRequestHandler :
-        RequestHandlerAbstract<AddBuildingRequest, EntityAddedResponse>
+        RequestHandlerAbstract<AddBuildingRequest, EntityOperationResponse>
     {
         public AddBuildingRequestHandler(Buildings buildings)
         {
@@ -15,7 +15,7 @@ namespace IntrepidProducts.Biz.RequestHandlers
         }
 
         private readonly Buildings _buildings;
-        protected override EntityAddedResponse DoHandle(AddBuildingRequest request)
+        protected override EntityOperationResponse DoHandle(AddBuildingRequest request)
         {
             var buildingDTO = request.Building;
             if (buildingDTO == null)
@@ -31,7 +31,7 @@ namespace IntrepidProducts.Biz.RequestHandlers
             _buildings.Add(building);
 
 
-            return new EntityAddedResponse(request)
+            return new EntityOperationResponse(request)
             {
                 EntityId = building.Id
             };

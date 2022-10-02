@@ -89,7 +89,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Body empty, Building object expected");
             }
 
-            var response = ProcessRequests<AddBuildingRequest, EntityAddedResponse>
+            var response = ProcessRequests<AddBuildingRequest, EntityOperationResponse>
                 (new AddBuildingRequest
                 {
                     Building = new BuildingDTO { Name = postBody.Name }
@@ -130,6 +130,34 @@ namespace IntrepidProducts.WebAPI.Controllers
                     Building = new BuildingDTO { Id = id, Name = postBody.Name }
 
                 })
+                .First();
+
+            if (!response.IsSuccessful)
+            {
+                return GetProblemDetails(response);
+            }
+
+            if (response.Result == OperationResult.NotFound)
+            {
+                return NotFound(id);
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult Delete(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid Id");
+            }
+
+            var response = ProcessRequests<DeleteBuildingRequest, OperationResponse>
+                    (new DeleteBuildingRequest { BuildingId = id })
                 .First();
 
             if (!response.IsSuccessful)
