@@ -140,7 +140,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
 
-            var response = new EntityAddedResponse(request)
+            var response = new EntityOperationResponse(request)
             {
                 EntityId = new Guid()
             };
@@ -193,7 +193,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
 
-            var response = new EntityAddedResponse(request)
+            var response = new EntityOperationResponse(request)
             {
                 ErrorInfo = new ErrorInfo("error", "something went wrong")
             };

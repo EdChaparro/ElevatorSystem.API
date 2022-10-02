@@ -89,7 +89,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Body empty, Building object expected");
             }
 
-            var response = ProcessRequests<AddBuildingRequest, EntityAddedResponse>
+            var response = ProcessRequests<AddBuildingRequest, EntityOperationResponse>
                 (new AddBuildingRequest
                 {
                     Building = new BuildingDTO { Name = postBody.Name }
