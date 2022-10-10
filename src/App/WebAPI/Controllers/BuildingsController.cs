@@ -108,7 +108,6 @@ namespace IntrepidProducts.WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
