@@ -26,6 +26,11 @@ namespace IntrepidProducts.Biz.RequestHandlers
                 throw new ArgumentException("Building object not provided");
             }
 
+            if (string.IsNullOrWhiteSpace(buildingDTO.Name))
+            {
+                throw new ArgumentException("Building name is required");
+            }
+
             var building = _buildings
                 .FirstOrDefault(x => x.Id == buildingDTO.Id);
 
