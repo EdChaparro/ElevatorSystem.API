@@ -1,15 +1,15 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
+using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
-using IntrepidProducts.RequestResponse.Responses;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -83,7 +83,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([BindRequired,FromBody] BuildingName? postBody)
+        public IActionResult Post([BindRequired, FromBody] BuildingName? postBody)
         {
             if (postBody == null)
             {

@@ -1,8 +1,8 @@
 ﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
+using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System.Linq;
-using IntrepidProducts.RequestResponse.Responses;
 
 namespace IntrepidProducts.Biz.RequestHandlers
 {

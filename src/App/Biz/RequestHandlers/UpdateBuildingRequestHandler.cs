@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using IntrepidProducts.ElevatorSystem;
+﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using System;
+using System.Linq;
 
 namespace IntrepidProducts.Biz.RequestHandlers
 {

@@ -1,11 +1,8 @@
 ﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
+using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
-using System.ComponentModel.DataAnnotations;
-using IntrepidProducts.RequestResponse.Responses;
-using System.Collections.Generic;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 
 namespace IntrepidProducts.Biz.RequestHandlers
 {

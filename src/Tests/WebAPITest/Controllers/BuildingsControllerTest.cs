@@ -239,7 +239,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var id = Guid.NewGuid();
             var request = new UpdateBuildingRequest
-                { Building = new BuildingDTO { Id = id } };
+            { Building = new BuildingDTO { Id = id } };
 
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
@@ -282,7 +282,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var id = Guid.NewGuid();
             var request = new UpdateBuildingRequest
-                { Building = new BuildingDTO { Id = id } };
+            { Building = new BuildingDTO { Id = id } };
 
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
@@ -303,12 +303,12 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var controller = new BuildingsController
                 (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
                 {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
-                    }
-                };
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
 
             var actionResult = controller.Put(id, new BuildingDTO() { Name = "Foo" });
 
