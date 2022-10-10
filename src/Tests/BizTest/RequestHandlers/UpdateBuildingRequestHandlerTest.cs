@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using IntrepidProducts.Biz.RequestHandlers;
+﻿using IntrepidProducts.Biz.RequestHandlers;
 using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Linq;
 
 namespace IntrepidProducts.BizTest.RequestHandlers
 {
@@ -48,5 +48,26 @@ namespace IntrepidProducts.BizTest.RequestHandlers
             var updateResponse = updateRh.Handle(updateRequest);
             Assert.IsTrue(updateResponse.Result == OperationResult.NotFound);
         }
+
+        [TestMethod]
+        public void ShouldValidateBuildingDTO()
+        {
+            var buildings = new Buildings();
+
+            var rh = new UpdateBuildingRequestHandler(buildings);
+
+            var dto = new BuildingDTO { Name = null };  //Name is required
+            var request = new UpdateBuildingRequest { Building = dto };
+            var response = rh.Handle(request);
+
+            Assert.IsFalse(response.IsSuccessful);
+
+            var errorInfo = response.ErrorInfo;
+            Assert.IsNotNull(errorInfo);
+
+            Assert.AreEqual("ArgumentException", errorInfo.ErrorId);
+            Assert.AreEqual("The Name field is required.", errorInfo.Message);
+        }
+
     }
 }

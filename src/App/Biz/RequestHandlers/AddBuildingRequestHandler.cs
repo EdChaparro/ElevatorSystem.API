@@ -1,13 +1,13 @@
 ﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
+using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
-using IntrepidProducts.RequestResponse.Responses;
 
 namespace IntrepidProducts.Biz.RequestHandlers
 {
     public class AddBuildingRequestHandler :
-        RequestHandlerAbstract<AddBuildingRequest, EntityOperationResponse>
+        AbstractRequestHandler<AddBuildingRequest, EntityOperationResponse>
     {
         public AddBuildingRequestHandler(Buildings buildings)
         {
@@ -22,6 +22,8 @@ namespace IntrepidProducts.Biz.RequestHandlers
             {
                 throw new ArgumentException("Building object not provided");
             }
+
+            IsValid(buildingDTO);   //Will generation error-response when invalid
 
             var building = new Building
             {

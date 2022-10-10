@@ -25,5 +25,25 @@ namespace IntrepidProducts.BizTest.RequestHandlers
             Assert.AreEqual(1, buildings.Count);
             Assert.AreEqual(dto.Name, buildings[0].Name);
         }
+
+        [TestMethod]
+        public void ShouldValidateBuildingDTO()
+        {
+            var buildings = new Buildings();
+
+            var rh = new AddBuildingRequestHandler(buildings);
+
+            var dto = new BuildingDTO { Name = null };  //Name is required
+            var request = new AddBuildingRequest { Building = dto };
+            var response = rh.Handle(request);
+
+            Assert.IsFalse(response.IsSuccessful);
+
+            var errorInfo = response.ErrorInfo;
+            Assert.IsNotNull(errorInfo);
+
+            Assert.AreEqual("ArgumentException", errorInfo.ErrorId);
+            Assert.AreEqual("The Name field is required.", errorInfo.Message);
+        }
     }
 }

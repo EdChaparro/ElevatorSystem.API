@@ -8,7 +8,7 @@ using System.Linq;
 namespace IntrepidProducts.Biz.RequestHandlers
 {
     public class FindBuildingRequestHandler :
-        RequestHandlerAbstract<FindBuildingRequest, FindBuildingResponse>
+        AbstractRequestHandler<FindBuildingRequest, FindBuildingResponse>
     {
         public FindBuildingRequestHandler(Buildings buildings)
         {

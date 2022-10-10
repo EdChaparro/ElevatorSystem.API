@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using IntrepidProducts.ElevatorSystem;
+﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using System;
+using System.Linq;
 
 namespace IntrepidProducts.Biz.RequestHandlers
 {
     public class UpdateBuildingRequestHandler :
-        RequestHandlerAbstract<UpdateBuildingRequest, OperationResponse>
+        AbstractRequestHandler<UpdateBuildingRequest, OperationResponse>
     {
         public UpdateBuildingRequestHandler(Buildings buildings)
         {
@@ -25,6 +25,8 @@ namespace IntrepidProducts.Biz.RequestHandlers
             {
                 throw new ArgumentException("Building object not provided");
             }
+
+            IsValid(buildingDTO);   //Will generation error-response when invalid
 
             var building = _buildings
                 .FirstOrDefault(x => x.Id == buildingDTO.Id);
