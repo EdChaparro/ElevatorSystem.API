@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
 using IntrepidProducts.RequestResponse.Responses;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -82,7 +83,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] BuildingName? postBody)
+        public IActionResult Post([BindRequired,FromBody] BuildingName? postBody)
         {
             if (postBody == null)
             {
@@ -111,7 +112,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Put(Guid id, [FromBody] BuildingDTO? postBody)
+        public IActionResult Put(Guid id, [BindRequired, FromBody] BuildingDTO? postBody)
         {
             if (id == Guid.Empty)
             {
