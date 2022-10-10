@@ -44,7 +44,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
             Assert.IsNotNull(errorInfo);
 
             Assert.AreEqual("ArgumentException", errorInfo.ErrorId);
-            Assert.AreEqual("Building name is required", errorInfo.Message);
+            Assert.AreEqual("The Name field is required.", errorInfo.Message);
         }
     }
 }
