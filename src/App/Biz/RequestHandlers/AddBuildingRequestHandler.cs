@@ -2,12 +2,15 @@
 using IntrepidProducts.ElevatorSystem.Shared.Requests;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
+using System.ComponentModel.DataAnnotations;
 using IntrepidProducts.RequestResponse.Responses;
+using System.Collections.Generic;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs;
 
 namespace IntrepidProducts.Biz.RequestHandlers
 {
     public class AddBuildingRequestHandler :
-        RequestHandlerAbstract<AddBuildingRequest, EntityOperationResponse>
+        AbstractRequestHandler<AddBuildingRequest, EntityOperationResponse>
     {
         public AddBuildingRequestHandler(Buildings buildings)
         {

@@ -7,7 +7,7 @@ using IntrepidProducts.RequestResponse.Responses;
 namespace IntrepidProducts.Biz.RequestHandlers
 {
     public class DeleteBuildingRequestHandler :
-        RequestHandlerAbstract<DeleteBuildingRequest, OperationResponse>
+        AbstractRequestHandler<DeleteBuildingRequest, OperationResponse>
     {
         public DeleteBuildingRequestHandler(Buildings buildings)
         {

@@ -8,7 +8,7 @@ using IntrepidProducts.RequestResponseHandler.Handlers;
 namespace IntrepidProducts.Biz.RequestHandlers
 {
     public class UpdateBuildingRequestHandler :
-        RequestHandlerAbstract<UpdateBuildingRequest, OperationResponse>
+        AbstractRequestHandler<UpdateBuildingRequest, OperationResponse>
     {
         public UpdateBuildingRequestHandler(Buildings buildings)
         {
