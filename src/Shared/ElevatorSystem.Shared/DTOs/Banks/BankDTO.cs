@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks
 {
-    public class BankDTO
+    public class BankDTO : IDataTransferObject
     {
         public BankDTO()
         {
