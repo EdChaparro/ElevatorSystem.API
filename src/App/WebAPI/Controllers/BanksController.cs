@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Routing;
 namespace IntrepidProducts.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/v1/building/{id}/[controller]")]
+    [Route("api/v1/building/{buildingId}/[controller]")]
     [Produces("application/json")]
     public class BanksController : AbstractApiController
     {
