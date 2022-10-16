@@ -1,21 +1,20 @@
-﻿using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System.Linq;
 
-namespace IntrepidProducts.Biz.RequestHandlers
+namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {
     public class FindAllBuildingsRequestHandler :
         AbstractRequestHandler<FindAllBuildingsRequest, FindAllBuildingsResponse>
     {
-        public FindAllBuildingsRequestHandler(Buildings buildings)
+        public FindAllBuildingsRequestHandler(ElevatorSystem.Buildings buildings)
         {
             _buildings = buildings; //Singleton
         }
 
-        private readonly Buildings _buildings;
+        private readonly ElevatorSystem.Buildings _buildings;
         protected override FindAllBuildingsResponse DoHandle(FindAllBuildingsRequest request)
         {
             return new FindAllBuildingsResponse(request)

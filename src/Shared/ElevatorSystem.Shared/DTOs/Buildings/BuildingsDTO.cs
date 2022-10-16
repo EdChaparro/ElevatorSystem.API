@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IntrepidProducts.ElevatorSystem.Shared.DTOs
+namespace IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings
 {
     public class BuildingsDTO
     {

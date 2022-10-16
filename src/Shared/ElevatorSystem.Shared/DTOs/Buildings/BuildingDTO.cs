@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace IntrepidProducts.ElevatorSystem.Shared.DTOs
+namespace IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings
 {
     public class BuildingDTO
     {

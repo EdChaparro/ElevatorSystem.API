@@ -1,11 +1,10 @@
-﻿using IntrepidProducts.Biz.RequestHandlers;
-using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace IntrepidProducts.BizTest.RequestHandlers
+namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
     [TestClass]
     public class FindBuildingRequestHandlerTest
@@ -14,7 +13,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         public void ShouldReturnAllBuildings()
         {
             //Setup
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
             var addBuildingRequestHandler = new AddBuildingRequestHandler(buildings);
 
             var addRequest = new AddBuildingRequest { Building = new BuildingDTO { Name = "Foo" } };
@@ -37,7 +36,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldReturnNullWhenNotFound()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
 
             var findBuildingRequestHandler = new FindBuildingRequestHandler(buildings);
 

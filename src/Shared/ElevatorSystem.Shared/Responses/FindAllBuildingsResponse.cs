@@ -1,5 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.RequestResponse.Responses;
 using System.Collections.Generic;
 

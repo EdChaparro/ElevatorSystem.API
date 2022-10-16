@@ -1,13 +1,12 @@
-﻿using IntrepidProducts.Biz.RequestHandlers;
-using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.RequestResponse.Responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
 
-namespace IntrepidProducts.BizTest.RequestHandlers
+namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
     [TestClass]
     public class UpdateBuildingRequestHandlerTest
@@ -15,7 +14,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldUpdateBuilding()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
 
             var addRh = new AddBuildingRequestHandler(buildings);
             var dto = new BuildingDTO { Name = "Foo" };
@@ -39,7 +38,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldResponseWithNotFound()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
 
             var dto = new BuildingDTO { Id = Guid.NewGuid(), Name = "Foo" };
 
@@ -52,7 +51,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldValidateBuildingDTO()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
 
             var rh = new UpdateBuildingRequestHandler(buildings);
 

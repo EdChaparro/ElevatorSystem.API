@@ -1,7 +1,7 @@
 ﻿using IntrepidProducts.RequestResponse.Requests;
 using System;
 
-namespace IntrepidProducts.ElevatorSystem.Shared.Requests
+namespace IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings
 {
     public class FindBuildingRequest : RequestAbstract, IEntityAddRequest
     {
