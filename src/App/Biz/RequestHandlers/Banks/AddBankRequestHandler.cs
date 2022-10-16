@@ -47,11 +47,17 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
         {
             if (dto.FloorNbrs.Any())
             {
-                return new Bank(dto.NumberOfElevators, dto.FloorNbrs.ToArray());
+                return new Bank(dto.NumberOfElevators, dto.FloorNbrs.ToArray())
+                {
+                    Name = dto.Name
+                };
             }
 
             return new Bank(dto.NumberOfElevators,
-                new Range(dto.LowestFloorNbr, dto.HighestFloorNbr));
+                new Range(dto.LowestFloorNbr, dto.HighestFloorNbr))
+            {
+                Name = dto.Name
+            };
         }
     }
 }

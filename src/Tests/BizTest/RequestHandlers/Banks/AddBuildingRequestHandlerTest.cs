@@ -37,6 +37,9 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 
             Assert.AreEqual(1, building.LowestFloorNbr);
             Assert.AreEqual(10, building.HighestFloorNbr);
+
+            var bank = building.GetBank("Foo");
+            Assert.IsNotNull(bank);
         }
     }
 }
