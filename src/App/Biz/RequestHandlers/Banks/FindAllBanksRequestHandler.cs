@@ -10,7 +10,7 @@ using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {
     public class FindAllBanksRequestHandler :
-        AbstractRequestHandler<FindAllBanksRequest, FindAllBanksResponse>
+        AbstractRequestHandler<FindAllBanksRequest, FindEntityResponse<BankDTO>>
     {
         public FindAllBanksRequestHandler(ElevatorSystem.Buildings buildings)
         {
@@ -18,19 +18,18 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
         }
 
         private readonly ElevatorSystem.Buildings _buildings;
-        protected override FindAllBanksResponse DoHandle(FindAllBanksRequest request)
+        protected override FindEntityResponse<BankDTO> DoHandle(FindAllBanksRequest request)
         {
             var building = _buildings.FirstOrDefault(x => x.Id == request.BuildingId);
 
             if (building == null)
             {
-                return new FindAllBanksResponse(request);
+                return new FindEntityResponse<BankDTO>(request);
             }
 
             var bankDTOs = Map(building.Id, building.Banks);
 
-            return new FindAllBanksResponse(request) { Banks = bankDTOs };
-
+            return new FindEntityResponse<BankDTO>(request) { Entities = bankDTOs };
         }
 
         private static List<BankDTO> Map(Guid buildingId, IEnumerable<IBank> buildingBanks)

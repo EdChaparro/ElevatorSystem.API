@@ -7,7 +7,7 @@ using System.Linq;
 namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {
     public class FindAllBuildingsRequestHandler :
-        AbstractRequestHandler<FindAllBuildingsRequest, FindAllBuildingsResponse>
+        AbstractRequestHandler<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
     {
         public FindAllBuildingsRequestHandler(ElevatorSystem.Buildings buildings)
         {
@@ -15,11 +15,11 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
         }
 
         private readonly ElevatorSystem.Buildings _buildings;
-        protected override FindAllBuildingsResponse DoHandle(FindAllBuildingsRequest request)
+        protected override FindEntityResponse<BuildingDTO> DoHandle(FindAllBuildingsRequest request)
         {
-            return new FindAllBuildingsResponse(request)
+            return new FindEntityResponse<BuildingDTO>(request)
             {
-                Buildings = _buildings.Select
+                Entities = _buildings.Select
                     (building => new BuildingDTO
                     {
                         Id = building.Id,

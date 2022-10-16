@@ -19,8 +19,6 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
             var building = new ElevatorSystem.Building(bank1, bank2);
             buildings.Add(building);
 
-
-
             var findAllBankRequestHandler = new FindAllBanksRequestHandler(buildings);
 
             var findResponse = findAllBankRequestHandler
@@ -29,7 +27,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
             //Assert
             Assert.IsTrue(findResponse.IsSuccessful);
 
-            var banksReturned = findResponse.Banks;
+            var banksReturned = findResponse.Entities;
             Assert.AreEqual(2, banksReturned.Count);
             Assert.AreEqual(bank1.Id, banksReturned[0].Id);
             Assert.AreEqual(bank2.Id, banksReturned[1].Id);

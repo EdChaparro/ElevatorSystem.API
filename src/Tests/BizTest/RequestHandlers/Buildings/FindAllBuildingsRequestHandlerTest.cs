@@ -32,7 +32,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
             //Assert
             Assert.IsTrue(findResponse.IsSuccessful);
 
-            var buildingsReturned = findResponse.Buildings;
+            var buildingsReturned = findResponse.Entities;
             Assert.AreEqual(2, buildingsReturned.Count);
             Assert.AreEqual(buildings[0].Id, buildingsReturned[0].Id);
             Assert.AreEqual(buildings[1].Id, buildingsReturned[1].Id);

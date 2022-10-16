@@ -31,7 +31,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [ProducesResponseType(typeof(BuildingsDTO), StatusCodes.Status200OK)]
         public ActionResult<BuildingsDTO> Get()
         {
-            var response = ProcessRequests<FindAllBuildingsRequest, FindAllBuildingsResponse>
+            var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
                     (new FindAllBuildingsRequest())
                 .First();
 
@@ -41,7 +41,7 @@ namespace IntrepidProducts.WebAPI.Controllers
             }
 
             var buildings = new BuildingsModel();
-            foreach (var dto in response.Buildings)
+            foreach (var dto in response.Entities)
             {
                 var building = Building.MapFrom(dto);
                 building.Link = GenerateGetByIdUri(nameof(Get), building.Id);
