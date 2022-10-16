@@ -68,6 +68,5 @@ namespace IntrepidProducts.BizTest.RequestHandlers
             Assert.AreEqual("ArgumentException", errorInfo.ErrorId);
             Assert.AreEqual("The Name field is required.", errorInfo.Message);
         }
-
     }
 }
