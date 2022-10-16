@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
@@ -9,6 +7,8 @@ using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Linq;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {

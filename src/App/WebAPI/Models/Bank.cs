@@ -1,6 +1,6 @@
-﻿using System;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+using System;
 using System.Collections.Generic;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 
 namespace IntrepidProducts.WebAPI.Models
 {

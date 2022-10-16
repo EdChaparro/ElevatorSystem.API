@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
@@ -14,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
@@ -70,12 +70,12 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var controller = new BanksController
                 (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
                 {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
-                    }
-                };
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
 
             var actionResult = controller.Get(request.BuildingId);
 
@@ -116,15 +116,15 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var controller = new BanksController
                 (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
                 {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext()
-                    },
+                    HttpContext = new DefaultHttpContext()
+                },
 
-                    ProblemDetailsFactory = new MockProblemDetailsFactory()
+                ProblemDetailsFactory = new MockProblemDetailsFactory()
 
-                };
+            };
 
             var actionResult = controller.Get(request.BuildingId);
 

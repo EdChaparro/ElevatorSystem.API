@@ -1,10 +1,10 @@
-﻿using IntrepidProducts.RequestResponse.Responses;
+﻿using IntrepidProducts.ElevatorSystem.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using System.Linq;
-using IntrepidProducts.ElevatorSystem.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {

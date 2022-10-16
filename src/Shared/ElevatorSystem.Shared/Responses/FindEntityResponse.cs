@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using IntrepidProducts.RequestResponse.Requests;
+﻿using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.ElevatorSystem.Shared.Responses
 {

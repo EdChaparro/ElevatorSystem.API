@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using IntrepidProducts.Biz.RequestHandlers.Banks;
+﻿using IntrepidProducts.Biz.RequestHandlers.Banks;
 using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 {
@@ -30,7 +30,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
                 HighestFloorNbr = 10
             };
 
-            var request = new AddBankRequest{ Bank = dto };
+            var request = new AddBankRequest { Bank = dto };
             var response = rh.Handle(request);
 
             Assert.IsTrue(response.IsSuccessful);
@@ -61,7 +61,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
                 NumberOfElevators = 2,
                 LowestFloorNbr = 1,     //Will be
                 HighestFloorNbr = 10,   //  ignored
-                FloorNbrs = new List<int> {1, 2, 3}
+                FloorNbrs = new List<int> { 1, 2, 3 }
             };
 
             var request = new AddBankRequest { Bank = dto };
