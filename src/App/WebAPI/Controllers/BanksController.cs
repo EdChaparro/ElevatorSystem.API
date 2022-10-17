@@ -41,7 +41,7 @@ namespace IntrepidProducts.WebAPI.Controllers
             foreach (var dto in response.Entities)
             {
                 var bank = Bank.MapFrom(dto);
-                bank.Link = GenerateGetByIdUri(nameof(Get), bank.Id);
+                bank.Link = GenerateActionByIdUri(nameof(Get), bank.Id);
                 banksModel.Banks.Add(bank);
             }
 

@@ -44,7 +44,7 @@ namespace IntrepidProducts.WebAPI.Controllers
             foreach (var dto in response.Entities)
             {
                 var building = Building.MapFrom(dto);
-                building.Link = GenerateGetByIdUri(nameof(Get), building.Id);
+                building.Link = GenerateActionByIdUri(nameof(Get), building.Id);
                 buildings.Buildings.Add(building);
             }
 

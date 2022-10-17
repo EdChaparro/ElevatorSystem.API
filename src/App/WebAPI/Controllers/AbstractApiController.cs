@@ -60,13 +60,20 @@ namespace IntrepidProducts.WebAPI.Controllers
         #region HATEOAS
         protected LinkGenerator LinkGenerator { get; }
 
-        protected Link GenerateGetByIdUri(string methodName, Guid id)
+        protected Link GenerateActionByIdUri(string methodName, Guid id)
+        {
+            return GenerateUri(methodName, GetType().Name, values: new { id });
+        }
+
+        protected Link GenerateUri
+            (string methodName, string controller, object values, string relation = "self")
         {
             var uri = LinkGenerator.GetUriByAction
-                (HttpContext, methodName, values: new { id });
+                (HttpContext, methodName, controller, values);
 
-            return new Link(uri, "self", methodName);
+            return new Link(uri, relation, methodName);
         }
+
         #endregion
 
         protected ObjectResult GetProblemDetails(IResponse response)
