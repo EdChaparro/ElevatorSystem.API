@@ -28,7 +28,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         #region GET
         [HttpGet]
-        [ProducesResponseType(typeof(BuildingsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BuildingCollection), StatusCodes.Status200OK)]
         public ActionResult<BuildingsDTO> Get()
         {
             var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
@@ -43,7 +43,7 @@ namespace IntrepidProducts.WebAPI.Controllers
             var buildings = new BuildingCollection();
             foreach (var dto in response.Entities)
             {
-                var building = Building.MapFrom(dto);
+                var building = Results.Building.MapFrom(dto);
                 building.Link = GenerateActionByIdUri(nameof(Get), building.Id);
                 buildings.Buildings.Add(building);
             }
@@ -83,7 +83,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([BindRequired, FromBody] BuildingName? postBody)
+        public IActionResult Post([BindRequired, FromBody] Building? postBody)
         {
             if (postBody == null)
             {
@@ -112,7 +112,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Put(Guid id, [BindRequired, FromBody] BuildingDTO? postBody)
+        public IActionResult Put(Guid id, [BindRequired, FromBody] Building? postBody)
         {
             if (id == Guid.Empty)
             {

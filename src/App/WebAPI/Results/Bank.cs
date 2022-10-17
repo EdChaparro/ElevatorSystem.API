@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace IntrepidProducts.WebAPI.Models
+namespace IntrepidProducts.WebAPI.Results
 {
     public class Bank
     {

@@ -166,14 +166,14 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 }
             };
 
-            var actionResult = controller.Post(new BuildingName { Name = "Foo" });
+            var actionResult = controller.Post(new Building { Name = "Foo" });
 
             var createdAtActionResult = actionResult as CreatedAtActionResult;
             Assert.IsNotNull(createdAtActionResult);
 
             Assert.AreEqual(StatusCodes.Status201Created, createdAtActionResult.StatusCode);
 
-            var actualResults = createdAtActionResult.Value as BuildingName;
+            var actualResults = createdAtActionResult.Value as Building;
             Assert.IsNotNull(actualResults);
 
             var routeValues = createdAtActionResult.RouteValues;
@@ -221,7 +221,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 ProblemDetailsFactory = new MockProblemDetailsFactory()
             };
 
-            var actionResult = controller.Post(new BuildingName { Name = "Foo" });
+            var actionResult = controller.Post(new Building { Name = "Foo" });
 
             var objectResult = actionResult as ObjectResult;
             Assert.IsNotNull(objectResult);
@@ -267,7 +267,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 }
             };
 
-            var actionResult = controller.Put(id, new BuildingDTO() { Name = "Foo" });
+            var actionResult = controller.Put(id, new Building() { Name = "Foo" });
 
             var objectResult = actionResult as NoContentResult;
             Assert.IsNotNull(objectResult);
@@ -310,7 +310,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 }
             };
 
-            var actionResult = controller.Put(id, new BuildingDTO() { Name = "Foo" });
+            var actionResult = controller.Put(id, new Building() { Name = "Foo" });
 
             var objectResult = actionResult as NotFoundObjectResult;
             Assert.IsNotNull(objectResult);
