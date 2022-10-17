@@ -1,10 +1,9 @@
-﻿using IntrepidProducts.Biz.RequestHandlers;
-using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntrepidProducts.BizTest.RequestHandlers
+namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
     [TestClass]
     public class FindAllBuildingsRequestHandlerTest
@@ -13,7 +12,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         public void ShouldReturnAllBuildings()
         {
             //Setup
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
             var addBuildingRequestHandler = new AddBuildingRequestHandler(buildings);
 
             var request1 = new AddBuildingRequest { Building = new BuildingDTO { Name = "Foo" } };
@@ -33,7 +32,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
             //Assert
             Assert.IsTrue(findResponse.IsSuccessful);
 
-            var buildingsReturned = findResponse.Buildings;
+            var buildingsReturned = findResponse.Entities;
             Assert.AreEqual(2, buildingsReturned.Count);
             Assert.AreEqual(buildings[0].Id, buildingsReturned[0].Id);
             Assert.AreEqual(buildings[1].Id, buildingsReturned[1].Id);

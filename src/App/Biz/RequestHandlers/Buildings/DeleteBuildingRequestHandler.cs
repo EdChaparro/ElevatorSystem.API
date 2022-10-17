@@ -1,20 +1,19 @@
-﻿using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System.Linq;
 
-namespace IntrepidProducts.Biz.RequestHandlers
+namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {
     public class DeleteBuildingRequestHandler :
         AbstractRequestHandler<DeleteBuildingRequest, OperationResponse>
     {
-        public DeleteBuildingRequestHandler(Buildings buildings)
+        public DeleteBuildingRequestHandler(ElevatorSystem.Buildings buildings)
         {
             _buildings = buildings; //Singleton
         }
 
-        private readonly Buildings _buildings;
+        private readonly ElevatorSystem.Buildings _buildings;
         protected override OperationResponse DoHandle(DeleteBuildingRequest request)
         {
             var response = new OperationResponse(request) { Result = OperationResult.OperationalError };

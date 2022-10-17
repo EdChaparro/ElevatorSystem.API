@@ -1,5 +1,5 @@
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
@@ -31,9 +31,9 @@ namespace IntrepidProducts.WebApiTest.Controllers
             requestBlock.Add(request);
 
             var responseBlock = new ResponseBlock(requestBlock);
-            responseBlock.Add(new FindAllBuildingsResponse(request)
+            responseBlock.Add(new FindEntityResponse<BuildingDTO>(request)
             {
-                Buildings = new List<BuildingDTO>
+                Entities = new List<BuildingDTO>
                 {
                     new BuildingDTO
                     {
@@ -71,7 +71,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var okObjectResult = actionResult.Result as OkObjectResult;
             Assert.IsNotNull(okObjectResult);
 
-            var model = okObjectResult.Value as BuildingsModel;
+            var model = okObjectResult.Value as BuildingCollection;
             Assert.IsNotNull(model);
             Assert.AreEqual(2, model.Buildings.Count);
         }
@@ -86,7 +86,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
 
-            var response = new FindAllBuildingsResponse(request)
+            var response = new FindEntityResponse<BuildingDTO>(request)
             {
                 ErrorInfo = new ErrorInfo("error", "something went wrong")
             };

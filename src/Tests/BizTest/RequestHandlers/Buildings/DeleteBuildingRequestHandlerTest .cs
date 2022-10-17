@@ -1,12 +1,11 @@
-﻿using IntrepidProducts.Biz.RequestHandlers;
-using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.RequestResponse.Responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace IntrepidProducts.BizTest.RequestHandlers
+namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
     [TestClass]
     public class DeleteBuildingRequestHandlerTest
@@ -14,7 +13,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldDeleteBuilding()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
             var addBuildingRequestHandler = new AddBuildingRequestHandler(buildings);
 
             var addRequest = new AddBuildingRequest { Building = new BuildingDTO { Name = "Foo" } };
@@ -38,7 +37,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldReturnNotFound()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
 
             var deleteBuildingRequestHandler = new DeleteBuildingRequestHandler(buildings);
 

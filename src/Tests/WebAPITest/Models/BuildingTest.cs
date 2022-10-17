@@ -1,4 +1,4 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.WebAPI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

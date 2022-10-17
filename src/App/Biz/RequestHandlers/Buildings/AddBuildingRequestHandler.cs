@@ -1,20 +1,20 @@
 ﻿using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
 
-namespace IntrepidProducts.Biz.RequestHandlers
+namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {
     public class AddBuildingRequestHandler :
         AbstractRequestHandler<AddBuildingRequest, EntityOperationResponse>
     {
-        public AddBuildingRequestHandler(Buildings buildings)
+        public AddBuildingRequestHandler(ElevatorSystem.Buildings buildings)
         {
             _buildings = buildings; //Singleton
         }
 
-        private readonly Buildings _buildings;
+        private readonly ElevatorSystem.Buildings _buildings;
         protected override EntityOperationResponse DoHandle(AddBuildingRequest request)
         {
             var buildingDTO = request.Building;

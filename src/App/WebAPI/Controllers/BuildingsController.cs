@@ -1,5 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
@@ -31,7 +31,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [ProducesResponseType(typeof(BuildingsDTO), StatusCodes.Status200OK)]
         public ActionResult<BuildingsDTO> Get()
         {
-            var response = ProcessRequests<FindAllBuildingsRequest, FindAllBuildingsResponse>
+            var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
                     (new FindAllBuildingsRequest())
                 .First();
 
@@ -40,11 +40,11 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var buildings = new BuildingsModel();
-            foreach (var dto in response.Buildings)
+            var buildings = new BuildingCollection();
+            foreach (var dto in response.Entities)
             {
                 var building = Building.MapFrom(dto);
-                building.Link = GenerateGetByIdUri(nameof(Get), building.Id);
+                building.Link = GenerateActionByIdUri(nameof(Get), building.Id);
                 buildings.Buildings.Add(building);
             }
 

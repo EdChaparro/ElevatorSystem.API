@@ -1,4 +1,4 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using System;
 
 namespace IntrepidProducts.WebAPI.Models

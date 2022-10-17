@@ -1,4 +1,4 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.WebAPI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -21,7 +21,7 @@ namespace IntrepidProducts.WebApiTest.Models
                 }
             };
 
-            var model = BuildingsModel.MapFrom(dto);
+            var model = BuildingCollection.MapFrom(dto);
 
             Assert.AreEqual(2, model.Buildings.Count);
 

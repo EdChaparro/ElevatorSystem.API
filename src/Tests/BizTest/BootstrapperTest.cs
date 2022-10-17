@@ -1,5 +1,5 @@
 using IntrepidProducts.Biz;
-using IntrepidProducts.Biz.RequestHandlers;
+using IntrepidProducts.Biz.RequestHandlers.Buildings;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.Extensions.DependencyInjection;

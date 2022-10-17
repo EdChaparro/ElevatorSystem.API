@@ -1,10 +1,9 @@
-﻿using IntrepidProducts.Biz.RequestHandlers;
-using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs;
-using IntrepidProducts.ElevatorSystem.Shared.Requests;
+﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntrepidProducts.BizTest.RequestHandlers
+namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
     [TestClass]
     public class AddBuildingRequestHandlerTest
@@ -12,7 +11,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldAddBuilding()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
             Assert.AreEqual(0, buildings.Count);
 
             var rh = new AddBuildingRequestHandler(buildings);
@@ -29,7 +28,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers
         [TestMethod]
         public void ShouldValidateBuildingDTO()
         {
-            var buildings = new Buildings();
+            var buildings = new ElevatorSystem.Buildings();
 
             var rh = new AddBuildingRequestHandler(buildings);
 
