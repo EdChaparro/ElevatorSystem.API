@@ -40,7 +40,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var buildings = new BuildingsModel();
+            var buildings = new BuildingCollection();
             foreach (var dto in response.Entities)
             {
                 var building = Building.MapFrom(dto);

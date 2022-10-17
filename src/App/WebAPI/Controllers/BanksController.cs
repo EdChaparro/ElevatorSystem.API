@@ -37,7 +37,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var banksModel = new BanksModel();
+            var banksModel = new BankCollection();
             foreach (var dto in response.Entities)
             {
                 var bank = Bank.MapFrom(dto);

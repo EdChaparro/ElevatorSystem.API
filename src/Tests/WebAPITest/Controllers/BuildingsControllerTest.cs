@@ -71,7 +71,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var okObjectResult = actionResult.Result as OkObjectResult;
             Assert.IsNotNull(okObjectResult);
 
-            var model = okObjectResult.Value as BuildingsModel;
+            var model = okObjectResult.Value as BuildingCollection;
             Assert.IsNotNull(model);
             Assert.AreEqual(2, model.Buildings.Count);
         }

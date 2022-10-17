@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace IntrepidProducts.WebAPI.Models
 {
-    public class BanksModel
+    public class BankCollection
     {
         public List<Bank> Banks { get; set; }
             = new List<Bank>();
 
-        public static BanksModel MapFrom(BanksDTO dto)
+        public static BankCollection MapFrom(BanksDTO dto)
         {
-            return new BanksModel
+            return new BankCollection
             {
                 Banks = dto.Banks
                     .Select(Bank.MapFrom)
