@@ -267,7 +267,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 }
             };
 
-            var actionResult = controller.Put(id, new BuildingDTO() { Name = "Foo" });
+            var actionResult = controller.Put(id, new Building() { Name = "Foo" });
 
             var objectResult = actionResult as NoContentResult;
             Assert.IsNotNull(objectResult);
@@ -310,7 +310,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 }
             };
 
-            var actionResult = controller.Put(id, new BuildingDTO() { Name = "Foo" });
+            var actionResult = controller.Put(id, new Building() { Name = "Foo" });
 
             var objectResult = actionResult as NotFoundObjectResult;
             Assert.IsNotNull(objectResult);

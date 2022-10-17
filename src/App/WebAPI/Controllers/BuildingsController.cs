@@ -4,7 +4,6 @@ using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.WebAPI.Models;
-using IntrepidProducts.WebAPI.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -29,7 +28,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         #region GET
         [HttpGet]
-        [ProducesResponseType(typeof(BuildingsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BuildingCollection), StatusCodes.Status200OK)]
         public ActionResult<BuildingsDTO> Get()
         {
             var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
@@ -44,7 +43,7 @@ namespace IntrepidProducts.WebAPI.Controllers
             var buildings = new BuildingCollection();
             foreach (var dto in response.Entities)
             {
-                var building = Building.MapFrom(dto);
+                var building = Results.Building.MapFrom(dto);
                 building.Link = GenerateActionByIdUri(nameof(Get), building.Id);
                 buildings.Buildings.Add(building);
             }
@@ -113,7 +112,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Put(Guid id, [BindRequired, FromBody] BuildingDTO? postBody)
+        public IActionResult Put(Guid id, [BindRequired, FromBody] Building? postBody)
         {
             if (id == Guid.Empty)
             {

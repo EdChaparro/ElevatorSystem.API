@@ -1,5 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
-using System;
+﻿using System;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 
 namespace IntrepidProducts.WebAPI.Results
 {
