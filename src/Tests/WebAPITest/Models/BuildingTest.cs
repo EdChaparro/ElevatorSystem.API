@@ -1,5 +1,5 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
-using IntrepidProducts.WebAPI.Models;
+using IntrepidProducts.WebAPI.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
-using IntrepidProducts.WebAPI.Models;
+using IntrepidProducts.WebAPI.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;

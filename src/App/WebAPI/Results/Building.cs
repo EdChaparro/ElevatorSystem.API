@@ -1,7 +1,7 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using System;
 
-namespace IntrepidProducts.WebAPI.Models
+namespace IntrepidProducts.WebAPI.Results
 {
     public class Building
     {

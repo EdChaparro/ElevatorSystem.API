@@ -1,4 +1,4 @@
-﻿namespace IntrepidProducts.WebAPI.Models
+﻿namespace IntrepidProducts.WebAPI.Results
 {
     //Based on https://code-maze.com/hateoas-aspnet-core-web-api/
     public class Link
