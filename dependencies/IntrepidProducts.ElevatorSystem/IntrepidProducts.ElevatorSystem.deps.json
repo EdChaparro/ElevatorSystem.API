@@ -8,8 +8,19 @@
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
       "IntrepidProducts.ElevatorSystem/1.0.0": {
+        "dependencies": {
+          "IntrepidProducts.Common": "1.0.0.0"
+        },
         "runtime": {
           "IntrepidProducts.ElevatorSystem.dll": {}
+        }
+      },
+      "IntrepidProducts.Common/1.0.0.0": {
+        "runtime": {
+          "IntrepidProducts.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -17,6 +28,11 @@
   "libraries": {
     "IntrepidProducts.ElevatorSystem/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IntrepidProducts.Common/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }
