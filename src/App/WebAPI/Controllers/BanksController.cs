@@ -3,7 +3,6 @@ using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
-using IntrepidProducts.WebAPI.Models;
 using IntrepidProducts.WebAPI.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +26,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         #region GET
         [HttpGet]
         [ProducesResponseType(typeof(BuildingsDTO), StatusCodes.Status200OK)]
-        public ActionResult<BankDTO> Get(Guid buildingId)
+        public ActionResult<Bank> Get(Guid buildingId)
         {
             var response = ProcessRequests<FindAllBanksRequest, FindEntityResponse<BankDTO>>
                     (new FindAllBanksRequest { BuildingId = buildingId })
@@ -38,15 +37,15 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var banksModel = new BankCollection();
+            var banksResult = new BankCollection();
             foreach (var dto in response.Entities)
             {
                 var bank = Bank.MapFrom(dto);
                 bank.Link = GenerateActionByIdUri(nameof(Get), bank.Id);
-                banksModel.Banks.Add(bank);
+                banksResult.Banks.Add(bank);
             }
 
-            return Ok(banksModel);
+            return Ok(banksResult);
         }
         #endregion
     }
