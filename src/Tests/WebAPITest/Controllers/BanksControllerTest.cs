@@ -14,6 +14,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IntrepidProducts.WebAPI.Results;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
@@ -82,9 +83,9 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var okObjectResult = actionResult.Result as OkObjectResult;
             Assert.IsNotNull(okObjectResult);
 
-            var model = okObjectResult.Value as BankCollection;
-            Assert.IsNotNull(model);
-            Assert.AreEqual(2, model.Banks.Count);
+            var result = okObjectResult.Value as BankCollection;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Banks.Count);
         }
 
         [TestMethod]

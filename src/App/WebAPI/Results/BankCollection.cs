@@ -1,9 +1,8 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
-using IntrepidProducts.WebAPI.Results;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IntrepidProducts.WebAPI.Models
+namespace IntrepidProducts.WebAPI.Results
 {
     public class BankCollection
     {
