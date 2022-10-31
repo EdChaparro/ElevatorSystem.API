@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTest", "src\Tests\Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSystem.Shared", "src\Shared\ElevatorSystem.Shared\ElevatorSystem.Shared.csproj", "{4427ABFF-0D25-4C06-B02F-E424E39CA263}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repo", "src\App\Repo\Repo.csproj", "{214F68BF-6BE1-4D20-87A8-A1D3880C5323}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|X64 = Debug|X64
@@ -45,6 +47,10 @@ Global
 		{4427ABFF-0D25-4C06-B02F-E424E39CA263}.Debug|X64.Build.0 = Debug|x64
 		{4427ABFF-0D25-4C06-B02F-E424E39CA263}.Release|X64.ActiveCfg = Release|x64
 		{4427ABFF-0D25-4C06-B02F-E424E39CA263}.Release|X64.Build.0 = Release|x64
+		{214F68BF-6BE1-4D20-87A8-A1D3880C5323}.Debug|X64.ActiveCfg = Debug|x64
+		{214F68BF-6BE1-4D20-87A8-A1D3880C5323}.Debug|X64.Build.0 = Debug|x64
+		{214F68BF-6BE1-4D20-87A8-A1D3880C5323}.Release|X64.ActiveCfg = Release|x64
+		{214F68BF-6BE1-4D20-87A8-A1D3880C5323}.Release|X64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{1EB1ED19-8F31-432A-86B3-45CFEEAF6145} = {546757A2-85C1-457D-8786-97B615F70E7A}
 		{3E59A097-12B5-40D9-8CD9-C83BDB9BF027} = {546757A2-85C1-457D-8786-97B615F70E7A}
 		{4427ABFF-0D25-4C06-B02F-E424E39CA263} = {C9AC7F29-B891-41EB-B7C0-431B7B206C94}
+		{214F68BF-6BE1-4D20-87A8-A1D3880C5323} = {FB0BB9B2-BD04-4EC3-9B35-15DC749E90D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C66E593E-A9A2-4BB8-85E5-4C97F2694ED8}
