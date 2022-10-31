@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FileContextCore" Version="3.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="IntrepidProducts.ElevatorSystem">
       <HintPath>..\..\..\dependencies\IntrepidProducts.ElevatorSystem\IntrepidProducts.ElevatorSystem.dll</HintPath>
     </Reference>
