@@ -29,7 +29,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         #region GET
         [HttpGet]
         [ProducesResponseType(typeof(BuildingCollection), StatusCodes.Status200OK)]
-        public ActionResult<BuildingsDTO> Get()
+        public ActionResult<BuildingCollection> Get()
         {
             var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
                     (new FindAllBuildingsRequest())

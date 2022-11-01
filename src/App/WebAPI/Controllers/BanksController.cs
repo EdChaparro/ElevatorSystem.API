@@ -25,7 +25,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         #region GET
         [HttpGet]
-        [ProducesResponseType(typeof(BuildingsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BankCollection), StatusCodes.Status200OK)]
         public ActionResult<Bank> Get(Guid buildingId)
         {
             var response = ProcessRequests<FindAllBanksRequest, FindEntityResponse<BankDTO>>
