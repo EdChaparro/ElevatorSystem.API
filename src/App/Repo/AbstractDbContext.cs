@@ -13,10 +13,10 @@ namespace IntrepidProducts.Repo
         TEntity? FindById(Guid id);
     }
 
-    public abstract class DbContextAbstract<TEntity> : DbContext, IDbContext<TEntity>
+    public abstract class AbstractDbContext<TEntity> : DbContext, IDbContext<TEntity>
         where TEntity : class, IHasId
     {
-        protected DbContextAbstract(DbContextOptions dbContextOptions)
+        protected AbstractDbContext(DbContextOptions dbContextOptions)
             : base(dbContextOptions)
         {}
 
