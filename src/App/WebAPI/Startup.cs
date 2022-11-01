@@ -25,14 +25,16 @@ namespace IntrepidProducts.WebAPI
 
             services.AddControllers();
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(swaggerGenOptions =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                swaggerGenOptions.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "ElevatorSystem.NET API",
                     Version = "v1",
-                    Description = "REST API to ElevatorSystem.NET features",
+                    Description = "REST API to ElevatorSystem.NET features"
                 });
+
+                swaggerGenOptions.CustomSchemaIds(x => x.FullName);
             });
         }
 
