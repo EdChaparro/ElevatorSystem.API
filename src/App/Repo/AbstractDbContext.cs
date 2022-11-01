@@ -22,13 +22,13 @@ namespace IntrepidProducts.Repo
 
         protected DbSet<TEntity> DbSet { get; set; }
 
-        public int Create(TEntity entity)
+        public virtual int Create(TEntity entity)
         {
             DbSet.Add(entity);
             return SaveChanges();
         }
 
-        public int Update(TEntity entity)
+        public virtual int Update(TEntity entity)
         {
             var item = FindById(entity.Id);
             if (item == null)
@@ -47,12 +47,12 @@ namespace IntrepidProducts.Repo
             return SaveChanges();
         }
 
-        public TEntity? FindById(Guid id)
+        public virtual TEntity? FindById(Guid id)
         {
             return DbSet.Find(id);
         }
 
-        public int Delete(TEntity entity)
+        public virtual int Delete(TEntity entity)
         {
             var item = FindById(entity.Id);
             if (item == null)
