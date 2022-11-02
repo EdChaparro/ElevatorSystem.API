@@ -13,13 +13,6 @@ namespace IntrepidProducts.Repo
     public abstract class AbstractRepo<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        protected AbstractRepo(ConfigurationManager configManager)
-        {
-            ConfigurationManager = configManager;
-        }
-
-        protected ConfigurationManager ConfigurationManager { get; }
-
         public abstract int Create(TEntity entity);
 
         public abstract int Update(TEntity entity);
