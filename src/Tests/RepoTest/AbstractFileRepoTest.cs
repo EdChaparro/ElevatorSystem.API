@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using IntrepidProducts.Common;
 using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,10 +14,20 @@ namespace RepoTest
         public string? Value2 { get; set; }
     }
 
-    public class TestEntityFileRepo : AbstractFileRepo<TestEntity>
+    public class TestEntityFileRepo : AbstractFileRepo<TestEntity>, IFindAll<TestEntity>, IClear
     {
         public TestEntityFileRepo(RepoConfigurationManager configManager) : base(configManager)
         { }
+
+        public IEnumerable<TestEntity> FindAll()
+        {
+            return FindAllEntities();
+        }
+
+        public void Clear()
+        {
+            ClearAllEntities();
+        }
     }
     #endregion
 
@@ -29,6 +41,7 @@ namespace RepoTest
         {
             var configManager = new RepoConfigurationManager("TestDb");
             _repo = new TestEntityFileRepo(configManager);
+            _repo.Clear();  //Clear all data
         }
 
         [TestMethod]
@@ -141,6 +154,35 @@ namespace RepoTest
             var entity = _repo.FindById(Guid.NewGuid());
 
             Assert.IsNull(entity);
+        }
+
+        [TestMethod]
+        public void ShouldFindAll()
+        {
+            var entity1 = new TestEntity { Value1 = "Foo", Value2 = "Bar" };
+            var entity2 = new TestEntity { Value1 = "Vice", Value2 = "Roy" };
+
+            Assert.AreEqual(1, _repo.Create(entity1));
+            Assert.AreEqual(1, _repo.Create(entity2));
+
+            var persistedEntities = _repo.FindAll().ToList();
+            Assert.AreEqual(2, persistedEntities.Count());
+
+            var persistedEntity1 = persistedEntities
+                .FirstOrDefault(x => x.Id == entity1.Id);
+
+            var persistedEntity2 = persistedEntities
+                .FirstOrDefault(x => x.Id == entity2.Id);
+
+            Assert.IsNotNull(persistedEntity1);
+            Assert.AreEqual(entity1.Id, persistedEntity1.Id);
+            Assert.AreEqual(entity1.Value1, persistedEntity1.Value1);
+            Assert.AreEqual(entity1.Value2, persistedEntity1.Value2);
+
+            Assert.IsNotNull(persistedEntity2);
+            Assert.AreEqual(entity2.Id, persistedEntity2.Id);
+            Assert.AreEqual(entity2.Value1, persistedEntity2.Value1);
+            Assert.AreEqual(entity2.Value2, persistedEntity2.Value2);
         }
 
         #endregion

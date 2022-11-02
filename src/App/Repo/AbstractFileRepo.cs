@@ -91,6 +91,17 @@ namespace IntrepidProducts.Repo
             return _entities.FirstOrDefault(x => x.Id == id);
         }
 
+        protected IEnumerable<TEntity> FindAllEntities()
+        {
+            return Deserialize().ToList();
+        }
+
+        protected void ClearAllEntities()
+        {
+            Entities.Clear();
+            Persist();
+        }
+
         protected RepoConfigurationManager ConfigManager { get; }
 
         private string? _entityFileName;
