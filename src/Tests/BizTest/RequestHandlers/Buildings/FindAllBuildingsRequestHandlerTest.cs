@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using IntrepidProducts.Biz.RequestHandlers.Buildings;
+﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
 using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {

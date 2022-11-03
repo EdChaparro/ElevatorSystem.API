@@ -1,14 +1,13 @@
-﻿using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.IoC.MicrosoftStrategy;
+﻿using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Reflection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace IntrepidProducts.Biz
 {

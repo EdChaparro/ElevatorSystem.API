@@ -1,13 +1,13 @@
-using System;
-using System.Linq;
 using IntrepidProducts.Common;
 using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Linq;
 
 namespace RepoTest
 {
     #region Test Classes to Exercise Abstract Class Code
-        public class TestEntity : AbstractEntity
+    public class TestEntity : AbstractEntity
     {
         public string? Value1 { get; set; }
         public string? Value2 { get; set; }

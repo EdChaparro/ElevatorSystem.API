@@ -1,5 +1,4 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;

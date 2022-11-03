@@ -1,11 +1,11 @@
 ﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using IntrepidProducts.ElevatorSystem;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {

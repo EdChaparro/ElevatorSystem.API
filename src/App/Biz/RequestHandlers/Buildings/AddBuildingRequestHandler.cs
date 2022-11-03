@@ -1,9 +1,9 @@
 ﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
-using IntrepidProducts.Repo;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {

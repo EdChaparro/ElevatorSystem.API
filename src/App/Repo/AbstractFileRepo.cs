@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IntrepidProducts.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using IntrepidProducts.Common;
 
 namespace IntrepidProducts.Repo
 {
@@ -119,7 +119,7 @@ namespace IntrepidProducts.Repo
             get
             {
                 return _filePath = _filePath ??
-                                   Path.Combine(ConfigManager.FilePath, EntityFileName );
+                                   Path.Combine(ConfigManager.FilePath, EntityFileName);
             }
         }
 

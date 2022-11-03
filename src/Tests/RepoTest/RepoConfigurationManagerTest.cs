@@ -1,6 +1,6 @@
-using System;
 using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace RepoTest
 {
