@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Shared\ElevatorSystem.Shared\ElevatorSystem.Shared.csproj" />
+	  <ProjectReference Include="..\Repo\Repo.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

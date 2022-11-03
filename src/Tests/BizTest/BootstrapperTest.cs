@@ -1,6 +1,7 @@
 using IntrepidProducts.Biz;
 using IntrepidProducts.Biz.RequestHandlers.Buildings;
 using IntrepidProducts.IocContainer;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -27,6 +28,7 @@ namespace IntrepidProducts.BizTest
             Assert.IsNotNull(iocContainer.Resolve<IRequestHandlerRegistry>());
             Assert.IsNotNull(iocContainer.Resolve<IRequestHandlerProcessor>());
             Assert.IsNotNull(iocContainer.Resolve<IIocContainer>());
+            Assert.IsNotNull(iocContainer.Resolve<RepoConfigurationManager>());
         }
     }
 }
