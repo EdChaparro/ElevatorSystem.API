@@ -5,6 +5,10 @@ using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Reflection;
+using System;
+using System.Linq;
 
 namespace IntrepidProducts.Biz
 {
@@ -21,6 +25,9 @@ namespace IntrepidProducts.Biz
         protected override void ConfigIoC(IIocContainer iocContainer)
         {
             RegisterRequestHandlers();
+
+            RegisterRepositories();
+
             iocContainer.RegisterInstance(_requestHandlerRegistry);
             iocContainer.RegisterSingleton
                 (typeof(IRequestHandlerProcessor), typeof(RequestHandlerProcessor));
@@ -45,6 +52,33 @@ namespace IntrepidProducts.Biz
             };
 
             _requestHandlerRegistry.Register(GetType().Assembly);   //Register all Request Handlers in this Assembly
+        }
+
+        private void RegisterRepositories()
+        {
+            var repoTypes = FindRepositories(typeof(BuildingRepo).Assembly);
+
+            foreach (var repoType in repoTypes)
+            {
+                var interfaceType = repoType.GetInterfaces()
+                    .FirstOrDefault(x => x.GetGenericTypeDefinition() == typeof(IRepository<>));
+
+                if (interfaceType == null)
+                {
+                    throw new InvalidOperationException
+                        ($"Repo Type {repoType.FullName} does not implement IRepository<>");
+                }
+
+                IocContainer.RegisterTransient(interfaceType, repoType);
+            }
+        }
+
+        private static IEnumerable<Type> FindRepositories(Assembly assembly)
+        {
+            return assembly.GetTypes()
+                .Where(x => !x.IsAbstract)
+                .Where(x => x.GetInterfaces()
+                    .Any(x => x.GetGenericTypeDefinition() == typeof(IRepository<>)));
         }
     }
 }

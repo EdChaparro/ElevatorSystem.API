@@ -1,5 +1,6 @@
 using IntrepidProducts.Biz;
 using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
@@ -29,6 +30,8 @@ namespace IntrepidProducts.BizTest
             Assert.IsNotNull(iocContainer.Resolve<IRequestHandlerProcessor>());
             Assert.IsNotNull(iocContainer.Resolve<IIocContainer>());
             Assert.IsNotNull(iocContainer.Resolve<RepoConfigurationManager>());
+
+            Assert.IsNotNull(iocContainer.Resolve<IRepository<Building>>());
         }
     }
 }
