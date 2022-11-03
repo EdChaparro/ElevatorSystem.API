@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.Repo
 {
@@ -8,6 +9,7 @@ namespace IntrepidProducts.Repo
         int Update(TEntity entity);
         int Delete(TEntity entity);
         TEntity? FindById(Guid id);
+        IEnumerable<TEntity> FindAll(); //TODO: Should this be part of a different interface?
     }
 
     public abstract class AbstractRepo<TEntity> : IRepository<TEntity>
@@ -20,5 +22,7 @@ namespace IntrepidProducts.Repo
         public abstract int Delete(TEntity entity);
 
         public abstract TEntity? FindById(Guid id);
+
+        public abstract IEnumerable<TEntity> FindAll();
     }
 }

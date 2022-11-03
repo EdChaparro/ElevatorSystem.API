@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -24,6 +24,9 @@
   <ItemGroup>
     <Reference Include="IntrepidProducts.Common">
       <HintPath>..\..\..\dependencies\IntrepidProducts.ElevatorSystem\IntrepidProducts.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IntrepidProducts.ElevatorSystem">
+      <HintPath>..\..\..\dependencies\IntrepidProducts.ElevatorSystem\IntrepidProducts.ElevatorSystem.dll</HintPath>
     </Reference>
   </ItemGroup>
 

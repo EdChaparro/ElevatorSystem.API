@@ -91,7 +91,7 @@ namespace IntrepidProducts.Repo
             return _entities.FirstOrDefault(x => x.Id == id);
         }
 
-        protected IEnumerable<TEntity> FindAllEntities()
+        public override IEnumerable<TEntity> FindAll()
         {
             return Deserialize().ToList();
         }
@@ -128,7 +128,7 @@ namespace IntrepidProducts.Repo
 
         private string ToJson()
         {
-            return JsonSerializer.Serialize(_entities, JsonSerializerOptions);
+            return JsonSerializer.Serialize(Entities, JsonSerializerOptions);
         }
 
         private List<TEntity> ToEntities(string json)

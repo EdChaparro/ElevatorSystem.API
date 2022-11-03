@@ -1,10 +1,12 @@
 ﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
-using System.Linq;
+using IntrepidProducts.ElevatorSystem;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
@@ -14,35 +16,41 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         [TestMethod]
         public void ShouldUpdateBuilding()
         {
-            var buildings = new ElevatorSystem.Buildings();
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var addRh = new AddBuildingRequestHandler(buildings);
+            var building = new Building();
+
+            mockRepo.Setup(x =>
+                    x.FindById(building.Id))
+                .Returns(building);
+
+            mockRepo.Setup(x =>
+                    x.Update(building))
+                .Returns(1);
+
             var dto = new BuildingDTO { Name = "Foo" };
-            var addRequest = new AddBuildingRequest { Building = dto };
-            var addResponse = addRh.Handle(addRequest);
-            Assert.IsTrue(addResponse.IsSuccessful);
 
-            var updateRh = new UpdateBuildingRequestHandler(buildings);
-            dto.Id = addResponse.EntityId;
+            var rh = new UpdateBuildingRequestHandler(mockRepo.Object);
+            dto.Id = building.Id;
             dto.Name = "bar";
+
             var updateRequest = new UpdateBuildingRequest { Building = dto };
-            var updateResponse = updateRh.Handle(updateRequest);
+            var updateResponse = rh.Handle(updateRequest);
+
             Assert.IsTrue(updateResponse.IsSuccessful);
             Assert.IsTrue(updateResponse.Result == OperationResult.Successful);
 
-            var updatedBuilding = buildings.FirstOrDefault(x => x.Id == dto.Id);
-            Assert.IsNotNull(updatedBuilding);
-            Assert.AreEqual(dto.Name, updatedBuilding.Name);
+            Assert.AreEqual(dto.Name, building.Name);
         }
 
         [TestMethod]
         public void ShouldResponseWithNotFound()
         {
-            var buildings = new ElevatorSystem.Buildings();
+            var mockRepo = new Mock<IRepository<Building>>();
 
             var dto = new BuildingDTO { Id = Guid.NewGuid(), Name = "Foo" };
 
-            var updateRh = new UpdateBuildingRequestHandler(buildings);
+            var updateRh = new UpdateBuildingRequestHandler(mockRepo.Object);
             var updateRequest = new UpdateBuildingRequest { Building = dto };
             var updateResponse = updateRh.Handle(updateRequest);
             Assert.IsTrue(updateResponse.Result == OperationResult.NotFound);
@@ -51,9 +59,9 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         [TestMethod]
         public void ShouldValidateBuildingDTO()
         {
-            var buildings = new ElevatorSystem.Buildings();
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var rh = new UpdateBuildingRequestHandler(buildings);
+            var rh = new UpdateBuildingRequestHandler(mockRepo.Object);
 
             var dto = new BuildingDTO { Name = null };  //Name is required
             var request = new UpdateBuildingRequest { Building = dto };

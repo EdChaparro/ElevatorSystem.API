@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using IntrepidProducts.Common;
 using IntrepidProducts.Repo;
@@ -8,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace RepoTest
 {
     #region Test Classes to Exercise Abstract Class Code
-    public class TestEntity : AbstractEntity
+        public class TestEntity : AbstractEntity
     {
         public string? Value1 { get; set; }
         public string? Value2 { get; set; }
@@ -18,11 +17,6 @@ namespace RepoTest
     {
         public TestEntityFileRepo(RepoConfigurationManager configManager) : base(configManager)
         { }
-
-        public IEnumerable<TestEntity> FindAll()
-        {
-            return FindAllEntities();
-        }
 
         public void Clear()
         {

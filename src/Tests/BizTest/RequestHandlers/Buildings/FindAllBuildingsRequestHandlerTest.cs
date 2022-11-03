@@ -1,7 +1,10 @@
-﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+﻿using System.Collections.Generic;
+using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
@@ -12,19 +15,19 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         public void ShouldReturnAllBuildings()
         {
             //Setup
-            var buildings = new ElevatorSystem.Buildings();
-            var addBuildingRequestHandler = new AddBuildingRequestHandler(buildings);
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var request1 = new AddBuildingRequest { Building = new BuildingDTO { Name = "Foo" } };
-            var request2 = new AddBuildingRequest { Building = new BuildingDTO { Name = "Bar" } };
+            var buildings = new List<Building>
+            {
+                new Building(),
+                new Building()
+            };
 
-            var addResponse = addBuildingRequestHandler.Handle(request1);
-            Assert.IsTrue(addResponse.IsSuccessful);
+            mockRepo.Setup(x =>
+                    x.FindAll())
+                .Returns(buildings);
 
-            addResponse = addBuildingRequestHandler.Handle(request2);
-            Assert.IsTrue(addResponse.IsSuccessful);
-
-            var findBuildingsRequestHandler = new FindAllBuildingsRequestHandler(buildings);
+            var findBuildingsRequestHandler = new FindAllBuildingsRequestHandler(mockRepo.Object);
 
             var findResponse = findBuildingsRequestHandler
                 .Handle(new FindAllBuildingsRequest());

@@ -1,6 +1,8 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+﻿using IntrepidProducts.ElevatorSystem;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System.Linq;
 
@@ -9,17 +11,18 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
     public class FindAllBuildingsRequestHandler :
         AbstractRequestHandler<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
     {
-        public FindAllBuildingsRequestHandler(ElevatorSystem.Buildings buildings)
+        public FindAllBuildingsRequestHandler(IRepository<Building> buildingRepo)
         {
-            _buildings = buildings; //Singleton
+            _buildingRepo = buildingRepo;
         }
 
-        private readonly ElevatorSystem.Buildings _buildings;
+        private readonly IRepository<Building> _buildingRepo;
+
         protected override FindEntityResponse<BuildingDTO> DoHandle(FindAllBuildingsRequest request)
         {
             return new FindEntityResponse<BuildingDTO>(request)
             {
-                Entities = _buildings.Select
+                Entities = _buildingRepo.FindAll().Select
                     (building => new BuildingDTO
                     {
                         Id = building.Id,
