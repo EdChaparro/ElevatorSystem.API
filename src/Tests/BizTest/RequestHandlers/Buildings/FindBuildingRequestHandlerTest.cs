@@ -1,7 +1,9 @@
 ﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
@@ -13,16 +15,15 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         public void ShouldReturnAllBuildings()
         {
             //Setup
-            var buildings = new ElevatorSystem.Buildings();
-            var addBuildingRequestHandler = new AddBuildingRequestHandler(buildings);
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var addRequest = new AddBuildingRequest { Building = new BuildingDTO { Name = "Foo" } };
+            var buildingId = Guid.NewGuid();
 
-            var addResponse = addBuildingRequestHandler.Handle(addRequest);
-            Assert.IsTrue(addResponse.IsSuccessful);
-            var buildingId = addResponse.EntityId;
+            mockRepo.Setup(x =>
+                    x.FindById(buildingId))
+                .Returns(new Building { Id = buildingId });
 
-            var findBuildingRequestHandler = new FindBuildingRequestHandler(buildings);
+            var findBuildingRequestHandler = new FindBuildingRequestHandler(mockRepo.Object);
 
             var findResponse = findBuildingRequestHandler
                 .Handle(new FindBuildingRequest { BuildingId = buildingId });
@@ -36,9 +37,9 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         [TestMethod]
         public void ShouldReturnNullWhenNotFound()
         {
-            var buildings = new ElevatorSystem.Buildings();
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var findBuildingRequestHandler = new FindBuildingRequestHandler(buildings);
+            var findBuildingRequestHandler = new FindBuildingRequestHandler(mockRepo.Object);
 
             var findResponse = findBuildingRequestHandler
                 .Handle(new FindBuildingRequest { BuildingId = Guid.NewGuid() });

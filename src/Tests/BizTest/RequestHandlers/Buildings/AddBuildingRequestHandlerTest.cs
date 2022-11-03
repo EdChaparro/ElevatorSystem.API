@@ -1,7 +1,10 @@
 ﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
 {
@@ -11,26 +14,34 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         [TestMethod]
         public void ShouldAddBuilding()
         {
-            var buildings = new ElevatorSystem.Buildings();
-            Assert.AreEqual(0, buildings.Count);
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var rh = new AddBuildingRequestHandler(buildings);
+            mockRepo.Setup(x =>
+                    x.Create(It.IsAny<Building>()))
+                .Returns(1);
+
+            var rh = new AddBuildingRequestHandler(mockRepo.Object);
 
             var dto = new BuildingDTO { Name = "Foo" };
             var request = new AddBuildingRequest { Building = dto };
             var response = rh.Handle(request);
 
             Assert.IsTrue(response.IsSuccessful);
-            Assert.AreEqual(1, buildings.Count);
-            Assert.AreEqual(dto.Name, buildings[0].Name);
+
+            mockRepo.Verify(x =>
+                x.Create(It.IsAny<Building>()), Times.Once);
         }
 
         [TestMethod]
         public void ShouldValidateBuildingDTO()
         {
-            var buildings = new ElevatorSystem.Buildings();
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var rh = new AddBuildingRequestHandler(buildings);
+            mockRepo.Setup(x =>
+                    x.Create(It.IsAny<Building>()))
+                .Returns(1);
+
+            var rh = new AddBuildingRequestHandler(mockRepo.Object);
 
             var dto = new BuildingDTO { Name = null };  //Name is required
             var request = new AddBuildingRequest { Building = dto };

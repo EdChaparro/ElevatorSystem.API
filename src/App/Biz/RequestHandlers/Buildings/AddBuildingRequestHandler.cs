@@ -1,5 +1,6 @@
 ﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
@@ -9,12 +10,12 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
     public class AddBuildingRequestHandler :
         AbstractRequestHandler<AddBuildingRequest, EntityOperationResponse>
     {
-        public AddBuildingRequestHandler(ElevatorSystem.Buildings buildings)
+        public AddBuildingRequestHandler(IRepository<Building> buildingRepo)
         {
-            _buildings = buildings; //Singleton
+            _buildingRepo = buildingRepo;
         }
 
-        private readonly ElevatorSystem.Buildings _buildings;
+        private readonly IRepository<Building> _buildingRepo;
         protected override EntityOperationResponse DoHandle(AddBuildingRequest request)
         {
             var buildingDTO = request.Building;
@@ -30,7 +31,7 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
                 Name = buildingDTO.Name
             };
 
-            _buildings.Add(building);
+            _buildingRepo.Create(building);
 
 
             return new EntityOperationResponse(request)

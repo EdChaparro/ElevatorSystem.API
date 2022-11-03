@@ -1,8 +1,10 @@
 ﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
@@ -13,40 +15,42 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         [TestMethod]
         public void ShouldDeleteBuilding()
         {
-            var buildings = new ElevatorSystem.Buildings();
-            var addBuildingRequestHandler = new AddBuildingRequestHandler(buildings);
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var addRequest = new AddBuildingRequest { Building = new BuildingDTO { Name = "Foo" } };
+            var building = new Building();
 
-            var addResponse = addBuildingRequestHandler.Handle(addRequest);
-            Assert.IsTrue(addResponse.IsSuccessful);
-            var buildingId = addResponse.EntityId;
-            Assert.AreEqual(1, buildings.Count);
+            mockRepo.Setup(x =>
+                    x.FindById(building.Id))
+                .Returns(building);
 
-            var deleteBuildingRequestHandler = new DeleteBuildingRequestHandler(buildings);
+            mockRepo.Setup(x =>
+                    x.Delete(building))
+                .Returns(1);
+
+            var deleteBuildingRequestHandler = new DeleteBuildingRequestHandler(mockRepo.Object);
 
             var deleteResponse = deleteBuildingRequestHandler
-                .Handle(new DeleteBuildingRequest() { BuildingId = buildingId });
+                .Handle(new DeleteBuildingRequest() { BuildingId = building.Id });
 
             //Assert
             Assert.IsTrue(deleteResponse.IsSuccessful);
             Assert.AreEqual(OperationResult.Successful, deleteResponse.Result);
-            Assert.AreEqual(0, buildings.Count);
+
+            mockRepo.Verify(x => x.Delete(building), Times.Once);
         }
 
         [TestMethod]
         public void ShouldReturnNotFound()
         {
-            var buildings = new ElevatorSystem.Buildings();
+            var mockRepo = new Mock<IRepository<Building>>();
 
-            var deleteBuildingRequestHandler = new DeleteBuildingRequestHandler(buildings);
+            var deleteBuildingRequestHandler = new DeleteBuildingRequestHandler(mockRepo.Object);
 
             var deleteResponse = deleteBuildingRequestHandler
                 .Handle(new DeleteBuildingRequest() { BuildingId = Guid.NewGuid() });
 
             Assert.IsTrue(deleteResponse.IsSuccessful);
             Assert.AreEqual(OperationResult.NotFound, deleteResponse.Result);
-            Assert.AreEqual(0, buildings.Count);
         }
     }
 }

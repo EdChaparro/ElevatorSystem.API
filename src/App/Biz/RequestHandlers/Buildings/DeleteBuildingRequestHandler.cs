@@ -1,24 +1,26 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+﻿using IntrepidProducts.ElevatorSystem;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
-using System.Linq;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {
     public class DeleteBuildingRequestHandler :
         AbstractRequestHandler<DeleteBuildingRequest, OperationResponse>
     {
-        public DeleteBuildingRequestHandler(ElevatorSystem.Buildings buildings)
+        public DeleteBuildingRequestHandler(IRepository<Building> buildingRepo)
         {
-            _buildings = buildings; //Singleton
+            _buildingRepo = buildingRepo;
         }
 
-        private readonly ElevatorSystem.Buildings _buildings;
+        private readonly IRepository<Building> _buildingRepo;
+
         protected override OperationResponse DoHandle(DeleteBuildingRequest request)
         {
             var response = new OperationResponse(request) { Result = OperationResult.OperationalError };
 
-            var building = _buildings.FirstOrDefault(x => x.Id == request.BuildingId);
+            var building = _buildingRepo.FindById(request.BuildingId);
 
             if (building == null)
             {
@@ -26,7 +28,7 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
                 return response;
             }
 
-            var isDeleted = _buildings.Remove(building);
+            var isDeleted = _buildingRepo.Delete(building) == 1;
 
             if (isDeleted)
             {

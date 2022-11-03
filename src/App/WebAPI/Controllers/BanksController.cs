@@ -1,5 +1,4 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
@@ -25,7 +24,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         #region GET
         [HttpGet]
-        [ProducesResponseType(typeof(BuildingsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BankCollection), StatusCodes.Status200OK)]
         public ActionResult<Bank> Get(Guid buildingId)
         {
             var response = ProcessRequests<FindAllBanksRequest, FindEntityResponse<BankDTO>>

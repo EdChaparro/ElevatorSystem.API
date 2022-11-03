@@ -1,20 +1,22 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+﻿using IntrepidProducts.ElevatorSystem;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
-using System.Linq;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {
     public class UpdateBuildingRequestHandler :
         AbstractRequestHandler<UpdateBuildingRequest, OperationResponse>
     {
-        public UpdateBuildingRequestHandler(ElevatorSystem.Buildings buildings)
+        public UpdateBuildingRequestHandler(IRepository<Building> buildingRepo)
         {
-            _buildings = buildings; //Singleton
+            _buildingRepo = buildingRepo;
         }
 
-        private readonly ElevatorSystem.Buildings _buildings;
+        private readonly IRepository<Building> _buildingRepo;
+
         protected override OperationResponse DoHandle(UpdateBuildingRequest request)
         {
             var response = new OperationResponse(request);
@@ -27,8 +29,7 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 
             IsValid(buildingDTO);   //Will generation error-response when invalid
 
-            var building = _buildings
-                .FirstOrDefault(x => x.Id == buildingDTO.Id);
+            var building = _buildingRepo.FindById(buildingDTO.Id);
 
             if (building == null)
             {
@@ -37,9 +38,16 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
             }
 
             building.Name = buildingDTO.Name;
-            response.Result = OperationResult.Successful;
+            var isSuccessful = _buildingRepo.Update(building) == 1;
 
-            return response;
+            if (isSuccessful)
+            {
+                response.Result = OperationResult.Successful;
+                return response;
+            }
+
+            throw new InvalidOperationException
+                ($"Update for Building Id {building.Id} failed");
         }
     }
 }
