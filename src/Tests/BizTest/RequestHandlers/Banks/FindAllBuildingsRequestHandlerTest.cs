@@ -1,7 +1,12 @@
-﻿using IntrepidProducts.Biz.RequestHandlers.Banks;
+﻿using System;
+using System.Collections.Generic;
+using IntrepidProducts.Biz.RequestHandlers.Banks;
 using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.Repo;
+using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 {
@@ -11,18 +16,22 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
         [TestMethod]
         public void ShouldReturnAllBuildingElevatorBanks()
         {
+            var request = new FindAllBanksRequest { BuildingId = Guid.NewGuid() };
+
             //Setup
-            var buildings = new ElevatorSystem.Buildings();
             var bank1 = new Bank(2, 1..5);
             var bank2 = new Bank(2, 6..4);
 
-            var building = new ElevatorSystem.Building(bank1, bank2);
-            buildings.Add(building);
+            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+            var mockFindAllBankRepo = mockBankRepo.As<IFindByBusinessId>();
 
-            var findAllBankRequestHandler = new FindAllBanksRequestHandler(buildings);
+            mockFindAllBankRepo.Setup(x =>
+                    x.FindByBusinessId(request.BuildingId))
+                .Returns(new List<Bank> { bank1, bank2 });
 
-            var findResponse = findAllBankRequestHandler
-                .Handle(new FindAllBanksRequest { BuildingId = building.Id });
+            var findAllBankRequestHandler = new FindAllBanksRequestHandler(mockBankRepo.Object);
+
+            var findResponse = findAllBankRequestHandler.Handle(request);
 
             //Assert
             Assert.IsTrue(findResponse.IsSuccessful);

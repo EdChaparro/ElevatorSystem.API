@@ -1,4 +1,3 @@
-using IntrepidProducts.Common;
 using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -6,25 +5,6 @@ using System.Linq;
 
 namespace RepoTest
 {
-    #region Test Classes to Exercise Abstract Class Code
-    public class TestEntity : AbstractEntity
-    {
-        public string? Value1 { get; set; }
-        public string? Value2 { get; set; }
-    }
-
-    public class TestEntityFileRepo : AbstractFileRepo<TestEntity>, IFindAll<TestEntity>, IClear
-    {
-        public TestEntityFileRepo(RepoConfigurationManager configManager) : base(configManager)
-        { }
-
-        public void Clear()
-        {
-            ClearAllEntities();
-        }
-    }
-    #endregion
-
     [TestClass]
     public class AbstractFileRepoTest
     {
@@ -177,6 +157,23 @@ namespace RepoTest
             Assert.AreEqual(entity2.Id, persistedEntity2.Id);
             Assert.AreEqual(entity2.Value1, persistedEntity2.Value1);
             Assert.AreEqual(entity2.Value2, persistedEntity2.Value2);
+        }
+
+        [TestMethod]
+        public void ShouldFindById()
+        {
+            var entity1 = new TestEntity { Value1 = "Foo", Value2 = "Bar" };
+            var entity2 = new TestEntity { Value1 = "Vice", Value2 = "Roy" };
+            var entity3 = new TestEntity { Value1 = "Pink", Value2 = "Floyd" };
+
+            Assert.AreEqual(1, _repo.Create(entity1));
+            Assert.AreEqual(1, _repo.Create(entity2));
+            Assert.AreEqual(1, _repo.Create(entity3));
+
+            var persistedEntity = _repo.FindById(entity2.Id);
+
+            Assert.IsNotNull(persistedEntity);
+            Assert.AreEqual(entity2.Id, persistedEntity.Id);
         }
 
         #endregion

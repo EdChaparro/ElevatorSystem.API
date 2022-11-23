@@ -1,17 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>IntrepidProducts.Repo</AssemblyName>
-    <RootNamespace>IntrepidProducts.Repo</RootNamespace>
-    <PlatformTarget>x64</PlatformTarget>
-    <Nullable>enable</Nullable>
-    <Platforms>x64</Platforms>
+    <AssemblyName>IntrepidProducts.Shared.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>IntrepidProducts.Shared.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared\ElevatorSystem.Entities\ElevatorSystem.Entities.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="IntrepidProducts.Common">

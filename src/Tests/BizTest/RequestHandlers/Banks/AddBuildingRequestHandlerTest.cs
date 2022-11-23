@@ -2,8 +2,13 @@
 using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.Repo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System.Collections.Generic;
+using IntrepidProducts.RequestResponse.Responses;
+using System;
+using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 {
@@ -13,13 +18,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
         [TestMethod]
         public void ShouldAddBank()
         {
-            var buildings = new ElevatorSystem.Buildings();
             var building = new Building();
-            buildings.Add(building);
-
-            Assert.AreEqual(0, building.NumberOfBanks);
-
-            var rh = new AddBankRequestHandler(buildings);
 
             var dto = new BankDTO
             {
@@ -29,6 +28,21 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
                 LowestFloorNbr = 1,
                 HighestFloorNbr = 10
             };
+
+            var mockBuildingRepo = new Mock<IRepository<Building>>();
+
+            mockBuildingRepo.Setup(x =>
+                    x.FindById(dto.BuildingId))
+                .Returns(building);
+
+            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+
+            mockBankRepo.Setup(x =>
+                    x.Create(It.IsAny<BuildingElevatorBank>()))
+                .Returns(1);
+
+            var rh = new AddBankRequestHandler
+                (mockBuildingRepo.Object, mockBankRepo.Object);
 
             var request = new AddBankRequest { Bank = dto };
             var response = rh.Handle(request);
@@ -44,15 +58,46 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
         }
 
         [TestMethod]
+        public void ShouldResponseWithNotFound()
+        {
+            var dto = new BankDTO
+            {
+                BuildingId = Guid.NewGuid(),
+                Name = "Foo",
+                NumberOfElevators = 2,
+                LowestFloorNbr = 1,
+                HighestFloorNbr = 10
+            };
+
+            var mockBuildingRepo = new Mock<IRepository<Building>>();
+
+            mockBuildingRepo.Setup(x =>
+                    x.FindById(dto.BuildingId))
+                .Returns<Building>(null);
+
+            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+
+            mockBankRepo.Setup(x =>
+                    x.Create(It.IsAny<BuildingElevatorBank>()))
+                .Returns(1);
+
+            var rh = new AddBankRequestHandler
+                (mockBuildingRepo.Object, mockBankRepo.Object);
+
+            var request = new AddBankRequest { Bank = dto };
+            var response = rh.Handle(request);
+
+            Assert.IsTrue(response.Result == OperationResult.OperationalError);
+
+            var errorInfo = response.ErrorInfo;
+            Assert.IsNotNull(errorInfo);
+            Assert.AreEqual("Building Id not found", errorInfo.Message);
+        }
+
+        [TestMethod]
         public void ShouldIgnoreHighAndLowFloorsWhenFloorsNumbersAreItemized()
         {
-            var buildings = new ElevatorSystem.Buildings();
             var building = new Building();
-            buildings.Add(building);
-
-            Assert.AreEqual(0, building.NumberOfBanks);
-
-            var rh = new AddBankRequestHandler(buildings);
 
             var dto = new BankDTO
             {
@@ -61,8 +106,23 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
                 NumberOfElevators = 2,
                 LowestFloorNbr = 1,     //Will be
                 HighestFloorNbr = 10,   //  ignored
-                FloorNbrs = new List<int> { 1, 2, 3 }
+                FloorNbrs = new List<int> { 1, 2, 3 }   //Itemized list provided
             };
+
+            var mockBuildingRepo = new Mock<IRepository<Building>>();
+
+            mockBuildingRepo.Setup(x =>
+                    x.FindById(dto.BuildingId))
+                .Returns(building);
+
+            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+
+            mockBankRepo.Setup(x =>
+                    x.Create(It.IsAny<BuildingElevatorBank>()))
+                .Returns(1);
+
+            var rh = new AddBankRequestHandler
+                (mockBuildingRepo.Object, mockBankRepo.Object);
 
             var request = new AddBankRequest { Bank = dto };
             var response = rh.Handle(request);
@@ -81,13 +141,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
         [TestMethod]
         public void ShouldSupportBankWithNonSequentialFloors()
         {
-            var buildings = new ElevatorSystem.Buildings();
             var building = new Building();
-            buildings.Add(building);
-
-            Assert.AreEqual(0, building.NumberOfBanks);
-
-            var rh = new AddBankRequestHandler(buildings);
 
             var dto = new BankDTO
             {
@@ -96,6 +150,21 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
                 NumberOfElevators = 2,
                 FloorNbrs = new List<int> { 1, 3, 7 }
             };
+
+            var mockBuildingRepo = new Mock<IRepository<Building>>();
+
+            mockBuildingRepo.Setup(x =>
+                    x.FindById(dto.BuildingId))
+                .Returns(building);
+
+            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+
+            mockBankRepo.Setup(x =>
+                    x.Create(It.IsAny<BuildingElevatorBank>()))
+                .Returns(1);
+
+            var rh = new AddBankRequestHandler
+                (mockBuildingRepo.Object, mockBankRepo.Object);
 
             var request = new AddBankRequest { Bank = dto };
             var response = rh.Handle(request);

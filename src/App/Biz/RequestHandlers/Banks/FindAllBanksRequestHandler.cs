@@ -2,32 +2,39 @@
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {
     public class FindAllBanksRequestHandler :
         AbstractRequestHandler<FindAllBanksRequest, FindEntityResponse<BankDTO>>
     {
-        public FindAllBanksRequestHandler(ElevatorSystem.Buildings buildings)
+        public FindAllBanksRequestHandler(IRepository<BuildingElevatorBank> bankRepo)
         {
-            _buildings = buildings; //Singleton
+            _bankRepo = bankRepo;
         }
 
-        private readonly ElevatorSystem.Buildings _buildings;
+        private readonly IRepository<BuildingElevatorBank> _bankRepo;
+
         protected override FindEntityResponse<BankDTO> DoHandle(FindAllBanksRequest request)
         {
-            var building = _buildings.FirstOrDefault(x => x.Id == request.BuildingId);
+            //TODO: Hacky, find a better way to do this
+            var repo = _bankRepo as IFindByBusinessId;
 
-            if (building == null)
+            if (repo == null)
             {
-                return new FindEntityResponse<BankDTO>(request);
+                throw new NullReferenceException
+                    ("Bank Repo does not support IFindByBusinessId interface");
             }
 
-            var bankDTOs = Map(building.Id, building.Banks);
+            var banks = repo.FindByBusinessId(request.BuildingId);
+
+            var bankDTOs = Map(request.BuildingId, banks);
 
             return new FindEntityResponse<BankDTO>(request) { Entities = bankDTOs };
         }
