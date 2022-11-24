@@ -59,6 +59,7 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
                 return new BuildingElevatorBank
                 {
                     BuildingId = dto.BuildingId,
+
                     Bank = new Bank(dto.NumberOfElevators, dto.FloorNbrs.ToArray())
                     {
                         Name = dto.Name

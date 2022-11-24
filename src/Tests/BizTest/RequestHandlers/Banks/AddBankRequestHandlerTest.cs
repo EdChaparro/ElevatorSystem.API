@@ -16,7 +16,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
     public class AddBankRequestHandlerTest
     {
         [TestMethod]
-        public void ShouldAddBank()
+        public void ShouldAddBankWithFloorRange()
         {
             var building = new Building();
 
@@ -58,7 +58,50 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
         }
 
         [TestMethod]
-        public void ShouldResponseWithNotFound()
+        public void ShouldAddBankWithItemizedFloorNumbers()
+        {
+            var building = new Building();
+
+            var dto = new BankDTO
+            {
+                BuildingId = building.Id,
+                Name = "Foo",
+                NumberOfElevators = 2,
+                LowestFloorNbr = 1,     //This will be
+                HighestFloorNbr = 10,   //  ignored due to explicit FloorNbrs list
+                FloorNbrs = new List<int> { 12, 15, 19 }
+            };
+
+            var mockBuildingRepo = new Mock<IRepository<Building>>();
+
+            mockBuildingRepo.Setup(x =>
+                    x.FindById(dto.BuildingId))
+                .Returns(building);
+
+            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+
+            mockBankRepo.Setup(x =>
+                    x.Create(It.IsAny<BuildingElevatorBank>()))
+                .Returns(1);
+
+            var rh = new AddBankRequestHandler
+                (mockBuildingRepo.Object, mockBankRepo.Object);
+
+            var request = new AddBankRequest { Bank = dto };
+            var response = rh.Handle(request);
+
+            Assert.IsTrue(response.IsSuccessful);
+            Assert.AreEqual(1, building.NumberOfBanks);
+
+            Assert.AreEqual(12, building.LowestFloorNbr);
+            Assert.AreEqual(19, building.HighestFloorNbr);
+
+            var bank = building.GetBank("Foo");
+            Assert.IsNotNull(bank);
+        }
+
+        [TestMethod]
+        public void ShouldRespondWithNotFound()
         {
             var dto = new BankDTO
             {

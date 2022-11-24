@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bank = IntrepidProducts.WebAPI.Models.Bank;
-using Building = IntrepidProducts.WebAPI.Results.Building;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
