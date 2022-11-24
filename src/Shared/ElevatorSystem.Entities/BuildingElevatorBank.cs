@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IntrepidProducts.Common;
+using IntrepidProducts.ElevatorSystem.Banks;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using IntrepidProducts.Common;
-using IntrepidProducts.ElevatorSystem.Banks;
 
 namespace IntrepidProducts.Shared.ElevatorSystem.Entities
 {

@@ -1,9 +1,9 @@
-using System.Linq;
 using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.Repo;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace RepoTest
 {

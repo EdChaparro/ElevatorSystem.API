@@ -1,7 +1,7 @@
-﻿using System;
+﻿using IntrepidProducts.Shared.ElevatorSystem.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
 namespace IntrepidProducts.Repo
 {

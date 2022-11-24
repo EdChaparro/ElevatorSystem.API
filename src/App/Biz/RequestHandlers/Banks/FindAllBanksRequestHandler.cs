@@ -3,9 +3,9 @@ using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using System;
 using System.Collections.Generic;
-using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {

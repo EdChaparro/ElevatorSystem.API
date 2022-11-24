@@ -3,12 +3,11 @@ using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.Repo;
+using IntrepidProducts.RequestResponse.Responses;
+using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Collections.Generic;
-using IntrepidProducts.RequestResponse.Responses;
 using System;
-using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 {
