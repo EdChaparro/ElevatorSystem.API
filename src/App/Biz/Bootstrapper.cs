@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.IoC.MicrosoftStrategy;
+﻿using IntrepidProducts.ElevatorSystem;
+using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler;
@@ -35,6 +36,9 @@ namespace IntrepidProducts.Biz
 
             var repoConfigManager = new RepoConfigurationManager("ElevatorSystemDb");
             iocContainer.RegisterInstance(repoConfigManager);
+
+            //TODO: Remove this once all Request Handlers are switched to use Repos
+            iocContainer.RegisterInstance(new Buildings());
         }
 
         private void RegisterRequestHandlers()

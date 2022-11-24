@@ -8,6 +8,7 @@ using System.Text.Json;
 namespace IntrepidProducts.Repo
 {
     //Implementation intended strictly for development
+
     public abstract class AbstractFileRepo<TEntity> : AbstractRepo<TEntity>
         where TEntity : class, IHasId
     {
@@ -30,14 +31,19 @@ namespace IntrepidProducts.Repo
 
         private List<TEntity>? _entities = null;
 
-        private List<TEntity> Entities
+        protected List<TEntity> Entities
         {
-            get { return _entities ?? (_entities = _entities ?? Deserialize()); }
+            get { return _entities ??= _entities ?? Deserialize(); }
         }
 
-        public override int Create(TEntity entity)
+        protected override bool DoesEntityExits(TEntity entity)
         {
-            if (Entities.Any(x => x.Id == entity.Id))
+            return Entities.Any(x => x.Id == entity.Id);
+        }
+
+        public override int DoCreate(TEntity entity)
+        {
+            if (DoesEntityExits(entity))
             {
                 return 0;
             }

@@ -14,6 +14,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bank = IntrepidProducts.WebAPI.Models.Bank;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {
@@ -22,7 +23,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
     {
         #region Get
         [TestMethod]
-        public void ShouldGetAllBanks()
+        public void ShouldGetAllBanksForBuilding()
         {
             var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
 
@@ -88,7 +89,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
         }
 
         [TestMethod]
-        public void ShouldReturn500WhenGetAllBuildingsFails()
+        public void ShouldReturn500WhenGetAllBanksFails()
         {
             var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
 
@@ -139,6 +140,115 @@ namespace IntrepidProducts.WebApiTest.Controllers
             Assert.AreEqual(expectedErrorMsg, problemDetails?.Detail);
         }
 
+        #endregion
+
+        #region Post
+        [TestMethod]
+        public void ShouldReportSuccessfulPost()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var request = new AddBankRequest();
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new EntityOperationResponse(request)
+            {
+                EntityId = new Guid()
+            };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BanksController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
+
+            var buildingId = Guid.NewGuid();
+            var bankModel = new Bank
+            {
+                Name = "Foo"
+            };
+
+            var actionResult = controller.Post(buildingId, bankModel);
+
+            var createdAtActionResult = actionResult as CreatedAtActionResult;
+            Assert.IsNotNull(createdAtActionResult);
+
+            Assert.AreEqual(StatusCodes.Status201Created, createdAtActionResult.StatusCode);
+
+            var actualResults = createdAtActionResult.Value as Bank;
+            Assert.IsNotNull(actualResults);
+
+            var routeValues = createdAtActionResult
+                .RouteValues.Values.ToList();
+
+            Assert.AreEqual("Get", createdAtActionResult.ActionName);
+            Assert.AreEqual(2, routeValues.Count);
+            Assert.AreEqual(buildingId, routeValues[0]);
+            Assert.AreEqual(response.EntityId, routeValues[1]);
+        }
+
+        [TestMethod]
+        public void ShouldReturn500WhenPostFails()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var request = new AddBankRequest();
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new EntityOperationResponse(request)
+            {
+                ErrorInfo = new ErrorInfo("error", "something went wrong")
+            };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BanksController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                },
+
+                ProblemDetailsFactory = new MockProblemDetailsFactory()
+            };
+
+            var actionResult = controller.Post
+                (Guid.NewGuid(), new Bank { Name = "Foo" });
+
+            var objectResult = actionResult as ObjectResult;
+            Assert.IsNotNull(objectResult);
+
+            var problemDetails = objectResult.Value as ProblemDetails;
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, problemDetails?.Status);
+        }
         #endregion
     }
 }

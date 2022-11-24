@@ -1,8 +1,11 @@
-﻿using IntrepidProducts.ElevatorSystem.Banks;
+﻿using IntrepidProducts.ElevatorSystem;
+using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using System;
 using System.Linq;
 
@@ -11,12 +14,16 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
     public class AddBankRequestHandler :
         AbstractRequestHandler<AddBankRequest, EntityOperationResponse>
     {
-        public AddBankRequestHandler(ElevatorSystem.Buildings buildings)
+        public AddBankRequestHandler(
+            IRepository<Building> buildingRepo, IRepository<BuildingElevatorBank> bankRepo)
         {
-            _buildings = buildings; //Singleton
+            _buildingRepo = buildingRepo;
+            _bankRepo = bankRepo;
         }
 
-        private readonly ElevatorSystem.Buildings _buildings;
+        private readonly IRepository<Building> _buildingRepo;
+        private readonly IRepository<BuildingElevatorBank> _bankRepo;
+
         protected override EntityOperationResponse DoHandle(AddBankRequest request)
         {
             var bankDTO = request.Bank;
@@ -27,37 +34,40 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
 
             IsValid(bankDTO);   //Will generation error-response when invalid
 
-            var building = _buildings.FirstOrDefault(x => x.Id == bankDTO.BuildingId);
+            var building = _buildingRepo.FindById(bankDTO.BuildingId);
 
             if (building == null)
             {
                 throw new ArgumentException("Building Id not found");
             }
 
-            var bank = Instantiate(bankDTO);
-            building.Add(bank);
+            var buildingElevatorBank = Transform(bankDTO);
+
+            _bankRepo.Create(buildingElevatorBank);
 
             return new EntityOperationResponse(request)
             {
-                EntityId = bank.Id
+                EntityId = buildingElevatorBank.Id
             };
         }
 
-        private static Bank Instantiate(BankDTO dto)
+        private static BuildingElevatorBank Transform(BankDTO dto)
         {
             if (dto.FloorNbrs.Any())
             {
-                return new Bank(dto.NumberOfElevators, dto.FloorNbrs.ToArray())
-                {
-                    Name = dto.Name
-                };
+                return new BuildingElevatorBank(dto.BuildingId,
+                    new Bank(dto.NumberOfElevators, dto.FloorNbrs.ToArray())
+                    {
+                        Name = dto.Name
+                    });
             }
 
-            return new Bank(dto.NumberOfElevators,
-                new Range(dto.LowestFloorNbr, dto.HighestFloorNbr))
-            {
-                Name = dto.Name
-            };
+            return new BuildingElevatorBank(dto.BuildingId,
+                new Bank(dto.NumberOfElevators,
+                    new Range(dto.LowestFloorNbr, dto.HighestFloorNbr))
+                {
+                    Name = dto.Name
+                });
         }
     }
 }

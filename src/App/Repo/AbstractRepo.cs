@@ -15,7 +15,29 @@ namespace IntrepidProducts.Repo
     public abstract class AbstractRepo<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        public abstract int Create(TEntity entity);
+        protected abstract bool DoesEntityExits(TEntity entity);
+
+        public int Create(TEntity entity)
+        {
+            if (DoesEntityExits(entity))
+            {
+                return 0;
+            }
+
+            var result = DoCreate(entity);
+
+            if (result > 1)
+            {
+                OnSuccessfulCreate(entity);
+            }
+
+            return result;
+        }
+
+        public abstract int DoCreate(TEntity entity);
+
+        public virtual void OnSuccessfulCreate(TEntity entity)
+        { }
 
         public abstract int Update(TEntity entity);
 
