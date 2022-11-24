@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using IntrepidProducts.ElevatorSystem.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
@@ -23,11 +20,10 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
         protected override FindBankResponse DoHandle(FindBankRequest request)
         {
             var elevatorBank = _bankRepo.FindById(request.BankId);
-            var details = elevatorBank?.Bank;
 
             var dto = elevatorBank == null
                 ? null
-                : ToDTO(details, elevatorBank.BuildingId, request.BankId);
+                : ToDTO(elevatorBank);
 
             return new FindBankResponse(request)
             {
@@ -35,21 +31,15 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
             };
         }
 
-        private static BankDTO ToDTO(Bank? bank, Guid buildingId, Guid bankId)
+        private static BankDTO ToDTO(BuildingElevatorBank bank)
         {
-            if ((bank == null))
-            {
-                throw new InvalidOperationException
-                    ($"Bank details null for Id {bankId}");
-            }
-
             return new BankDTO
             {
                 Id = bank.Id,
-                BuildingId = buildingId,
+                BuildingId = bank.BuildingId,
                 Name = bank.Name,
                 NumberOfElevators = bank.NumberOfElevators,
-                FloorNbrs = bank.OrderedFloorNumbers.ToList(),
+                FloorNbrs = bank.FloorNbrs,
                 LowestFloorNbr = bank.LowestFloorNbr,
                 HighestFloorNbr = bank.HighestFloorNbr
             };

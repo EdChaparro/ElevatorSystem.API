@@ -1,12 +1,10 @@
-﻿using IntrepidProducts.ElevatorSystem.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
@@ -34,12 +32,12 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
 
             var banks = repo.FindByBusinessId(request.BuildingId);
 
-            var bankDTOs = Map(request.BuildingId, banks);
+            var bankDTOs = Map(banks);
 
             return new FindEntityResponse<BankDTO>(request) { Entities = bankDTOs };
         }
 
-        private static List<BankDTO> Map(Guid buildingId, IEnumerable<IBank> buildingBanks)
+        private static List<BankDTO> Map(IEnumerable<BuildingElevatorBank> buildingBanks)
         {
             var banks = new List<BankDTO>();
 
@@ -47,10 +45,10 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
             {
                 var dto = new BankDTO
                 {
-                    BuildingId = buildingId,
+                    BuildingId = bank.BuildingId,
                     Id = bank.Id,
                     Name = bank.Name,
-                    FloorNbrs = bank.OrderedFloorNumbers.ToList(),
+                    FloorNbrs = bank.FloorNbrs,
                     HighestFloorNbr = bank.HighestFloorNbr,
                     LowestFloorNbr = bank.LowestFloorNbr,
                     NumberOfElevators = bank.NumberOfElevators

@@ -20,11 +20,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 
             var bank = new Bank(2, 1..10) { Name = "Bank A" };
 
-            var elevatorBank = new BuildingElevatorBank
-            {
-                BuildingId = Guid.NewGuid(),
-                Bank = bank
-            };
+            var elevatorBank = new BuildingElevatorBank(Guid.NewGuid(), bank);
 
             mockRepo.Setup(x =>
                     x.FindById(bank.Id))

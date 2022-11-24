@@ -25,11 +25,7 @@ namespace RepoTest
         {
             var building = new Building { Name = "Foo" };
 
-            var entity = new BuildingElevatorBank
-            {
-                BuildingId = building.Id,
-                Bank = new Bank(2, 1..10)
-            };
+            var entity = new BuildingElevatorBank(building.Id, new Bank(2, 1..10));
 
             Assert.AreEqual(1, _repo.Create(entity));
 
@@ -46,11 +42,7 @@ namespace RepoTest
         {
             var building = new Building { Name = "Foo" };
 
-            var entity = new BuildingElevatorBank
-            {
-                BuildingId = building.Id,
-                Bank = new Bank(2, 1..10)
-            };
+            var entity = new BuildingElevatorBank(building.Id, new Bank(2, 1..10));
 
             Assert.AreEqual(1, _repo.Create(entity));
 
@@ -58,7 +50,7 @@ namespace RepoTest
 
             Assert.IsNotNull(persistedEntity);
             Assert.AreEqual(entity.BuildingId, persistedEntity.BuildingId);
-            Assert.AreEqual(entity.Bank.Id, persistedEntity.Bank.Id);
+            Assert.AreEqual(entity.Id, persistedEntity.Id);
         }
 
         [TestMethod]
@@ -66,11 +58,7 @@ namespace RepoTest
         {
             var building = new Building { Name = "Foo" };
 
-            var entity = new BuildingElevatorBank
-            {
-                BuildingId = building.Id,
-                Bank = new Bank(2, 1..10)
-            };
+            var entity = new BuildingElevatorBank(building.Id, new Bank(2, 1..10));
 
             Assert.AreEqual(1, _repo.Create(entity));
 
@@ -78,7 +66,7 @@ namespace RepoTest
                 .FirstOrDefault();
 
             Assert.IsNotNull(persistedEntity);
-            Assert.AreEqual(entity.Bank.Id, persistedEntity.Id);
+            Assert.AreEqual(entity.Id, persistedEntity.Id);
         }
         #endregion
     }

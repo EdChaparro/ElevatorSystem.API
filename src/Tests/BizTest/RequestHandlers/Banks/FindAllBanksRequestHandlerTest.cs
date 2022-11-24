@@ -16,18 +16,19 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
         [TestMethod]
         public void ShouldReturnAllBuildingElevatorBanks()
         {
-            var request = new FindAllBanksRequest { BuildingId = Guid.NewGuid() };
+            var buildingId = Guid.NewGuid();
+            var request = new FindAllBanksRequest { BuildingId = buildingId };
 
             //Setup
-            var bank1 = new Bank(2, 1..5);
-            var bank2 = new Bank(2, 6..4);
+            var bank1 = new BuildingElevatorBank(buildingId, new Bank(2, 1..5));
+            var bank2 = new BuildingElevatorBank(buildingId, new Bank(2, 6..4));
 
             var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
             var mockFindAllBankRepo = mockBankRepo.As<IFindByBusinessId>();
 
             mockFindAllBankRepo.Setup(x =>
                     x.FindByBusinessId(request.BuildingId))
-                .Returns(new List<Bank> { bank1, bank2 });
+                .Returns(new List<BuildingElevatorBank> { bank1, bank2 });
 
             var findAllBankRequestHandler = new FindAllBanksRequestHandler(mockBankRepo.Object);
 

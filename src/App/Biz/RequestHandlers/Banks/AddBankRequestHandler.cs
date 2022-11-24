@@ -42,7 +42,6 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
             }
 
             var buildingElevatorBank = Transform(bankDTO);
-            building.Add(buildingElevatorBank.Bank);
 
             _bankRepo.Create(buildingElevatorBank);
 
@@ -56,28 +55,19 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
         {
             if (dto.FloorNbrs.Any())
             {
-                return new BuildingElevatorBank
-                {
-                    BuildingId = dto.BuildingId,
-
-                    Bank = new Bank(dto.NumberOfElevators, dto.FloorNbrs.ToArray())
+                return new BuildingElevatorBank(dto.BuildingId,
+                    new Bank(dto.NumberOfElevators, dto.FloorNbrs.ToArray())
                     {
                         Name = dto.Name
-                    }
-                };
+                    });
             }
 
-            return new BuildingElevatorBank
-            {
-                BuildingId = dto.BuildingId,
-
-
-                Bank = new Bank(dto.NumberOfElevators,
+            return new BuildingElevatorBank(dto.BuildingId,
+                new Bank(dto.NumberOfElevators,
                     new Range(dto.LowestFloorNbr, dto.HighestFloorNbr))
                 {
                     Name = dto.Name
-                }
-            };
+                });
         }
     }
 }
