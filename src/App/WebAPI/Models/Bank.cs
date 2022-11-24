@@ -1,13 +1,10 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using System.Collections.Generic;
-using System;
 
 namespace IntrepidProducts.WebAPI.Models
 {
     public class Bank
     {
-        public Guid BuildingId { get; set; }
-
         public string? Name { get; set; }
 
         public int NumberOfElevators { get; set; }
@@ -20,7 +17,6 @@ namespace IntrepidProducts.WebAPI.Models
         {
             return new Bank
             {
-                BuildingId = dto.BuildingId,
                 Name = dto.Name,
                 NumberOfElevators = dto.NumberOfElevators,
                 LowestFloorNbr = dto.LowestFloorNbr,
@@ -33,7 +29,6 @@ namespace IntrepidProducts.WebAPI.Models
         {
             return new BankDTO
             {
-                BuildingId = BuildingId,
                 Name = Name,
                 NumberOfElevators = NumberOfElevators,
                 LowestFloorNbr = LowestFloorNbr,

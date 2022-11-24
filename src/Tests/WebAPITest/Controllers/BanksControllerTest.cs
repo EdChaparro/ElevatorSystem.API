@@ -178,13 +178,13 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 }
             };
 
+            var buildingId = Guid.NewGuid();
             var bankModel = new Bank
             {
-                BuildingId = Guid.NewGuid(),
                 Name = "Foo"
             };
 
-            var actionResult = controller.Post(bankModel);
+            var actionResult = controller.Post(buildingId, bankModel);
 
             var createdAtActionResult = actionResult as CreatedAtActionResult;
             Assert.IsNotNull(createdAtActionResult);
@@ -196,10 +196,8 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var routeValues = createdAtActionResult.RouteValues;
 
+            Assert.IsNull(routeValues);
             Assert.AreEqual("Get", createdAtActionResult.ActionName);
-            Assert.AreEqual(1, routeValues.Count);
-            Assert.AreEqual("id", routeValues.Keys.First());
-            Assert.AreEqual(bankModel.BuildingId, routeValues.Values.First());
         }
 
         [TestMethod]
@@ -239,7 +237,8 @@ namespace IntrepidProducts.WebApiTest.Controllers
                 ProblemDetailsFactory = new MockProblemDetailsFactory()
             };
 
-            var actionResult = controller.Post(new Bank { Name = "Foo" });
+            var actionResult = controller.Post
+                (Guid.NewGuid(), new Bank { Name = "Foo" });
 
             var objectResult = actionResult as ObjectResult;
             Assert.IsNotNull(objectResult);

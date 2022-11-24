@@ -53,7 +53,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([BindRequired, FromBody] Models.Bank? postBody)
+        public IActionResult Post(Guid buildingId, [BindRequired, FromBody] Models.Bank? postBody)
         {
             if (postBody == null)
             {
@@ -73,9 +73,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            return CreatedAtAction(nameof(Get),
-                new { id = postBody.BuildingId },
-                postBody);
+            return CreatedAtAction(nameof(Get), postBody);
         }
     }
 }
