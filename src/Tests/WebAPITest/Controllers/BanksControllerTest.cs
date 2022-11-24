@@ -194,10 +194,13 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var actualResults = createdAtActionResult.Value as Bank;
             Assert.IsNotNull(actualResults);
 
-            var routeValues = createdAtActionResult.RouteValues;
+            var routeValues = createdAtActionResult
+                .RouteValues.Values.ToList();
 
-            Assert.IsNull(routeValues);
             Assert.AreEqual("Get", createdAtActionResult.ActionName);
+            Assert.AreEqual(2, routeValues.Count);
+            Assert.AreEqual(buildingId, routeValues[0]);
+            Assert.AreEqual(response.EntityId, routeValues[1]);
         }
 
         [TestMethod]

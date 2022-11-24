@@ -12,7 +12,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
     public class FindBuildingRequestHandlerTest
     {
         [TestMethod]
-        public void ShouldReturnAllBuildings()
+        public void ShouldReturnById()
         {
             //Setup
             var mockRepo = new Mock<IRepository<Building>>();
