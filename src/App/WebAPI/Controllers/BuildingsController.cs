@@ -52,7 +52,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(BuildingDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Results.Building), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(Guid id)
@@ -76,7 +76,9 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return NotFound(id);
             }
 
-            return Ok(response.Building);
+            var building = Results.Building.MapFrom(response.Building);
+
+            return Ok(building);
         }
         #endregion
 
