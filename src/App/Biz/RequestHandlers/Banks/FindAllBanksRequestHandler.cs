@@ -4,7 +4,6 @@ using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
-using System;
 using System.Collections.Generic;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
@@ -12,25 +11,16 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
     public class FindAllBanksRequestHandler :
         AbstractRequestHandler<FindAllBanksRequest, FindEntityResponse<BankDTO>>
     {
-        public FindAllBanksRequestHandler(IRepository<BuildingElevatorBank> bankRepo)
+        public FindAllBanksRequestHandler(IBuildingElevatorBankRepository bankRepo)
         {
             _bankRepo = bankRepo;
         }
 
-        private readonly IRepository<BuildingElevatorBank> _bankRepo;
+        private readonly IBuildingElevatorBankRepository _bankRepo;
 
         protected override FindEntityResponse<BankDTO> DoHandle(FindAllBanksRequest request)
         {
-            //TODO: Hacky, find a better way to do this
-            var repo = _bankRepo as IFindByBusinessId;
-
-            if (repo == null)
-            {
-                throw new NullReferenceException
-                    ("Bank Repo does not support IFindByBusinessId interface");
-            }
-
-            var banks = repo.FindByBusinessId(request.BuildingId);
+            var banks = _bankRepo.FindByBusinessId(request.BuildingId);
 
             var bankDTOs = Map(banks);
 

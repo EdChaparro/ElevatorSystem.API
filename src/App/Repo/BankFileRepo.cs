@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace IntrepidProducts.Repo
 {
-    public interface IFindByBusinessId
+    public interface IBuildingElevatorBankRepository : IRepository<BuildingElevatorBank>
     {
-        public IEnumerable<BuildingElevatorBank> FindByBusinessId(Guid businessId);
+        IEnumerable<BuildingElevatorBank> FindByBusinessId(Guid businessId);
     }
 
-    public class BankFileRepo : AbstractFileRepo<BuildingElevatorBank>, IFindByBusinessId
+    public class BankFileRepo : AbstractFileRepo<BuildingElevatorBank>, IBuildingElevatorBankRepository
     {
         public BankFileRepo(RepoConfigurationManager configManager) : base(configManager)
         { }

@@ -71,6 +71,13 @@ namespace IntrepidProducts.Biz
 
                 IocContainer.RegisterTransient(interfaceType, repoType);
             }
+
+            RegisterBespokeRepositoriesInterfaces();
+        }
+
+        private void RegisterBespokeRepositoriesInterfaces()
+        {
+            IocContainer.RegisterTransient(typeof(IBuildingElevatorBankRepository), typeof(BankFileRepo));
         }
 
         private static IEnumerable<Type> FindRepositories(Assembly assembly)
