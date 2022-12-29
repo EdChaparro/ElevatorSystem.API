@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace IntrepidProducts.Repo
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> : IFindAll<TEntity> where TEntity : class
     {
         int Create(TEntity entity);
         int Update(TEntity entity);
         int Delete(TEntity entity);
         TEntity? FindById(Guid id);
-        IEnumerable<TEntity> FindAll(); //TODO: Should this be part of a different interface?
     }
 
     public abstract class AbstractRepo<TEntity> : IRepository<TEntity>
