@@ -5,6 +5,7 @@ using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using System.Collections.Generic;
+using IntrepidProducts.Biz.Mappers;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {
@@ -22,32 +23,10 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
         {
             var banks = _bankRepo.FindByBusinessId(request.BuildingId);
 
-            var bankDTOs = Map(banks);
+            var bankDTOs = BankMapper.Map(banks);
 
             return new FindEntityResponse<BankDTO>(request) { Entities = bankDTOs };
         }
 
-        private static List<BankDTO> Map(IEnumerable<BuildingElevatorBank> buildingBanks)
-        {
-            var banks = new List<BankDTO>();
-
-            foreach (var bank in buildingBanks)
-            {
-                var dto = new BankDTO
-                {
-                    BuildingId = bank.BuildingId,
-                    Id = bank.Id,
-                    Name = bank.Name,
-                    FloorNbrs = bank.FloorNbrs,
-                    HighestFloorNbr = bank.HighestFloorNbr,
-                    LowestFloorNbr = bank.LowestFloorNbr,
-                    NumberOfElevators = bank.NumberOfElevators
-                };
-
-                banks.Add(dto);
-            }
-
-            return banks;
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
+﻿using System.Collections.Generic;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.RequestResponse.Responses;
 
@@ -10,5 +12,7 @@ namespace IntrepidProducts.ElevatorSystem.Shared.Responses
         { }
 
         public BuildingDTO? Building { get; set; }
+
+        public List<BankDTO> Banks { get; set; } = new List<BankDTO>();
     }
 }

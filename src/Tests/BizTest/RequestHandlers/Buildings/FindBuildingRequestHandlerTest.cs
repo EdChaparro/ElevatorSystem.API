@@ -17,7 +17,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         {
             //Setup
             var mockBuildingRepo = new Mock<IRepository<Building>>();
-            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+            var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
 
             var buildingId = Guid.NewGuid();
 
@@ -41,7 +41,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         public void ShouldReturnNullWhenNotFound()
         {
             var mockBuildingRepo = new Mock<IRepository<Building>>();
-            var mockBankRepo = new Mock<IRepository<BuildingElevatorBank>>();
+            var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
 
             var findBuildingRequestHandler = new FindBuildingRequestHandler
                 (mockBuildingRepo.Object, mockBankRepo.Object);
