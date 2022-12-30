@@ -3,7 +3,6 @@ using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
-using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -82,13 +81,11 @@ namespace IntrepidProducts.WebAPI.Controllers
             var building = Results.Building.MapFrom(response.Building);
 
             var banks = new Banks();
-            var links = new Links();
 
             foreach (var bankDTO in response.Banks)
             {
                 var bank = Results.Bank.MapFrom(bankDTO);
                 banks.Add(bank);
-                //links.Add(GenerateActionByIdUri(nameof(Get), bank.Id, "Bank"));
             }
 
 
