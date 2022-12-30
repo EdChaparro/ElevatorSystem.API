@@ -14,7 +14,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
     public class UpdateBuildingRequestHandlerTest
     {
         [TestMethod]
-        public void ShouldUpdateBuilding()
+        public void ShouldUpdate()
         {
             var mockRepo = new Mock<IRepository<Building>>();
 
@@ -57,7 +57,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
         }
 
         [TestMethod]
-        public void ShouldValidateBuildingDTO()
+        public void ShouldValidateDTO()
         {
             var mockRepo = new Mock<IRepository<Building>>();
 
