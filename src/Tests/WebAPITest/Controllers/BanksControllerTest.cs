@@ -80,12 +80,12 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var actionResult = controller.Get(request.BuildingId);
 
-            var okObjectResult = actionResult.Result as OkObjectResult;
+            var okObjectResult = actionResult as OkObjectResult;
             Assert.IsNotNull(okObjectResult);
 
-            var result = okObjectResult.Value as BankCollection;
+            var result = okObjectResult.Value;
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Banks.Count);
+            //TODO: Assert anonymous properties are correct, perhaps with JSON Serialization?
         }
 
         [TestMethod]
@@ -129,7 +129,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var actionResult = controller.Get(request.BuildingId);
 
-            var actionResultValue = actionResult.Result as ObjectResult;
+            var actionResultValue = actionResult as ObjectResult;
             Assert.IsNotNull(actionResultValue);
 
             var problemDetails = actionResultValue.Value as ProblemDetails;

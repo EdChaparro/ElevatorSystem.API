@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace IntrepidProducts.WebAPI.Results
 {
+    public class Banks : List<Bank>
+    { }
+
     public class Bank
     {
         public Guid Id { get; set; }
@@ -17,8 +20,6 @@ namespace IntrepidProducts.WebAPI.Results
         public int LowestFloorNbr { get; set; }
         public int HighestFloorNbr { get; set; }
         public List<int> FloorNbrs { get; set; } = new List<int>();
-
-        public Link? Link { get; set; }
 
         public static Bank MapFrom(BankDTO dto)
         {

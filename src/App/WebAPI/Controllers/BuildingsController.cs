@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
+using IntrepidProducts.WebAPI.Results;
+using Building = IntrepidProducts.WebAPI.Models.Building;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -28,8 +30,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         #region GET
         [HttpGet]
-        [ProducesResponseType(typeof(BuildingCollection), StatusCodes.Status200OK)]
-        public ActionResult<BuildingCollection> Get()
+        public ActionResult Get()
         {
             var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
                     (new FindAllBuildingsRequest())
@@ -40,15 +41,17 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var buildings = new BuildingCollection();
+            var buildings = new Buildings();
+            var links = new Links();
+
             foreach (var dto in response.Entities)
             {
                 var building = Results.Building.MapFrom(dto);
-                building.Link = GenerateActionByIdUri(nameof(Get), building.Id);
-                buildings.Buildings.Add(building);
+                buildings.Add(building);
+                links.Add(GenerateActionByIdUri(nameof(Get), building.Id, "Building"));
             }
 
-            return Ok(buildings);
+            return Ok(new { Buildings = buildings, Links = links });
         }
 
         [HttpGet("{id}")]

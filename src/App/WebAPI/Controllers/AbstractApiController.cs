@@ -76,18 +76,19 @@ namespace IntrepidProducts.WebAPI.Controllers
             }
         }
 
-        protected Link GenerateActionByIdUri(string methodName, Guid id)
+        protected Link GenerateActionByIdUri
+            (string methodName, Guid id, string relation = "self")
         {
-            return GenerateUri(methodName, values: new { id });
+            return GenerateUri(methodName, values: new { id }, relation, id.ToString());
         }
 
         protected Link GenerateUri
-            (string methodName, object values, string relation = "self")
+            (string methodName, object values, string relation = "self", string id = "")
         {
             var uri = LinkGenerator.GetUriByAction
                 (HttpContext, methodName, ControllerName, values);
 
-            return new Link(uri, relation, methodName);
+            return new Link(uri, relation, methodName, id);
         }
 
         #endregion

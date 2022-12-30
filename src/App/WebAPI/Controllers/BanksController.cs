@@ -55,8 +55,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(BankCollection), StatusCodes.Status200OK)]
-        public ActionResult<Bank> Get(Guid buildingId)
+        public ActionResult Get(Guid buildingId)
         {
             var response = ProcessRequests<FindAllBanksRequest, FindEntityResponse<BankDTO>>
                     (new FindAllBanksRequest { BuildingId = buildingId })
@@ -67,15 +66,18 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var banksResult = new BankCollection();
+            var banks = new Banks();
+            var links = new Links();
+
             foreach (var dto in response.Entities)
             {
                 var bank = Bank.MapFrom(dto);
-                bank.Link = GenerateActionByIdUri(nameof(Get), bank.Id);
-                banksResult.Banks.Add(bank);
+                banks.Add(bank);
+                links.Add(GenerateActionByIdUri(nameof(Get), bank.Id, "Bank"));
             }
 
-            return Ok(banksResult);
+            return Ok(new { Banks = banks, Links = links });
+
         }
         #endregion
 
