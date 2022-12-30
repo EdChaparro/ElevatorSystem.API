@@ -55,7 +55,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Results.Building), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(Guid id)
@@ -81,7 +81,18 @@ namespace IntrepidProducts.WebAPI.Controllers
 
             var building = Results.Building.MapFrom(response.Building);
 
-            return Ok(building);
+            var banks = new Banks();
+            var links = new Links();
+
+            foreach (var bankDTO in response.Banks)
+            {
+                var bank = Results.Bank.MapFrom(bankDTO);
+                banks.Add(bank);
+                //links.Add(GenerateActionByIdUri(nameof(Get), bank.Id, "Bank"));
+            }
+
+
+            return Ok(new { Building = building, Banks = banks });
         }
         #endregion
 
