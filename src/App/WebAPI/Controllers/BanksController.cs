@@ -106,5 +106,49 @@ namespace IntrepidProducts.WebAPI.Controllers
                 new { buildingId = buildingId, id = response.EntityId },
                 postBody);
         }
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Put(Guid id, [BindRequired, FromBody] Models.Bank? postBody)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid Id");
+            }
+
+            if (postBody == null)
+            {
+                return BadRequest("Body empty, Bank object expected");
+            }
+
+            var response = ProcessRequests<UpdateBankRequest, OperationResponse>
+                (new UpdateBankRequest
+                {
+                    Bank = new BankDTO
+                    {
+                        Id = id,
+                        Name = postBody.Name,
+                        LowestFloorNbr = postBody.LowestFloorNbr,
+                        HighestFloorNbr = postBody.HighestFloorNbr,
+                        NumberOfElevators = postBody.NumberOfElevators,
+                        FloorNbrs = postBody.FloorNbrs,
+                    }
+
+                })
+                .First();
+
+            if (!response.IsSuccessful)
+            {
+                return GetProblemDetails(response);
+            }
+
+            if (response.Result == OperationResult.NotFound)
+            {
+                return NotFound(id);
+            }
+
+            return NoContent();
+        }
     }
 }
