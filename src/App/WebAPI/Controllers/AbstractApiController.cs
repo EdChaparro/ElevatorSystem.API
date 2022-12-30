@@ -71,9 +71,13 @@ namespace IntrepidProducts.WebAPI.Controllers
                     return _controllerName;
                 }
 
-                return _controllerName = GetType().Name
-                    .Substring(0, GetType().Name.Length - 10);
+                return StrippedControllerName(GetType().Name);
             }
+        }
+
+        protected static string StrippedControllerName(string controllerClassName)
+        {
+            return controllerClassName[..^10];
         }
 
         protected Link GenerateActionByIdUri
@@ -82,8 +86,8 @@ namespace IntrepidProducts.WebAPI.Controllers
             return GenerateUri(methodName, values: new { id }, relation, id.ToString());
         }
 
-        protected Link GenerateUri
-            (string methodName, object values, string relation = "self", string id = "")
+        protected Link GenerateUri(string methodName, object values,
+            string relation = "self", string id = "", string? controllerName = null)
         {
             var uri = LinkGenerator.GetUriByAction
                 (HttpContext, methodName, ControllerName, values);
