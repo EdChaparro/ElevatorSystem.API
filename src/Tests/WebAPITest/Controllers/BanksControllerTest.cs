@@ -5,7 +5,6 @@ using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.WebAPI.Controllers;
-using IntrepidProducts.WebAPI.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -80,12 +79,12 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var actionResult = controller.Get(request.BuildingId);
 
-            var okObjectResult = actionResult.Result as OkObjectResult;
+            var okObjectResult = actionResult as OkObjectResult;
             Assert.IsNotNull(okObjectResult);
 
-            var result = okObjectResult.Value as BankCollection;
+            var result = okObjectResult.Value;
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Banks.Count);
+            //TODO: Assert anonymous properties are correct, perhaps with JSON Serialization?
         }
 
         [TestMethod]
@@ -129,7 +128,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var actionResult = controller.Get(request.BuildingId);
 
-            var actionResultValue = actionResult.Result as ObjectResult;
+            var actionResultValue = actionResult as ObjectResult;
             Assert.IsNotNull(actionResultValue);
 
             var problemDetails = actionResultValue.Value as ProblemDetails;
@@ -248,6 +247,104 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var problemDetails = objectResult.Value as ProblemDetails;
             Assert.AreEqual(StatusCodes.Status500InternalServerError, problemDetails?.Status);
+        }
+        #endregion
+
+        #region Put
+        [TestMethod]
+        public void ShouldReportSuccessfulPut()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var id = Guid.NewGuid();
+            var request = new UpdateBankRequest
+            {
+                Bank = new BankDTO
+                {
+                    Id = id,
+                    Name = "Foo",
+                    BuildingId = Guid.NewGuid(),
+                    LowestFloorNbr = 1,
+                    HighestFloorNbr = 10,
+                    NumberOfElevators = 3
+                }
+            };
+
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new OperationResponse(request) { Result = OperationResult.Successful };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BanksController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
+
+            var actionResult = controller.Put(id, new Bank { Name = "Foo" });
+
+            var objectResult = actionResult as NoContentResult;
+            Assert.IsNotNull(objectResult);
+
+            Assert.AreEqual(StatusCodes.Status204NoContent, objectResult.StatusCode);
+        }
+
+        [TestMethod]
+        public void ShouldReportNotFoundOnPut()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var id = Guid.NewGuid();
+            var request = new UpdateBankRequest
+            { Bank = new BankDTO { Id = id } };
+
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new OperationResponse(request) { Result = OperationResult.NotFound };
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new BanksController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
+
+            var actionResult = controller.Put(id, new Bank() { Name = "Foo" });
+
+            var objectResult = actionResult as NotFoundObjectResult;
+            Assert.IsNotNull(objectResult);
+
+            Assert.AreEqual(StatusCodes.Status404NotFound, objectResult.StatusCode);
         }
         #endregion
     }

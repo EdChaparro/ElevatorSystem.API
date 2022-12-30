@@ -1,5 +1,4 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Responses;
@@ -27,7 +26,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         #region GET
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(BuildingDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(Guid buildingId, Guid id)
@@ -55,8 +54,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(BankCollection), StatusCodes.Status200OK)]
-        public ActionResult<Bank> Get(Guid buildingId)
+        public ActionResult Get(Guid buildingId)
         {
             var response = ProcessRequests<FindAllBanksRequest, FindEntityResponse<BankDTO>>
                     (new FindAllBanksRequest { BuildingId = buildingId })
@@ -67,15 +65,18 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var banksResult = new BankCollection();
+            var banks = new Banks();
+            var links = new Links();
+
             foreach (var dto in response.Entities)
             {
-                var bank = Bank.MapFrom(dto);
-                bank.Link = GenerateActionByIdUri(nameof(Get), bank.Id);
-                banksResult.Banks.Add(bank);
+                var bank = Results.Bank.MapFrom(dto);
+                banks.Add(bank);
+                links.Add(GenerateActionByIdUri(nameof(Get), bank.Id, "Bank"));
             }
 
-            return Ok(banksResult);
+            return Ok(new { Banks = banks, Links = links });
+
         }
         #endregion
 
@@ -104,6 +105,50 @@ namespace IntrepidProducts.WebAPI.Controllers
             return CreatedAtAction(nameof(Get),
                 new { buildingId = buildingId, id = response.EntityId },
                 postBody);
+        }
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Put(Guid id, [BindRequired, FromBody] Models.Bank? postBody)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid Id");
+            }
+
+            if (postBody == null)
+            {
+                return BadRequest("Body empty, Bank object expected");
+            }
+
+            var response = ProcessRequests<UpdateBankRequest, OperationResponse>
+                (new UpdateBankRequest
+                {
+                    Bank = new BankDTO
+                    {
+                        Id = id,
+                        Name = postBody.Name,
+                        LowestFloorNbr = postBody.LowestFloorNbr,
+                        HighestFloorNbr = postBody.HighestFloorNbr,
+                        NumberOfElevators = postBody.NumberOfElevators,
+                        FloorNbrs = postBody.FloorNbrs,
+                    }
+
+                })
+                .First();
+
+            if (!response.IsSuccessful)
+            {
+                return GetProblemDetails(response);
+            }
+
+            if (response.Result == OperationResult.NotFound)
+            {
+                return NotFound(id);
+            }
+
+            return NoContent();
         }
     }
 }

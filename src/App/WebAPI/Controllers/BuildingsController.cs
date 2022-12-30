@@ -3,13 +3,14 @@ using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
-using IntrepidProducts.WebAPI.Models;
+using IntrepidProducts.WebAPI.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
+using Building = IntrepidProducts.WebAPI.Models.Building;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -28,8 +29,7 @@ namespace IntrepidProducts.WebAPI.Controllers
 
         #region GET
         [HttpGet]
-        [ProducesResponseType(typeof(BuildingCollection), StatusCodes.Status200OK)]
-        public ActionResult<BuildingCollection> Get()
+        public ActionResult Get()
         {
             var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
                     (new FindAllBuildingsRequest())
@@ -40,19 +40,21 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            var buildings = new BuildingCollection();
+            var buildings = new Buildings();
+            var links = new Links();
+
             foreach (var dto in response.Entities)
             {
                 var building = Results.Building.MapFrom(dto);
-                building.Link = GenerateActionByIdUri(nameof(Get), building.Id);
-                buildings.Buildings.Add(building);
+                buildings.Add(building);
+                links.Add(GenerateActionByIdUri(nameof(Get), building.Id, "Building"));
             }
 
-            return Ok(buildings);
+            return Ok(new { Buildings = buildings, Links = links });
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(BuildingDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(Guid id)
@@ -76,7 +78,18 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return NotFound(id);
             }
 
-            return Ok(response.Building);
+            var building = Results.Building.MapFrom(response.Building);
+
+            var banks = new Banks();
+
+            foreach (var bankDTO in response.Banks)
+            {
+                var bank = Results.Bank.MapFrom(bankDTO);
+                banks.Add(bank);
+            }
+
+
+            return Ok(new { Building = building, Banks = banks });
         }
         #endregion
 

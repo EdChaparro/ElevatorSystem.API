@@ -60,7 +60,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         #region HATEOAS
         protected LinkGenerator LinkGenerator { get; }
 
-        private string? _controllerName = null;
+        private readonly string? _controllerName = null;
 
         private string ControllerName
         {
@@ -71,23 +71,28 @@ namespace IntrepidProducts.WebAPI.Controllers
                     return _controllerName;
                 }
 
-                return _controllerName = GetType().Name
-                    .Substring(0, GetType().Name.Length - 10);
+                return StrippedControllerName(GetType().Name);
             }
         }
 
-        protected Link GenerateActionByIdUri(string methodName, Guid id)
+        protected static string StrippedControllerName(string controllerClassName)
         {
-            return GenerateUri(methodName, values: new { id });
+            return controllerClassName[..^10];
         }
 
-        protected Link GenerateUri
-            (string methodName, object values, string relation = "self")
+        protected Link GenerateActionByIdUri
+            (string methodName, Guid id, string relation = "self")
+        {
+            return GenerateUri(methodName, values: new { id }, relation, id.ToString());
+        }
+
+        protected Link GenerateUri(string methodName, object values,
+            string relation = "self", string id = "", string? controllerName = null)
         {
             var uri = LinkGenerator.GetUriByAction
                 (HttpContext, methodName, ControllerName, values);
 
-            return new Link(uri, relation, methodName);
+            return new Link(uri, relation, methodName, id);
         }
 
         #endregion
