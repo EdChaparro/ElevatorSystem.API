@@ -60,7 +60,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         #region HATEOAS
         protected LinkGenerator LinkGenerator { get; }
 
-        private string? _controllerName = null;
+        private readonly string? _controllerName = null;
 
         private string ControllerName
         {

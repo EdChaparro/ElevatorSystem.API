@@ -1,11 +1,9 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+﻿using IntrepidProducts.Biz.Mappers;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
-using IntrepidProducts.Shared.ElevatorSystem.Entities;
-using System.Collections.Generic;
-using IntrepidProducts.Biz.Mappers;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {

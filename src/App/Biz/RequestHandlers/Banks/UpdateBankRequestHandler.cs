@@ -1,9 +1,9 @@
-﻿using System;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
+using System;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {
