@@ -36,8 +36,8 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 
             //Assert
             Assert.IsTrue(findResponse.IsSuccessful);
-            Assert.IsNotNull(findResponse.Bank);
-            Assert.AreEqual(bank.Id, findResponse.Bank.Id);
+            Assert.IsNotNull(findResponse.Entity);
+            Assert.AreEqual(bank.Id, findResponse.Entity.Id);
             Assert.AreEqual(NUMBER_OF_ELEVATORS, bank.Elevators.Count());
         }
 
@@ -54,7 +54,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
             Assert.IsTrue(findResponse.IsSuccessful);
 
             //TODO: Also test for NotFound enum
-            Assert.IsNull(findResponse.Bank);
+            Assert.IsNull(findResponse.Entity);
         }
     }
 }

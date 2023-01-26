@@ -36,7 +36,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Invalid Id");
             }
 
-            var response = ProcessRequests<FindBankRequest, FindBankResponse>
+            var response = ProcessRequests<FindBankRequest, FindEntityResponse<BankDTO>>
                     (new FindBankRequest { BankId = id })
                 .First();
 
@@ -45,12 +45,12 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return GetProblemDetails(response);
             }
 
-            if (response.Bank == null)
+            if (response.Entity == null)
             {
                 return NotFound(id);
             }
 
-            return Ok(response.Bank);
+            return Ok(response.Entity);
         }
 
         [HttpGet]
