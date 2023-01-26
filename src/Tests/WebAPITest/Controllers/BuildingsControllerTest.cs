@@ -31,7 +31,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             requestBlock.Add(request);
 
             var responseBlock = new ResponseBlock(requestBlock);
-            responseBlock.Add(new FindEntityResponse<BuildingDTO>(request)
+            responseBlock.Add(new FindEntitiesResponse<BuildingDTO>(request)
             {
                 Entities = new List<BuildingDTO>
                 {
@@ -86,7 +86,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
 
-            var response = new FindEntityResponse<BuildingDTO>(request)
+            var response = new FindEntitiesResponse<BuildingDTO>(request)
             {
                 ErrorInfo = new ErrorInfo("error", "something went wrong")
             };

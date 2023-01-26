@@ -8,7 +8,7 @@ using IntrepidProducts.RequestResponseHandler.Handlers;
 namespace IntrepidProducts.Biz.RequestHandlers.Elevators
 {
     public class FindAllElevatorsRequestHandler :
-        AbstractRequestHandler<FindAllElevatorsRequest, FindEntityResponse<ElevatorDTO>>
+        AbstractRequestHandler<FindAllElevatorsRequest, FindEntitiesResponse<ElevatorDTO>>
     {
         public FindAllElevatorsRequestHandler(IBuildingElevatorBankRepository bankRepo)
         {
@@ -17,18 +17,18 @@ namespace IntrepidProducts.Biz.RequestHandlers.Elevators
 
         private readonly IBuildingElevatorBankRepository _bankRepo;
 
-        protected override FindEntityResponse<ElevatorDTO> DoHandle(FindAllElevatorsRequest request)
+        protected override FindEntitiesResponse<ElevatorDTO> DoHandle(FindAllElevatorsRequest request)
         {
             var bank = _bankRepo.FindById(request.BankId);
 
             if (bank == null)
             {
-                return new FindEntityResponse<ElevatorDTO>(request);
+                return new FindEntitiesResponse<ElevatorDTO>(request);
             }
 
             var elevatorDTOs = ElevatorMapper.Map(bank.Elevators);
 
-            return new FindEntityResponse<ElevatorDTO>(request) { Entities = elevatorDTOs };
+            return new FindEntitiesResponse<ElevatorDTO>(request) { Entities = elevatorDTOs };
         }
     }
 }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace IntrepidProducts.ElevatorSystem.Shared.Responses
 {
-    public class FindEntityResponse<TEntity> : ResponseAbstract
+    public class FindEntitiesResponse<TEntity> : ResponseAbstract
         where TEntity : class, new()
     {
-        public FindEntityResponse(IRequest originalRequest, ErrorInfo? errorInfo = null)
+        public FindEntitiesResponse(IRequest originalRequest, ErrorInfo? errorInfo = null)
             : base(originalRequest, errorInfo)
         {
             Entities = new List<TEntity>();

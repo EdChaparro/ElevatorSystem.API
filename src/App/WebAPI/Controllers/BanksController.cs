@@ -56,7 +56,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [HttpGet]
         public ActionResult Get(Guid buildingId)
         {
-            var response = ProcessRequests<FindAllBanksRequest, FindEntityResponse<BankDTO>>
+            var response = ProcessRequests<FindAllBanksRequest, FindEntitiesResponse<BankDTO>>
                     (new FindAllBanksRequest { BuildingId = buildingId })
                 .First();
 

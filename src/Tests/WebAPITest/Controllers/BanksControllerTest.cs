@@ -31,7 +31,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             requestBlock.Add(request);
 
             var responseBlock = new ResponseBlock(requestBlock);
-            responseBlock.Add(new FindEntityResponse<BankDTO>(request)
+            responseBlock.Add(new FindEntitiesResponse<BankDTO>(request)
             {
                 Entities = new List<BankDTO>
                 {
@@ -97,7 +97,7 @@ namespace IntrepidProducts.WebApiTest.Controllers
             var requestBlock = new RequestBlock();
             requestBlock.Add(request);
 
-            var response = new FindEntityResponse<BankDTO>(request)
+            var response = new FindEntitiesResponse<BankDTO>(request)
             {
                 ErrorInfo = new ErrorInfo("error", "something went wrong")
             };

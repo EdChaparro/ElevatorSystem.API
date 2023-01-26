@@ -9,7 +9,7 @@ using System.Linq;
 namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 {
     public class FindAllBuildingsRequestHandler :
-        AbstractRequestHandler<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
+        AbstractRequestHandler<FindAllBuildingsRequest, FindEntitiesResponse<BuildingDTO>>
     {
         public FindAllBuildingsRequestHandler(IRepository<Building> buildingRepo)
         {
@@ -18,9 +18,9 @@ namespace IntrepidProducts.Biz.RequestHandlers.Buildings
 
         private readonly IRepository<Building> _buildingRepo;
 
-        protected override FindEntityResponse<BuildingDTO> DoHandle(FindAllBuildingsRequest request)
+        protected override FindEntitiesResponse<BuildingDTO> DoHandle(FindAllBuildingsRequest request)
         {
-            return new FindEntityResponse<BuildingDTO>(request)
+            return new FindEntitiesResponse<BuildingDTO>(request)
             {
                 Entities = _buildingRepo.FindAll().Select
                     (building => new BuildingDTO
