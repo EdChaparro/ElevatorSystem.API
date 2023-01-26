@@ -6,6 +6,7 @@ using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Linq;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Banks
 {
@@ -18,7 +19,9 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
             //Setup
             var mockRepo = new Mock<IRepository<BuildingElevatorBank>>();
 
-            var bank = new Bank(2, 1..10) { Name = "Bank A" };
+            const int NUMBER_OF_ELEVATORS = 2;
+
+            var bank = new Bank(NUMBER_OF_ELEVATORS, 1..10) { Name = "Bank A" };
 
             var elevatorBank = new BuildingElevatorBank(Guid.NewGuid(), bank);
 
@@ -35,6 +38,7 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
             Assert.IsTrue(findResponse.IsSuccessful);
             Assert.IsNotNull(findResponse.Bank);
             Assert.AreEqual(bank.Id, findResponse.Bank.Id);
+            Assert.AreEqual(NUMBER_OF_ELEVATORS, bank.Elevators.Count());
         }
 
         [TestMethod]

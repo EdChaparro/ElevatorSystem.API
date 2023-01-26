@@ -19,6 +19,8 @@ namespace IntrepidProducts.Shared.ElevatorSystem.Entities
             LowestFloorNbr = bank.LowestFloorNbr;
             HighestFloorNbr = bank.HighestFloorNbr;
             FloorNbrs = bank.OrderedFloorNumbers.ToList();
+
+            SetupElevators(bank);
         }
 
         public BuildingElevatorBank()
@@ -31,9 +33,24 @@ namespace IntrepidProducts.Shared.ElevatorSystem.Entities
 
         public string? Name { get; set; }
 
+        #region Elevators
+
+        private void SetupElevators(Bank bank)
+        {
+            Elevators = new List<Elevator>();
+
+            foreach (var bankElevator in bank.Elevators)
+            {
+                Elevators.Add(new Elevator(bank.Id, bankElevator));
+            }
+        }
+
         [Required]
         [Range(2, 999)]
         public int NumberOfElevators { get; set; }
+
+        public List<Elevator> Elevators { get; private set; }
+        #endregion
 
         #region Floors
         public int LowestFloorNbr { get; set; }
