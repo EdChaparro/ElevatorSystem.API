@@ -4,18 +4,19 @@ using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
 namespace IntrepidProducts.Biz.RequestHandlers.Elevators
 {
     public class FindAllElevatorsRequestHandler :
         AbstractRequestHandler<FindAllElevatorsRequest, FindEntitiesResponse<ElevatorDTO>>
     {
-        public FindAllElevatorsRequestHandler(IBuildingElevatorBankRepository bankRepo)
+        public FindAllElevatorsRequestHandler(IRepository<BuildingElevatorBank> bankRepo)
         {
             _bankRepo = bankRepo;
         }
 
-        private readonly IBuildingElevatorBankRepository _bankRepo;
+        private readonly IRepository<BuildingElevatorBank> _bankRepo;
 
         protected override FindEntitiesResponse<ElevatorDTO> DoHandle(FindAllElevatorsRequest request)
         {
