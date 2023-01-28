@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {
@@ -36,23 +38,39 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Invalid Id");
             }
 
-            var response = ProcessRequests<FindBankRequest, FindEntityResponse<BankDTO>>
+            var findBankResponse = ProcessRequests<FindBankRequest, FindEntityResponse<BankDTO>>
                     (new FindBankRequest { BankId = id })
                 .First();
 
-            if (!response.IsSuccessful)
+            if (!findBankResponse.IsSuccessful)
             {
-                return GetProblemDetails(response);
+                return GetProblemDetails(findBankResponse);
             }
 
-            if (response.Entity == null)
+            if (findBankResponse.Entity == null)
             {
                 return NotFound(id);
             }
 
-            var bank = Bank.MapFrom(response.Entity);
+            var bank = Bank.MapFrom(findBankResponse.Entity);
 
-            return Ok(new { Bank = bank });
+            //TODO: Add this request to original ProcessRequests call
+            var findAllElevatorsResponse = ProcessRequests<FindAllElevatorsRequest, FindEntitiesResponse<ElevatorDTO>>
+                    (new FindAllElevatorsRequest { BankId = id })
+                .First();
+
+            var links = new Links();
+            var bankId = id;
+
+            foreach (var dto in findAllElevatorsResponse.Entities)
+            {
+                var elevator = Results.Elevator.MapFrom(dto);
+                links.Add(GenerateUri(nameof(Get),
+                    new { buildingId, bankId = id, elevator.Id }, "Elevator",
+                    elevator.Id.ToString(), "Elevators"));
+            }
+
+            return Ok(new { Bank = bank, Links = links });
         }
 
         [HttpGet]
