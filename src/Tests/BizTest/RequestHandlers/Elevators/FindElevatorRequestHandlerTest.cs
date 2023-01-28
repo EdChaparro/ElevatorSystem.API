@@ -1,6 +1,6 @@
-﻿using IntrepidProducts.Biz.RequestHandlers.Banks;
+﻿using IntrepidProducts.Biz.RequestHandlers.Elevators;
 using IntrepidProducts.ElevatorSystem.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 using IntrepidProducts.Repo;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,10 +8,10 @@ using Moq;
 using System;
 using System.Linq;
 
-namespace IntrepidProducts.BizTest.RequestHandlers.Banks
+namespace IntrepidProducts.BizTest.RequestHandlers.Elevators
 {
     [TestClass]
-    public class FindBankRequestHandlerTest
+    public class FindElevatorRequestHandlerTest
     {
         [TestMethod]
         public void ShouldReturnById()
@@ -29,15 +29,19 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
                     x.FindById(bank.Id))
                 .Returns(elevatorBank);
 
-            var findBankRequestHandler = new FindBankRequestHandler(mockRepo.Object);
+            var requestHandler = new FindElevatorRequestHandler(mockRepo.Object);
 
-            var findResponse = findBankRequestHandler
-                .Handle(new FindBankRequest { BankId = bank.Id });
+            var findResponse = requestHandler
+                .Handle(new FindElevatorRequest
+                {
+                    BankId = bank.Id,
+                    ElevatorId = bank.Elevators.First().Id
+                });
 
             //Assert
             Assert.IsTrue(findResponse.IsSuccessful);
             Assert.IsNotNull(findResponse.Entity);
-            Assert.AreEqual(bank.Id, findResponse.Entity.Id);
+            Assert.AreEqual(bank.Elevators.First().Id, findResponse.Entity.Id);
             Assert.AreEqual(NUMBER_OF_ELEVATORS, bank.Elevators.Count());
         }
 
@@ -46,14 +50,17 @@ namespace IntrepidProducts.BizTest.RequestHandlers.Banks
         {
             var mockRepo = new Mock<IRepository<BuildingElevatorBank>>();
 
-            var findBankRequestHandler = new FindBankRequestHandler(mockRepo.Object);
+            var requestHandler = new FindElevatorRequestHandler(mockRepo.Object);
 
-            var findResponse = findBankRequestHandler
-                .Handle(new FindBankRequest { BankId = Guid.NewGuid() });
+            var findResponse = requestHandler
+                .Handle(new FindElevatorRequest
+                {
+                    BankId = Guid.NewGuid(),
+                    ElevatorId = Guid.NewGuid()
+                });
 
             Assert.IsTrue(findResponse.IsSuccessful);
 
-            //TODO: Also test for NotFound enum
             Assert.IsNull(findResponse.Entity);
         }
     }

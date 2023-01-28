@@ -1,5 +1,7 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
@@ -36,27 +38,45 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return BadRequest("Invalid Id");
             }
 
-            var response = ProcessRequests<FindBankRequest, FindBankResponse>
+            var findBankResponse = ProcessRequests<FindBankRequest, FindEntityResponse<BankDTO>>
                     (new FindBankRequest { BankId = id })
                 .First();
 
-            if (!response.IsSuccessful)
+            if (!findBankResponse.IsSuccessful)
             {
-                return GetProblemDetails(response);
+                return GetProblemDetails(findBankResponse);
             }
 
-            if (response.Bank == null)
+            if (findBankResponse.Entity == null)
             {
                 return NotFound(id);
             }
 
-            return Ok(response.Bank);
+            var bank = Bank.MapFrom(findBankResponse.Entity);
+
+            //TODO: Add this request to original ProcessRequests call
+            var findAllElevatorsResponse = ProcessRequests<FindAllElevatorsRequest, FindEntitiesResponse<ElevatorDTO>>
+                    (new FindAllElevatorsRequest { BankId = id })
+                .First();
+
+            var links = new Links();
+            var bankId = id;
+
+            foreach (var dto in findAllElevatorsResponse.Entities)
+            {
+                var elevator = Results.Elevator.MapFrom(dto);
+                links.Add(GenerateUri(nameof(Get),
+                    new { buildingId, bankId = id, elevator.Id }, "Elevator",
+                    elevator.Id.ToString(), "Elevators"));
+            }
+
+            return Ok(new { Bank = bank, Links = links });
         }
 
         [HttpGet]
         public ActionResult Get(Guid buildingId)
         {
-            var response = ProcessRequests<FindAllBanksRequest, FindEntityResponse<BankDTO>>
+            var response = ProcessRequests<FindAllBanksRequest, FindEntitiesResponse<BankDTO>>
                     (new FindAllBanksRequest { BuildingId = buildingId })
                 .First();
 

@@ -8,7 +8,7 @@ using IntrepidProducts.Shared.ElevatorSystem.Entities;
 namespace IntrepidProducts.Biz.RequestHandlers.Banks
 {
     public class FindBankRequestHandler :
-        AbstractRequestHandler<FindBankRequest, FindBankResponse>
+        AbstractRequestHandler<FindBankRequest, FindEntityResponse<BankDTO>>
     {
         public FindBankRequestHandler(IRepository<BuildingElevatorBank> bankRepo)
         {
@@ -17,7 +17,7 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
 
         private readonly IRepository<BuildingElevatorBank> _bankRepo;
 
-        protected override FindBankResponse DoHandle(FindBankRequest request)
+        protected override FindEntityResponse<BankDTO> DoHandle(FindBankRequest request)
         {
             var elevatorBank = _bankRepo.FindById(request.BankId);
 
@@ -25,9 +25,9 @@ namespace IntrepidProducts.Biz.RequestHandlers.Banks
                 ? null
                 : ToDTO(elevatorBank);
 
-            return new FindBankResponse(request)
+            return new FindEntityResponse<BankDTO>(request)
             {
-                Bank = dto
+                Entity = dto
             };
         }
 

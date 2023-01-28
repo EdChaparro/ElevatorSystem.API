@@ -31,7 +31,7 @@ namespace IntrepidProducts.WebAPI.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var response = ProcessRequests<FindAllBuildingsRequest, FindEntityResponse<BuildingDTO>>
+            var response = ProcessRequests<FindAllBuildingsRequest, FindEntitiesResponse<BuildingDTO>>
                     (new FindAllBuildingsRequest())
                 .First();
 
