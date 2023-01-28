@@ -49,7 +49,7 @@ namespace IntrepidProducts.Shared.ElevatorSystem.Entities
         [Range(2, 999)]
         public int NumberOfElevators { get; set; }
 
-        public List<Elevator> Elevators { get; private set; }
+        public List<Elevator> Elevators { get; set; }
         #endregion
 
         #region Floors
