@@ -1,11 +1,10 @@
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Requests;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.WebAPI.Controllers;
-using IntrepidProducts.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -13,8 +12,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 
 namespace IntrepidProducts.WebApiTest.Controllers
 {

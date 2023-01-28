@@ -1,5 +1,7 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
@@ -10,8 +12,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 
 namespace IntrepidProducts.WebAPI.Controllers
 {

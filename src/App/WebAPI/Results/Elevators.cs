@@ -1,6 +1,6 @@
-﻿using System;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
+using System;
 using System.Collections.Generic;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
 
 namespace IntrepidProducts.WebAPI.Results
 {

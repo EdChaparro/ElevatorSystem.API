@@ -1,12 +1,12 @@
-﻿using IntrepidProducts.ElevatorSystem.Banks;
+﻿using IntrepidProducts.Biz.RequestHandlers.Elevators;
+using IntrepidProducts.ElevatorSystem.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 using IntrepidProducts.Repo;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Linq;
-using IntrepidProducts.Biz.RequestHandlers.Elevators;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 
 namespace IntrepidProducts.BizTest.RequestHandlers.Elevators
 {
