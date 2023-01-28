@@ -50,7 +50,9 @@ namespace IntrepidProducts.WebAPI.Controllers
                 return NotFound(id);
             }
 
-            return Ok(response.Entity);
+            var bank = Bank.MapFrom(response.Entity);
+
+            return Ok(new { Bank = bank });
         }
 
         [HttpGet]
