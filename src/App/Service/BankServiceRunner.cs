@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace IntrepidProducts.ElevatorSystemService
 {
-    public class Program
+    public class BankService
     {
         public static void Main(string[] args)
         {
