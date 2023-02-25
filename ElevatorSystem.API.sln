@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{FB0BB9B2-BD0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\App\WebAPI\WebAPI.csproj", "{8EC63830-5ADC-41CF-BECC-A995C52DD91B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biz", "src\App\Biz\Biz.csproj", "{D648817D-4BC4-4AB5-AD48-A27ED66C1097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSystemBiz", "src\App\Biz\ElevatorSystemBiz.csproj", "{D648817D-4BC4-4AB5-AD48-A27ED66C1097}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C9AC7F29-B891-41EB-B7C0-431B7B206C94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{546757A2-85C1-457D-8786-97B615F70E7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BizTest", "src\Tests\BizTest\BizTest.csproj", "{1EB1ED19-8F31-432A-86B3-45CFEEAF6145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSystemBizTest", "src\Tests\BizTest\ElevatorSystemBizTest.csproj", "{1EB1ED19-8F31-432A-86B3-45CFEEAF6145}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTest", "src\Tests\WebAPITest\WebApiTest.csproj", "{3E59A097-12B5-40D9-8CD9-C83BDB9BF027}"
 EndProject
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoTest", "src\Tests\RepoT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSystem.Entities", "src\Shared\ElevatorSystem.Entities\ElevatorSystem.Entities.csproj", "{4292F478-A0B1-4E9A-AE05-D20AECFDBCE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "src\App\Service\Service.csproj", "{C98F1CAC-46C2-4658-B2C7-195C8B68F314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "src\App\Service\Service.csproj", "{C98F1CAC-46C2-4658-B2C7-195C8B68F314}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

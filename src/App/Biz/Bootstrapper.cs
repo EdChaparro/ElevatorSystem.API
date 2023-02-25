@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace IntrepidProducts.Biz
+namespace IntrepidProducts.ElevatorSystemBiz
 {
     public class Bootstrapper : BootstrapperAbstract
     {

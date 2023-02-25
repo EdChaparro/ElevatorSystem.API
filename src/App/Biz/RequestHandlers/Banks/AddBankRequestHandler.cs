@@ -9,7 +9,7 @@ using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using System;
 using System.Linq;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Banks
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 {
     public class AddBankRequestHandler :
         AbstractRequestHandler<AddBankRequest, EntityOperationResponse>

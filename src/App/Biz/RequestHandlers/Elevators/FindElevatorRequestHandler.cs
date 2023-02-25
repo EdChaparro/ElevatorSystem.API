@@ -1,13 +1,13 @@
-﻿using IntrepidProducts.Biz.Mappers;
-using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
+﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Elevators;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
+using IntrepidProducts.ElevatorSystemBiz.Mappers;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using System.Linq;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Elevators
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Elevators
 {
     public class FindElevatorRequestHandler :
         AbstractRequestHandler<FindElevatorRequest, FindEntityResponse<ElevatorDTO>>

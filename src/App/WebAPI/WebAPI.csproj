@@ -21,7 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\ElevatorSystem.Shared\ElevatorSystem.Shared.csproj" />
-    <ProjectReference Include="..\Biz\Biz.csproj" />
+    <ProjectReference Include="..\Biz\ElevatorSystemBiz.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="IntrepidProducts.RequestResponse">

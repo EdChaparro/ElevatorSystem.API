@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\App\Biz\Biz.csproj" />
+    <ProjectReference Include="..\..\App\Biz\ElevatorSystemBiz.csproj" />
     <ProjectReference Include="..\..\App\Repo\Repo.csproj" />
     <ProjectReference Include="..\..\Shared\ElevatorSystem.Shared\ElevatorSystem.Shared.csproj" />
   </ItemGroup>

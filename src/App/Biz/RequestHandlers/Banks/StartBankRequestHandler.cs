@@ -1,11 +1,11 @@
-﻿using IntrepidProducts.Biz.Mappers;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
+using IntrepidProducts.ElevatorSystemBiz.Mappers;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Banks
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 {
     public class StartBankRequestHandler :
         AbstractRequestHandler<StartBankRequest, BankControlPanelResponse>

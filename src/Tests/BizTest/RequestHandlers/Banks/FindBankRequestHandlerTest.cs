@@ -1,6 +1,6 @@
-﻿using IntrepidProducts.Biz.RequestHandlers.Banks;
-using IntrepidProducts.ElevatorSystem.Banks;
+﻿using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks;
 using IntrepidProducts.Repo;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,7 +8,7 @@ using Moq;
 using System;
 using System.Linq;
 
-namespace IntrepidProducts.BizTest.RequestHandlers.Banks
+namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
 {
     [TestClass]
     public class FindBankRequestHandlerTest

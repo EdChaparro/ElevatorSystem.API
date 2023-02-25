@@ -1,14 +1,14 @@
-﻿using IntrepidProducts.Biz.RequestHandlers.Buildings;
-using IntrepidProducts.ElevatorSystem;
+﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 
-namespace IntrepidProducts.BizTest.RequestHandlers.Buildings
+namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Buildings
 {
     [TestClass]
     public class UpdateBuildingRequestHandlerTest
