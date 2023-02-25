@@ -178,6 +178,8 @@ namespace IntrepidProducts.WebApiTest.Controllers
 
             var routeValues = createdAtActionResult.RouteValues;
 
+            Assert.IsNotNull(routeValues);
+
             Assert.AreEqual("Get", createdAtActionResult.ActionName);
             Assert.AreEqual(1, routeValues.Count);
             Assert.AreEqual("id", routeValues.Keys.First());
