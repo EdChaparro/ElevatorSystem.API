@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoTest", "src\Tests\RepoT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSystem.Entities", "src\Shared\ElevatorSystem.Entities\ElevatorSystem.Entities.csproj", "{4292F478-A0B1-4E9A-AE05-D20AECFDBCE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "src\App\Service\Service.csproj", "{C98F1CAC-46C2-4658-B2C7-195C8B68F314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSystemService", "src\App\Service\ElevatorSystemService.csproj", "{C98F1CAC-46C2-4658-B2C7-195C8B68F314}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
