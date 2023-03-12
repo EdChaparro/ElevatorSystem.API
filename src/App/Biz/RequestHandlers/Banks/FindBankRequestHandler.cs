@@ -5,7 +5,7 @@ using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Banks
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 {
     public class FindBankRequestHandler :
         AbstractRequestHandler<FindBankRequest, FindEntityResponse<BankDTO>>

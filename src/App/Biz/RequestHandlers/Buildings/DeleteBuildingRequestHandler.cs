@@ -4,7 +4,7 @@ using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Buildings
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
 {
     public class DeleteBuildingRequestHandler :
         AbstractRequestHandler<DeleteBuildingRequest, OperationResponse>

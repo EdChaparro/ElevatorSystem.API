@@ -5,7 +5,7 @@ using IntrepidProducts.RequestResponse.Responses;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Buildings
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
 {
     public class AddBuildingRequestHandler :
         AbstractRequestHandler<AddBuildingRequest, EntityOperationResponse>

@@ -2,7 +2,7 @@
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using System.Collections.Generic;
 
-namespace IntrepidProducts.Biz.Mappers
+namespace IntrepidProducts.ElevatorSystemBiz.Mappers
 {
     public static class ElevatorMapper
     {

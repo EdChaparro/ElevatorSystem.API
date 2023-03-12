@@ -6,7 +6,7 @@ using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using System.Linq;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Buildings
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
 {
     public class FindAllBuildingsRequestHandler :
         AbstractRequestHandler<FindAllBuildingsRequest, FindEntitiesResponse<BuildingDTO>>

@@ -1,13 +1,13 @@
-using IntrepidProducts.Biz;
-using IntrepidProducts.Biz.RequestHandlers.Buildings;
 using IntrepidProducts.ElevatorSystem;
+using IntrepidProducts.ElevatorSystemBiz;
+using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IntrepidProducts.BizTest
+namespace IntrepidProducts.ElevatorSystemBizTest
 {
     [TestClass]
     public class BootstrapperTest

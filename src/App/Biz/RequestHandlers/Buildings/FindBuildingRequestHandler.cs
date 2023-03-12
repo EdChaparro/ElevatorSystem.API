@@ -1,12 +1,12 @@
-﻿using IntrepidProducts.Biz.Mappers;
-using IntrepidProducts.ElevatorSystem;
+﻿using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
+using IntrepidProducts.ElevatorSystemBiz.Mappers;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 
-namespace IntrepidProducts.Biz.RequestHandlers.Buildings
+namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
 {
     public class FindBuildingRequestHandler :
         AbstractRequestHandler<FindBuildingRequest, FindBuildingResponse>

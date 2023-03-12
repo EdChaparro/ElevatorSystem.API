@@ -90,7 +90,8 @@ namespace IntrepidProducts.WebAPI.Controllers
             string relation = "self", string id = "", string? controllerName = null)
         {
             var uri = LinkGenerator.GetUriByAction
-                (HttpContext, methodName, controllerName, values);
+                          (HttpContext, methodName, controllerName, values)
+                      ?? "null";
 
             return new Link(uri, relation, methodName, id);
         }
