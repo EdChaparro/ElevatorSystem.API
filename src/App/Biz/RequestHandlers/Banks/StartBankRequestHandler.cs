@@ -8,7 +8,7 @@ using IntrepidProducts.Shared.ElevatorSystem.Entities;
 namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 {
     public class StartBankRequestHandler :
-        AbstractRequestHandler<StartBankRequest, BankControlPanelResponse>
+        AbstractRequestHandler<StartBankRequest, BankOperationsResponse>
     {
         public StartBankRequestHandler(IRepository<BuildingElevatorBank> bankRepo)
         {
@@ -17,18 +17,18 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 
         private readonly IRepository<BuildingElevatorBank> _bankRepo;
 
-        protected override BankControlPanelResponse DoHandle(StartBankRequest request)
+        protected override BankOperationsResponse DoHandle(StartBankRequest request)
         {
             var bankEntity = _bankRepo.FindById(request.BankId);
 
             if (bankEntity == null)
             {
-                return new BankControlPanelResponse(request);
+                return new BankOperationsResponse(request);
             }
 
             var elevatorDTOs = ElevatorMapper.Map(bankEntity.Elevators);
 
-            return new BankControlPanelResponse(request) { ElevatorDTOs = elevatorDTOs };
+            return new BankOperationsResponse(request) { ElevatorDTOs = elevatorDTOs };
         }
 
         //TODO: Finish Me
