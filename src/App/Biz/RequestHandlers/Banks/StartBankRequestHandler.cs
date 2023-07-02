@@ -29,7 +29,8 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 
             if (bankEntity == null)
             {
-                return new BankOperationsResponse(request);
+                throw new ArgumentException
+                    ($"Bank not found, Id: {request.BankId}");
             }
 
             var elevatorDTOs = ElevatorMapper.Map(bankEntity.Elevators);

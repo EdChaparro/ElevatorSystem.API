@@ -5,7 +5,6 @@ using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Linq;
 using IntrepidProducts.ElevatorService.Banks;
 using IntrepidProducts.ElevatorSystem.Banks;
 
@@ -37,6 +36,29 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
 
             //Assert
             Assert.IsTrue(operationResponse.IsSuccessful);
+        }
+
+        [TestMethod]
+        public void ShouldFailWhenBankNotFound()
+        {
+            //Setup
+            var mockRepo = new Mock<IRepository<BuildingElevatorBank>>();
+            var mockBankRegistry = new Mock<IBankServiceRegistry>();
+
+            var bank = new Bank(2, 1..10) { Name = "Bank A" };
+
+            mockRepo.Setup(x =>
+                    x.FindById(bank.Id))
+                .Returns(null as BuildingElevatorBank);
+
+            var startBankRequestHandler = new StartBankRequestHandler
+                (mockRepo.Object, mockBankRegistry.Object);
+
+            var operationResponse = startBankRequestHandler
+                .Handle(new StartBankRequest { BankId = bank.Id });
+
+            //Assert
+            Assert.IsFalse(operationResponse.IsSuccessful);
         }
     }
 }
