@@ -67,6 +67,16 @@ namespace IntrepidProducts.Shared.ElevatorSystem.Entities
                 Name = Name,
             };
 
+            var elevatorsBizObjects
+                = new List<IntrepidProducts.ElevatorSystem.Elevators.Elevator>();
+
+            foreach (var elevator in Elevators)
+            {
+                elevatorsBizObjects.Add(elevator.ToBusinessObject());
+            }
+
+            bank.AddElevators(elevatorsBizObjects);
+
             return bank;
         }
     }

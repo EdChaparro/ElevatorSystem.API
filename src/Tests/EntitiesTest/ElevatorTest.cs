@@ -22,4 +22,24 @@ public class ElevatorTest
         Assert.AreEqual(originalElevatorBizObj.Id, entityElevatorObj.Id);
         Assert.AreEqual(originalElevatorBizObj.Name, entityElevatorObj.Name);
     }
+
+    [TestMethod]
+    public void ShouldConvertToBizObject()
+    {
+        var originalElevatorBizObj = new IntrepidProducts.ElevatorSystem.Elevators.Elevator
+            (1..10)
+            {
+                Name = "Elevator A"
+            };
+
+        var entityElevatorObj = new Elevator(Guid.NewGuid(), originalElevatorBizObj);
+
+        var rehydratedElevatorBizObj = entityElevatorObj.ToBusinessObject();
+
+        CollectionAssert.AreEqual(originalElevatorBizObj.OrderedFloorNumbers.ToList(),
+            rehydratedElevatorBizObj.OrderedFloorNumbers.ToList());
+
+        Assert.AreEqual(originalElevatorBizObj.Id, rehydratedElevatorBizObj.Id);
+        Assert.AreEqual(originalElevatorBizObj.Name, rehydratedElevatorBizObj.Name);
+    }
 }

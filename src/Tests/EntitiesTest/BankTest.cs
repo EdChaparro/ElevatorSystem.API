@@ -30,5 +30,37 @@ namespace IntrepidProducts.Shared.EntitiesTest
                 Assert.IsNotNull(originalElevatorObj);
             }
         }
+
+        [TestMethod]
+        public void ShouldConvertToBizObject()
+        {
+            var originalBankBizObj = new Bank(2, 1..10)
+            {
+                Name = "Elevator A"
+            };
+
+            var buildingId = Guid.NewGuid();
+
+            var entityBankObj = new BuildingElevatorBank(buildingId, originalBankBizObj);
+
+            var rehydratedBankBizObj = entityBankObj.ToBusinessObject();
+
+            Assert.IsNotNull(rehydratedBankBizObj);
+
+            Assert.AreEqual(originalBankBizObj.Name, rehydratedBankBizObj.Name);
+
+            Assert.AreEqual(originalBankBizObj.NumberOfElevators,
+                rehydratedBankBizObj.NumberOfElevators);
+
+            foreach (var elevator in rehydratedBankBizObj.Elevators)
+            {
+                var originalElevatorObj = originalBankBizObj.Elevators
+                    .Where(x => x.Id == elevator.Id)
+                    .Select(x => x)
+                    .FirstOrDefault();
+
+                Assert.IsNotNull(originalElevatorObj);
+            }
+        }
     }
 }
