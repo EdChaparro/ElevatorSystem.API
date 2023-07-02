@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorService.Elevators;
 
 namespace IntrepidProducts.ElevatorSystemBiz
 {
@@ -28,6 +30,8 @@ namespace IntrepidProducts.ElevatorSystemBiz
 
             RegisterRepositories();
 
+            RegisterBackgroundServices();
+
             iocContainer.RegisterInstance(_requestHandlerRegistry);
             iocContainer.RegisterSingleton
                 (typeof(IRequestHandlerProcessor), typeof(RequestHandlerProcessor));
@@ -36,9 +40,14 @@ namespace IntrepidProducts.ElevatorSystemBiz
 
             var repoConfigManager = new RepoConfigurationManager("ElevatorSystemDb");
             iocContainer.RegisterInstance(repoConfigManager);
+        }
 
-            //TODO: Remove this once all Request Handlers are switched to use Repos
-            iocContainer.RegisterInstance(new Buildings());
+        private void RegisterBackgroundServices()
+        {
+            IocContainer.RegisterSingleton<IElevatorServiceRegistry, ElevatorServiceRegistry>();
+            IocContainer.RegisterSingleton
+                (typeof(IBankServiceRegistry),
+                    typeof(BankServiceRegistry));
         }
 
         private void RegisterRequestHandlers()

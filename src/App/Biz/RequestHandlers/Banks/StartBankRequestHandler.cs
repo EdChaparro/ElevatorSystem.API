@@ -4,18 +4,24 @@ using IntrepidProducts.ElevatorSystemBiz.Mappers;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
+using System;
+using IntrepidProducts.ElevatorService.Banks;
 
 namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 {
     public class StartBankRequestHandler :
         AbstractRequestHandler<StartBankRequest, BankOperationsResponse>
     {
-        public StartBankRequestHandler(IRepository<BuildingElevatorBank> bankRepo)
+        public StartBankRequestHandler
+            (IRepository<BuildingElevatorBank> bankRepo,
+                IBankServiceRegistry bankServiceRegistry)
         {
             _bankRepo = bankRepo;
+            _bankServiceRegistry = bankServiceRegistry;
         }
 
         private readonly IRepository<BuildingElevatorBank> _bankRepo;
+        private readonly IBankServiceRegistry _bankServiceRegistry;
 
         protected override BankOperationsResponse DoHandle(StartBankRequest request)
         {
@@ -28,13 +34,20 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 
             var elevatorDTOs = ElevatorMapper.Map(bankEntity.Elevators);
 
+            var isStarted = StartBank(bankEntity);
+
+            if (!isStarted)
+            {
+                throw new InvalidOperationException("Bank Start Operation Failed");
+            }
+
             return new BankOperationsResponse(request) { ElevatorDTOs = elevatorDTOs };
         }
 
         //TODO: Finish Me
         private bool StartBank(BuildingElevatorBank bank)
         {
-            return false;
+            return true;
         }
     }
 }

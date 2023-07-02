@@ -11,7 +11,6 @@ namespace IntrepidProducts.ElevatorSystem.Shared.Responses
             : base(originalRequest, errorInfo)
         { }
 
-        public bool IsRunning { get; set; }
         public List<ElevatorDTO> ElevatorDTOs { get; set; } = new List<ElevatorDTO>();
     }
 }
