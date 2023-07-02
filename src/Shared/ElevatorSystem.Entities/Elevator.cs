@@ -36,5 +36,17 @@ namespace IntrepidProducts.Shared.ElevatorSystem.Entities
 
         public bool IsEnabled { get; set; }
         public bool IsIdle { get; set; }
+
+        public IntrepidProducts.ElevatorSystem.Elevators.Elevator ToBusinessObject()
+        {
+            var bank = new IntrepidProducts.ElevatorSystem.Elevators.Elevator
+                (FloorNbrs.ToArray())
+            {
+                Id = Id,
+                Name = Name,
+            };
+
+            return bank;
+        }
     }
 }
