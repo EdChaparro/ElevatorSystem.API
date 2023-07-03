@@ -10,9 +10,9 @@ public class ElevatorTest
     {
         var originalElevatorBizObj = new IntrepidProducts.ElevatorSystem.Elevators.Elevator
             (1..10)
-            {
-                Name = "Elevator A"
-            };
+        {
+            Name = "Elevator A"
+        };
 
         var entityElevatorObj = new Elevator(Guid.NewGuid(), originalElevatorBizObj);
 
@@ -28,9 +28,9 @@ public class ElevatorTest
     {
         var originalElevatorBizObj = new IntrepidProducts.ElevatorSystem.Elevators.Elevator
             (1..10)
-            {
-                Name = "Elevator A"
-            };
+        {
+            Name = "Elevator A"
+        };
 
         var entityElevatorObj = new Elevator(Guid.NewGuid(), originalElevatorBizObj);
 

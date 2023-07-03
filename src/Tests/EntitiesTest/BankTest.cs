@@ -17,7 +17,7 @@ namespace IntrepidProducts.Shared.EntitiesTest
                 (originalBuildingBizObj.Id, originalBankBizObj);
 
             Assert.AreEqual(originalBuildingBizObj.Id, entityBankObj.BuildingId);
-            Assert.AreEqual(originalBankBizObj.NumberOfElevators, 
+            Assert.AreEqual(originalBankBizObj.NumberOfElevators,
                 entityBankObj.NumberOfElevators);
 
             foreach (var elevator in entityBankObj.Elevators)

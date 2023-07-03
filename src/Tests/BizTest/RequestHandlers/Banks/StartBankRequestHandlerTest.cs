@@ -1,13 +1,13 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+﻿using IntrepidProducts.ElevatorService;
+using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorSystem.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks;
 using IntrepidProducts.Repo;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using IntrepidProducts.ElevatorService;
-using IntrepidProducts.ElevatorService.Banks;
-using IntrepidProducts.ElevatorSystem.Banks;
 using System.Collections.Generic;
 
 namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
@@ -31,7 +31,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
 
             mockRepo.Setup(x =>
                     x.FindByBusinessId(businessId))
-                        .Returns(new List<BuildingElevatorBank> {elevatorBank});
+                        .Returns(new List<BuildingElevatorBank> { elevatorBank });
 
             mockBankRegistry.Setup(x =>
                     x.IsRegistered(It.IsAny<Bank>()))
@@ -45,7 +45,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
                 (mockRepo.Object, mockBankRegistry.Object);
 
             var operationResponse = startBankRequestHandler
-                .Handle(new StartBankRequest { BankId = bank.Id, BusinessId = businessId});
+                .Handle(new StartBankRequest { BankId = bank.Id, BusinessId = businessId });
 
             //Assert
             Assert.IsTrue(operationResponse.IsSuccessful);

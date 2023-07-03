@@ -1,4 +1,6 @@
-﻿using IntrepidProducts.IoC.MicrosoftStrategy;
+﻿using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorService.Elevators;
+using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler;
@@ -8,8 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using IntrepidProducts.ElevatorService.Banks;
-using IntrepidProducts.ElevatorService.Elevators;
 
 namespace IntrepidProducts.ElevatorSystemBiz
 {

@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem.Banks;
+﻿using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks;
 using IntrepidProducts.Repo;
@@ -7,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using IntrepidProducts.ElevatorService.Banks;
 
 namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
 {

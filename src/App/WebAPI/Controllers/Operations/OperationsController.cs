@@ -1,11 +1,11 @@
 ﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.Responses;
+using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
-using IntrepidProducts.RequestResponseHandler.Handlers;
-using Microsoft.AspNetCore.Routing;
-using IntrepidProducts.ElevatorSystem.Shared.Responses;
 
 namespace IntrepidProducts.WebAPI.Controllers.Operations
 {
