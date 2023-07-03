@@ -5,6 +5,9 @@ using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using System;
+using System.Linq;
+using System.Threading;
+using IntrepidProducts.ElevatorService;
 using IntrepidProducts.ElevatorService.Banks;
 
 namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
@@ -13,19 +16,21 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
         AbstractRequestHandler<StartBankRequest, BankOperationsResponse>
     {
         public StartBankRequestHandler
-            (IRepository<BuildingElevatorBank> bankRepo,
+            (IBuildingElevatorBankRepository bankRepo,
                 IBankServiceRegistry bankServiceRegistry)
         {
             _bankRepo = bankRepo;
             _bankServiceRegistry = bankServiceRegistry;
         }
 
-        private readonly IRepository<BuildingElevatorBank> _bankRepo;
+        private readonly IBuildingElevatorBankRepository _bankRepo;
         private readonly IBankServiceRegistry _bankServiceRegistry;
 
         protected override BankOperationsResponse DoHandle(StartBankRequest request)
         {
-            var bankEntity = _bankRepo.FindById(request.BankId);
+            var banks = _bankRepo.FindByBusinessId(request.BusinessId);
+
+            var bankEntity = banks.FirstOrDefault(x => x.Id == request.BankId);
 
             if (bankEntity == null)
             {
@@ -48,7 +53,33 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
         //TODO: Finish Me
         private bool StartBank(BuildingElevatorBank bank)
         {
+            var bankBizObject = bank.ToBusinessObject();
+
+            var bankService = GetBankService(bankBizObject);
+
+            if (bankService == null)
+            {
+                throw new InvalidOperationException
+                    ($"Unable to locate Bank Service for Id {bank.Id}");
+            }
+
+            if (bankService.IsRunning)
+            {
+                return true;
+            }
+
+            bankService.StartAsync(new CancellationToken());
             return true;
+        }
+
+        private IBackgroundService? GetBankService(ElevatorSystem.Banks.Bank bankBizObject)
+        {
+            if (!_bankServiceRegistry.IsRegistered(bankBizObject))
+            {
+                _bankServiceRegistry.Register(bankBizObject);
+            }
+
+            return _bankServiceRegistry.Get(bankBizObject);
         }
     }
 }

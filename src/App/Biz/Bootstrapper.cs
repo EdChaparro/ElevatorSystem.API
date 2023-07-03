@@ -1,5 +1,4 @@
-﻿using IntrepidProducts.ElevatorSystem;
-using IntrepidProducts.IoC.MicrosoftStrategy;
+﻿using IntrepidProducts.IoC.MicrosoftStrategy;
 using IntrepidProducts.IocContainer;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler;
@@ -30,7 +29,7 @@ namespace IntrepidProducts.ElevatorSystemBiz
 
             RegisterRepositories();
 
-            RegisterBackgroundServices();
+            RegisterBackgroundServices(iocContainer);
 
             iocContainer.RegisterInstance(_requestHandlerRegistry);
             iocContainer.RegisterSingleton
@@ -42,10 +41,13 @@ namespace IntrepidProducts.ElevatorSystemBiz
             iocContainer.RegisterInstance(repoConfigManager);
         }
 
-        private void RegisterBackgroundServices()
+        private void RegisterBackgroundServices(IIocContainer iocContainer)
         {
-            IocContainer.RegisterSingleton<IElevatorServiceRegistry, ElevatorServiceRegistry>();
-            IocContainer.RegisterSingleton
+            iocContainer.RegisterSingleton
+            (typeof(IElevatorServiceRegistry),
+                typeof(ElevatorServiceRegistry));
+
+            iocContainer.RegisterSingleton
                 (typeof(IBankServiceRegistry),
                     typeof(BankServiceRegistry));
         }
