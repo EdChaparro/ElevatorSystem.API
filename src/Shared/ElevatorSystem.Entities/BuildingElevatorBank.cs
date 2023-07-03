@@ -64,6 +64,7 @@ namespace IntrepidProducts.Shared.ElevatorSystem.Entities
         {
             var bank = new Bank(NumberOfElevators, FloorNbrs.ToArray())
             {
+                Id = Id,
                 Name = Name,
             };
 

@@ -1,13 +1,11 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
-using IntrepidProducts.RequestResponse.Responses;
+﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Linq;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using Microsoft.AspNetCore.Routing;
+using IntrepidProducts.ElevatorSystem.Shared.Responses;
 
 namespace IntrepidProducts.WebAPI.Controllers.Operations
 {
@@ -28,8 +26,8 @@ namespace IntrepidProducts.WebAPI.Controllers.Operations
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Put(Guid buildingId, Guid bankId, [AsParameters] string engine)
         {
-            const string ENGINE_START = "Start";
-            const string ENGINE_STOP = "Stop";
+            const string ENGINE_START = "start";
+            const string ENGINE_STOP = "stop";
 
             if (buildingId == Guid.Empty)
             {
@@ -41,7 +39,14 @@ namespace IntrepidProducts.WebAPI.Controllers.Operations
                 return BadRequest("Invalid Bank Id");
             }
 
-            switch (engine)
+            if (string.IsNullOrEmpty(engine))
+            {
+                return BadRequest("Engine Parameter is invalid");
+            }
+
+            var engineQueryParameter = engine.ToLower();
+
+            switch (engineQueryParameter)
             {
                 case ENGINE_START:
                     return StartBankService(buildingId, bankId);
@@ -54,18 +59,28 @@ namespace IntrepidProducts.WebAPI.Controllers.Operations
             }
         }
 
-        private StatusCodeResult StartBankService(Guid buildingId, Guid bankId)
+        private IActionResult StartBankService(Guid buildingId, Guid bankId)
         {
 
-            return NoContent(); //TODO: Finish Me
+            var response = ProcessRequests<StartBankRequest, BankOperationsResponse>
+                    (new StartBankRequest
+                    {
+                        BusinessId = buildingId,
+                        BankId = bankId
+                    })
+                .First();
+
+            if (!response.IsSuccessful)
+            {
+                return GetProblemDetails(response);
+            }
+
+            return Ok();
         }
 
         private StatusCodeResult StopBankService(Guid buildingId, Guid bankId)
         {
-
             return NoContent(); //TODO: Finish Me
         }
-
-
     }
 }

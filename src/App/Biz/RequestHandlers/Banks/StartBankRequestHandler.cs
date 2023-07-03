@@ -50,7 +50,6 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
             return new BankOperationsResponse(request) { ElevatorDTOs = elevatorDTOs };
         }
 
-        //TODO: Finish Me
         private bool StartBank(BuildingElevatorBank bank)
         {
             var bankBizObject = bank.ToBusinessObject();

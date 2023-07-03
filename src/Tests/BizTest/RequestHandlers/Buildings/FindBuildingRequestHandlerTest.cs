@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem;
+﻿using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings;
 using IntrepidProducts.Repo;
@@ -17,6 +18,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Buildings
             //Setup
             var mockBuildingRepo = new Mock<IRepository<Building>>();
             var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
+            var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();
 
             var buildingId = Guid.NewGuid();
 
@@ -25,7 +27,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Buildings
                 .Returns(new Building { Id = buildingId });
 
             var findBuildingRequestHandler = new FindBuildingRequestHandler
-                (mockBuildingRepo.Object, mockBankRepo.Object);
+                (mockBuildingRepo.Object, mockBankRepo.Object, mockBankServiceRegistry.Object);
 
             var findResponse = findBuildingRequestHandler
                 .Handle(new FindBuildingRequest { BuildingId = buildingId });
@@ -41,9 +43,10 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Buildings
         {
             var mockBuildingRepo = new Mock<IRepository<Building>>();
             var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
+            var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();
 
             var findBuildingRequestHandler = new FindBuildingRequestHandler
-                (mockBuildingRepo.Object, mockBankRepo.Object);
+                (mockBuildingRepo.Object, mockBankRepo.Object, mockBankServiceRegistry.Object);
 
             var findResponse = findBuildingRequestHandler
                 .Handle(new FindBuildingRequest { BuildingId = Guid.NewGuid() });
