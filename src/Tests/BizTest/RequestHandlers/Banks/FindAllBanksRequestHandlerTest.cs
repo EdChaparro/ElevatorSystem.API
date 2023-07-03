@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using IntrepidProducts.ElevatorService.Banks;
 
 namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
 {
@@ -24,12 +25,14 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
             var bank2 = new BuildingElevatorBank(buildingId, new Bank(2, 6..4));
 
             var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
-
             mockBankRepo.Setup(x =>
                     x.FindByBusinessId(request.BuildingId))
                 .Returns(new List<BuildingElevatorBank> { bank1, bank2 });
 
-            var findAllBankRequestHandler = new FindAllBanksRequestHandler(mockBankRepo.Object);
+            var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();
+
+            var findAllBankRequestHandler = new FindAllBanksRequestHandler
+                (mockBankRepo.Object, mockBankServiceRegistry.Object);
 
             var findResponse = findAllBankRequestHandler.Handle(request);
 

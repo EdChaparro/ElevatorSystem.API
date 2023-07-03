@@ -21,6 +21,8 @@ namespace IntrepidProducts.WebAPI.Results
         public int HighestFloorNbr { get; set; }
         public List<int> FloorNbrs { get; set; } = new List<int>();
 
+        public bool IsRunning { get; set; }
+
         public static Bank MapFrom(BankDTO dto)
         {
             return new Bank
@@ -31,7 +33,8 @@ namespace IntrepidProducts.WebAPI.Results
                 NumberOfElevators = dto.NumberOfElevators,
                 LowestFloorNbr = dto.LowestFloorNbr,
                 HighestFloorNbr = dto.HighestFloorNbr,
-                FloorNbrs = dto.FloorNbrs
+                FloorNbrs = dto.FloorNbrs,
+                IsRunning = dto.IsRunning
             };
         }
     }
