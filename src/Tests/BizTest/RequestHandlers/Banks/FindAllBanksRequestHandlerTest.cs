@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem.Banks;
+﻿using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks;
 using IntrepidProducts.Repo;
@@ -24,12 +25,14 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
             var bank2 = new BuildingElevatorBank(buildingId, new Bank(2, 6..4));
 
             var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
-
             mockBankRepo.Setup(x =>
                     x.FindByBusinessId(request.BuildingId))
                 .Returns(new List<BuildingElevatorBank> { bank1, bank2 });
 
-            var findAllBankRequestHandler = new FindAllBanksRequestHandler(mockBankRepo.Object);
+            var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();
+
+            var findAllBankRequestHandler = new FindAllBanksRequestHandler
+                (mockBankRepo.Object, mockBankServiceRegistry.Object);
 
             var findResponse = findAllBankRequestHandler.Handle(request);
 

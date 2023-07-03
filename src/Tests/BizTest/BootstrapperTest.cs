@@ -1,3 +1,5 @@
+using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorService.Elevators;
 using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystemBiz;
 using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings;
@@ -32,6 +34,9 @@ namespace IntrepidProducts.ElevatorSystemBizTest
             Assert.IsNotNull(iocContainer.Resolve<RepoConfigurationManager>());
 
             Assert.IsNotNull(iocContainer.Resolve<IRepository<Building>>());
+
+            Assert.IsNotNull(iocContainer.Resolve<IElevatorServiceRegistry>());
+            Assert.IsNotNull(iocContainer.Resolve<IBankServiceRegistry>());
         }
     }
 }

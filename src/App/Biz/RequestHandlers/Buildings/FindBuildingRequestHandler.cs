@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem;
+﻿using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorSystem;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
@@ -12,14 +13,18 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
         AbstractRequestHandler<FindBuildingRequest, FindBuildingResponse>
     {
         public FindBuildingRequestHandler
-            (IRepository<Building> buildingRepo, IBuildingElevatorBankRepository bankRepo)
+            (IRepository<Building> buildingRepo,
+                IBuildingElevatorBankRepository bankRepo,
+                IBankServiceRegistry bankServiceRegistry)
         {
             _buildingRepo = buildingRepo;
             _bankRepo = bankRepo;
+            _bankServiceRegistry = bankServiceRegistry;
         }
 
         private readonly IRepository<Building> _buildingRepo;
         private readonly IBuildingElevatorBankRepository _bankRepo;
+        private readonly IBankServiceRegistry _bankServiceRegistry;
 
         protected override FindBuildingResponse DoHandle(FindBuildingRequest request)
         {
@@ -36,6 +41,13 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
             var banks = _bankRepo.FindByBusinessId(request.BuildingId);
 
             var bankDTOs = BankMapper.Map(banks);
+
+            //TODO: Incorporate this into the Mapper?
+            foreach (var bankDtO in bankDTOs)
+            {
+                bankDtO.IsRunning = _bankServiceRegistry.IsRegistered(bankDtO.Id);
+            }
+
 
             return new FindBuildingResponse(request)
             {

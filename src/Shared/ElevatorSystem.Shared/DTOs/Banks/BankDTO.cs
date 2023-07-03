@@ -27,5 +27,7 @@ namespace IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks
         //Mutually exclusive with Lowest & Highest Floor Number properties
         public List<int> FloorNbrs { get; set; }
         #endregion
+
+        public bool IsRunning { get; set; }
     }
 }

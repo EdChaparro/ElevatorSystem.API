@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
+﻿using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
@@ -10,12 +11,16 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
     public class FindBankRequestHandler :
         AbstractRequestHandler<FindBankRequest, FindEntityResponse<BankDTO>>
     {
-        public FindBankRequestHandler(IRepository<BuildingElevatorBank> bankRepo)
+        public FindBankRequestHandler
+            (IRepository<BuildingElevatorBank> bankRepo,
+                IBankServiceRegistry bankServiceRegistry)
         {
             _bankRepo = bankRepo;
+            _bankServiceRegistry = bankServiceRegistry;
         }
 
         private readonly IRepository<BuildingElevatorBank> _bankRepo;
+        private readonly IBankServiceRegistry _bankServiceRegistry;
 
         protected override FindEntityResponse<BankDTO> DoHandle(FindBankRequest request)
         {
@@ -31,7 +36,7 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
             };
         }
 
-        private static BankDTO ToDTO(BuildingElevatorBank bank)
+        private BankDTO ToDTO(BuildingElevatorBank bank)
         {
             return new BankDTO
             {
@@ -41,7 +46,8 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
                 NumberOfElevators = bank.NumberOfElevators,
                 FloorNbrs = bank.FloorNbrs,
                 LowestFloorNbr = bank.LowestFloorNbr,
-                HighestFloorNbr = bank.HighestFloorNbr
+                HighestFloorNbr = bank.HighestFloorNbr,
+                IsRunning = _bankServiceRegistry.IsRegistered(bank.Id)
             };
         }
     }

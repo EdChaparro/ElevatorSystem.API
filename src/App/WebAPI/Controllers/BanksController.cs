@@ -126,6 +126,7 @@ namespace IntrepidProducts.WebAPI.Controllers
                 new { buildingId = buildingId, id = response.EntityId },
                 postBody);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -10,7 +10,8 @@
         "dependencies": {
           "IntrepidProducts.ElevatorSystem": "1.0.0",
           "Microsoft.Extensions.Hosting": "7.0.1",
-          "IntrepidProducts.Common": "1.0.0.0"
+          "IntrepidProducts.Common": "1.0.0.0",
+          "IntrepidProducts.ElevatorSystem.Reference": "1.0.0.0"
         },
         "runtime": {
           "IntrepidProducts.ElevatorService.dll": {}
@@ -390,6 +391,14 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "IntrepidProducts.ElevatorSystem.Reference/1.0.0.0": {
+        "runtime": {
+          "IntrepidProducts.ElevatorSystem.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -608,6 +617,11 @@
       "sha512": ""
     },
     "IntrepidProducts.Common/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IntrepidProducts.ElevatorSystem.Reference/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

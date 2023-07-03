@@ -59,5 +59,26 @@ namespace IntrepidProducts.Shared.ElevatorSystem.Entities
         //Mutually exclusive with Lowest & Highest Floor Number properties
         public List<int> FloorNbrs { get; set; }
         #endregion
+
+        public Bank ToBusinessObject()
+        {
+            var bank = new Bank(NumberOfElevators, FloorNbrs.ToArray())
+            {
+                Id = Id,
+                Name = Name,
+            };
+
+            var elevatorsBizObjects
+                = new List<IntrepidProducts.ElevatorSystem.Elevators.Elevator>();
+
+            foreach (var elevator in Elevators)
+            {
+                elevatorsBizObjects.Add(elevator.ToBusinessObject());
+            }
+
+            bank.AddElevators(elevatorsBizObjects);
+
+            return bank;
+        }
     }
 }

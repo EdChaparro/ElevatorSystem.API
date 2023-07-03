@@ -5,6 +5,7 @@ namespace IntrepidProducts.ElevatorSystem.Shared.Requests.Banks
 {
     public class StartBankRequest : RequestAbstract
     {
+        public Guid BusinessId { get; set; }
         public Guid BankId { get; set; }
     }
 }

@@ -1,13 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
-
+    <IsTestProject>true</IsTestProject>
+    <AssemblyName>IntrepidProducts.Shared.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>IntrepidProducts.Shared.$(MSBuildProjectName)</RootNamespace>
     <Platforms>x64</Platforms>
-
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\App\Repo\Repo.csproj" />
+    <ProjectReference Include="..\..\Shared\ElevatorSystem.Entities\ElevatorSystem.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

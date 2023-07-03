@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorSystem.Banks;
+﻿using IntrepidProducts.ElevatorService.Banks;
+using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks;
 using IntrepidProducts.Repo;
@@ -29,7 +30,10 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
                     x.FindById(bank.Id))
                 .Returns(elevatorBank);
 
-            var findBankRequestHandler = new FindBankRequestHandler(mockRepo.Object);
+            var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();
+
+            var findBankRequestHandler = new FindBankRequestHandler
+                (mockRepo.Object, mockBankServiceRegistry.Object);
 
             var findResponse = findBankRequestHandler
                 .Handle(new FindBankRequest { BankId = bank.Id });
@@ -45,8 +49,10 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
         public void ShouldReturnNullWhenNotFound()
         {
             var mockRepo = new Mock<IRepository<BuildingElevatorBank>>();
+            var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();
 
-            var findBankRequestHandler = new FindBankRequestHandler(mockRepo.Object);
+            var findBankRequestHandler = new FindBankRequestHandler
+                (mockRepo.Object, mockBankServiceRegistry.Object);
 
             var findResponse = findBankRequestHandler
                 .Handle(new FindBankRequest { BankId = Guid.NewGuid() });
