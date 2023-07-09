@@ -47,7 +47,7 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
                 FloorNbrs = bank.FloorNbrs,
                 LowestFloorNbr = bank.LowestFloorNbr,
                 HighestFloorNbr = bank.HighestFloorNbr,
-                IsRunning = _bankServiceRegistry.IsRegistered(bank.Id)
+                IsRunning = _bankServiceRegistry.IsRunning(bank.Id)
             };
         }
     }

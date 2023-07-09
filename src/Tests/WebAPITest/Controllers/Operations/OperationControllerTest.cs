@@ -67,6 +67,56 @@ namespace IntrepidProducts.WebApiTest.Controllers.Operations
             Assert.AreEqual(StatusCodes.Status200OK, objectResult.StatusCode);
         }
 
+        [TestMethod]
+        public void ShouldStopElevatorBank()
+        {
+            var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
+
+            var businessId = Guid.NewGuid();
+            var bankId = Guid.NewGuid();
+            const string ENGINE_PARAMETER = "Stop";
+
+            var request = new StopBankRequest
+            {
+                BusinessId = businessId,
+                BankId = bankId
+            };
+
+            var requestBlock = new RequestBlock();
+            requestBlock.Add(request);
+
+            var response = new BankOperationsResponse(request);
+
+            var responseBlock = new ResponseBlock(requestBlock);
+            responseBlock.Add(response);
+
+            var expectedResponseBlock = responseBlock;
+
+            mockRequestHandlerProcessor.Setup
+                (x =>
+                    x.Process(It.IsAny<RequestBlock>()))
+                .Returns(expectedResponseBlock);
+
+            var mockLinkGenerator = new Mock<LinkGenerator>();
+
+            var controller = new OperationsController
+                (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+                {
+                    ControllerContext = new ControllerContext
+                    {
+                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                    }
+                };
+
+            var actionResult = controller.Put
+                (businessId, bankId, ENGINE_PARAMETER);
+
+            var objectResult = actionResult as OkResult;
+            Assert.IsNotNull(objectResult);
+
+            Assert.AreEqual(StatusCodes.Status200OK, objectResult.StatusCode);
+        }
+
         #endregion
     }
 }

@@ -61,7 +61,6 @@ namespace IntrepidProducts.WebAPI.Controllers.Operations
 
         private IActionResult StartBankService(Guid buildingId, Guid bankId)
         {
-
             var response = ProcessRequests<StartBankRequest, BankOperationsResponse>
                     (new StartBankRequest
                     {
@@ -78,9 +77,22 @@ namespace IntrepidProducts.WebAPI.Controllers.Operations
             return Ok();
         }
 
-        private StatusCodeResult StopBankService(Guid buildingId, Guid bankId)
+        private IActionResult StopBankService(Guid buildingId, Guid bankId)
         {
-            return NoContent(); //TODO: Finish Me
+            var response = ProcessRequests<StopBankRequest, BankOperationsResponse>
+                (new StopBankRequest
+                {
+                    BusinessId = buildingId,
+                    BankId = bankId
+                })
+                .First();
+
+            if (!response.IsSuccessful)
+            {
+                return GetProblemDetails(response);
+            }
+
+            return Ok();
         }
     }
 }
