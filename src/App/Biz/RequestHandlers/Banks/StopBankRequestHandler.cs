@@ -68,7 +68,7 @@ public class StopBankRequestHandler :
             return true;
         }
 
-        bankService.StopAsync(new CancellationToken());
+        bankService.StopAsync();
         return true;
     }
 
