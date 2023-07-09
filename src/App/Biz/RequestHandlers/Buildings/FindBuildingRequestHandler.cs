@@ -45,7 +45,7 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
             //TODO: Incorporate this into the Mapper?
             foreach (var bankDtO in bankDTOs)
             {
-                bankDtO.IsRunning = _bankServiceRegistry.IsRegistered(bankDtO.Id);
+                bankDtO.IsRunning = _bankServiceRegistry.IsRunning(bankDtO.Id);
             }
 
 
