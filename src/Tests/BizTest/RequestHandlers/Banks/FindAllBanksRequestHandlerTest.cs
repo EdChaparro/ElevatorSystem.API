@@ -26,7 +26,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
 
             var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
             mockBankRepo.Setup(x =>
-                    x.FindByBusinessId(request.BuildingId))
+                    x.FindByBuildingId(request.BuildingId))
                 .Returns(new List<BuildingElevatorBank> { bank1, bank2 });
 
             var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();

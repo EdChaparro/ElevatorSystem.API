@@ -22,12 +22,12 @@ public class StopBankRequestHandlerTest
         var mockRepo = new Mock<IBuildingElevatorBankRepository>();
         var mockBankRegistry = new Mock<IBankServiceRegistry>();
 
-        var businessId = Guid.NewGuid();
+        var buildingId = Guid.NewGuid();
 
         var bank = new Bank(2, 1..10) { Name = "Bank A" };
 
         mockRepo.Setup(x =>
-                x.FindByBusinessId(businessId))
+                x.FindByBuildingId(buildingId))
             .Returns(new List<BuildingElevatorBank>());
 
         var startBankRequestHandler = new StartBankRequestHandler

@@ -25,7 +25,7 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 
         protected override FindEntitiesResponse<BankDTO> DoHandle(FindAllBanksRequest request)
         {
-            var banks = _bankRepo.FindByBusinessId(request.BuildingId);
+            var banks = _bankRepo.FindByBuildingId(request.BuildingId);
 
             var bankDTOs = BankMapper.Map(banks);
 

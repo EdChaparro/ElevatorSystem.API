@@ -1,4 +1,5 @@
-﻿using IntrepidProducts.ElevatorService.Banks;
+﻿using System.Linq;
+using IntrepidProducts.ElevatorService.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
@@ -12,19 +13,21 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
         AbstractRequestHandler<FindBankRequest, FindEntityResponse<BankDTO>>
     {
         public FindBankRequestHandler
-            (IRepository<BuildingElevatorBank> bankRepo,
+            (IBuildingElevatorBankRepository bankRepo,
                 IBankServiceRegistry bankServiceRegistry)
         {
             _bankRepo = bankRepo;
             _bankServiceRegistry = bankServiceRegistry;
         }
 
-        private readonly IRepository<BuildingElevatorBank> _bankRepo;
+        private readonly IBuildingElevatorBankRepository _bankRepo;
         private readonly IBankServiceRegistry _bankServiceRegistry;
 
         protected override FindEntityResponse<BankDTO> DoHandle(FindBankRequest request)
         {
-            var elevatorBank = _bankRepo.FindById(request.BankId);
+            var banks = _bankRepo.FindByBuildingId(request.BuildingId);
+
+            var elevatorBank = banks.FirstOrDefault(x => x.Id == request.BankId);
 
             var dto = elevatorBank == null
                 ? null

@@ -6,6 +6,7 @@ namespace IntrepidProducts.ElevatorSystem.Shared.Requests.Banks
 {
     public class FindBankRequest : RequestAbstract, IEntityAddRequest
     {
+        public Guid BuildingId { get; set; }
         public Guid BankId { get; set; }
     }
 }
