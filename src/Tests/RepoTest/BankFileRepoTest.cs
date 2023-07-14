@@ -62,7 +62,7 @@ namespace RepoTest
 
             Assert.AreEqual(1, _repo.Create(entity));
 
-            var persistedEntity = _repo.FindByBusinessId(entity.BuildingId)
+            var persistedEntity = _repo.FindByBuildingId(entity.BuildingId)
                 .FirstOrDefault();
 
             Assert.IsNotNull(persistedEntity);

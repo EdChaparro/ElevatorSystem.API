@@ -38,7 +38,7 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Buildings
                     Name = building?.Name
                 };
 
-            var banks = _bankRepo.FindByBusinessId(request.BuildingId);
+            var banks = _bankRepo.FindByBuildingId(request.BuildingId);
 
             var bankDTOs = BankMapper.Map(banks);
 

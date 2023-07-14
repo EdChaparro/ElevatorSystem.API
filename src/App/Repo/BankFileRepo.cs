@@ -7,7 +7,7 @@ namespace IntrepidProducts.Repo
 {
     public interface IBuildingElevatorBankRepository : IRepository<BuildingElevatorBank>
     {
-        IEnumerable<BuildingElevatorBank> FindByBusinessId(Guid businessId);
+        IEnumerable<BuildingElevatorBank> FindByBuildingId(Guid buildingId);
     }
 
     public class BankFileRepo : AbstractFileRepo<BuildingElevatorBank>, IBuildingElevatorBankRepository
@@ -15,10 +15,10 @@ namespace IntrepidProducts.Repo
         public BankFileRepo(RepoConfigurationManager configManager) : base(configManager)
         { }
 
-        public IEnumerable<BuildingElevatorBank> FindByBusinessId(Guid businessId)
+        public IEnumerable<BuildingElevatorBank> FindByBuildingId(Guid buildingId)
         {
             return Entities
-                .Where(x => x.BuildingId == businessId);
+                .Where(x => x.BuildingId == buildingId);
         }
 
         public void Clear()

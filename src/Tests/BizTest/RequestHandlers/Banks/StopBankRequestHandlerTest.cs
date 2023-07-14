@@ -27,7 +27,7 @@ public class StopBankRequestHandlerTest
         var bank = new Bank(2, 1..10) { Name = "Bank A" };
 
         mockRepo.Setup(x =>
-                x.FindByBusinessId(businessId))
+                x.FindByBuildingId(businessId))
             .Returns(new List<BuildingElevatorBank>());
 
         var startBankRequestHandler = new StartBankRequestHandler

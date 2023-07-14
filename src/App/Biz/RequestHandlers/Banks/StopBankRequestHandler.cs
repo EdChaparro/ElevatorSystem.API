@@ -29,7 +29,7 @@ public class StopBankRequestHandler :
 
     protected override BankOperationsResponse DoHandle(StopBankRequest request)
     {
-        var banks = _bankRepo.FindByBusinessId(request.BusinessId);
+        var banks = _bankRepo.FindByBuildingId(request.BusinessId);
 
         var bankEntity = banks.FirstOrDefault(x => x.Id == request.BankId);
 

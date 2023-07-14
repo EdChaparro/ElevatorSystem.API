@@ -23,14 +23,14 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
             var mockBankRegistry = new Mock<IBankServiceRegistry>();
             var mockBackgroundService = new Mock<IBackgroundService>();
 
-            var businessId = Guid.NewGuid();
+            var buildingId = Guid.NewGuid();
 
             var bank = new Bank(2, 1..10) { Name = "Bank A" };
 
             var elevatorBank = new BuildingElevatorBank(Guid.NewGuid(), bank);
 
             mockRepo.Setup(x =>
-                    x.FindByBusinessId(businessId))
+                    x.FindByBuildingId(buildingId))
                         .Returns(new List<BuildingElevatorBank> { elevatorBank });
 
             mockBankRegistry.Setup(x =>
@@ -45,7 +45,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
                 (mockRepo.Object, mockBankRegistry.Object);
 
             var operationResponse = startBankRequestHandler
-                .Handle(new StartBankRequest { BankId = bank.Id, BusinessId = businessId });
+                .Handle(new StartBankRequest { BankId = bank.Id, BusinessId = buildingId });
 
             //Assert
             Assert.IsTrue(operationResponse.IsSuccessful);
@@ -70,7 +70,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
             var elevatorBank = new BuildingElevatorBank(Guid.NewGuid(), bank);
 
             mockRepo.Setup(x =>
-                    x.FindByBusinessId(businessId))
+                    x.FindByBuildingId(businessId))
                         .Returns(new List<BuildingElevatorBank> { elevatorBank });
 
             mockBankRegistry.Setup(x =>
@@ -107,7 +107,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
             var bank = new Bank(2, 1..10) { Name = "Bank A" };
 
             mockRepo.Setup(x =>
-                    x.FindByBusinessId(businessId))
+                    x.FindByBuildingId(businessId))
                 .Returns(new List<BuildingElevatorBank>());
 
             var startBankRequestHandler = new StartBankRequestHandler

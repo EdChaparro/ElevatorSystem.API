@@ -39,7 +39,11 @@ namespace IntrepidProducts.WebAPI.Controllers
             }
 
             var findBankResponse = ProcessRequests<FindBankRequest, FindEntityResponse<BankDTO>>
-                    (new FindBankRequest { BankId = id })
+                    (new FindBankRequest
+                    {
+                        BuildingId = buildingId,
+                        BankId = id
+                    })
                 .First();
 
             if (!findBankResponse.IsSuccessful)
