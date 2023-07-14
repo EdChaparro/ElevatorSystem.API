@@ -22,13 +22,13 @@ namespace IntrepidProducts.WebApiTest.Controllers.Operations
         {
             var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
 
-            var businessId = Guid.NewGuid();
+            var buildingId = Guid.NewGuid();
             var bankId = Guid.NewGuid();
             const string ENGINE_PARAMETER = "Start";
 
             var request = new StartBankRequest
             {
-                BusinessId = businessId,
+                BuildingId = buildingId,
                 BankId = bankId
             };
 
@@ -59,7 +59,7 @@ namespace IntrepidProducts.WebApiTest.Controllers.Operations
             };
 
             var actionResult = controller.Put
-                (businessId, bankId, ENGINE_PARAMETER);
+                (buildingId, bankId, ENGINE_PARAMETER);
 
             var objectResult = actionResult as OkResult;
             Assert.IsNotNull(objectResult);
@@ -72,13 +72,13 @@ namespace IntrepidProducts.WebApiTest.Controllers.Operations
         {
             var mockRequestHandlerProcessor = new Mock<IRequestHandlerProcessor>();
 
-            var businessId = Guid.NewGuid();
+            var buildingId = Guid.NewGuid();
             var bankId = Guid.NewGuid();
             const string ENGINE_PARAMETER = "Stop";
 
             var request = new StopBankRequest
             {
-                BusinessId = businessId,
+                BuildingId = buildingId,
                 BankId = bankId
             };
 
@@ -109,7 +109,7 @@ namespace IntrepidProducts.WebApiTest.Controllers.Operations
                 };
 
             var actionResult = controller.Put
-                (businessId, bankId, ENGINE_PARAMETER);
+                (buildingId, bankId, ENGINE_PARAMETER);
 
             var objectResult = actionResult as OkResult;
             Assert.IsNotNull(objectResult);

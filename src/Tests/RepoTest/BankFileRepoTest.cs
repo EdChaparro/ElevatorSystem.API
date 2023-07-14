@@ -54,7 +54,7 @@ namespace RepoTest
         }
 
         [TestMethod]
-        public void ShouldFindByBusinessId()
+        public void ShouldFindByBuildingId()
         {
             var building = new Building { Name = "Foo" };
 

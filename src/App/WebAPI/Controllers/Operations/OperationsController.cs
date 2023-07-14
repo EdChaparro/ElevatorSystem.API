@@ -64,7 +64,7 @@ namespace IntrepidProducts.WebAPI.Controllers.Operations
             var response = ProcessRequests<StartBankRequest, BankOperationsResponse>
                     (new StartBankRequest
                     {
-                        BusinessId = buildingId,
+                        BuildingId = buildingId,
                         BankId = bankId
                     })
                 .First();
@@ -82,7 +82,7 @@ namespace IntrepidProducts.WebAPI.Controllers.Operations
             var response = ProcessRequests<StopBankRequest, BankOperationsResponse>
                 (new StopBankRequest
                 {
-                    BusinessId = buildingId,
+                    BuildingId = buildingId,
                     BankId = bankId
                 })
                 .First();

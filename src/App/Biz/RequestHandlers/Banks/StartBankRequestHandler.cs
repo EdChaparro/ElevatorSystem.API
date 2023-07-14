@@ -28,7 +28,7 @@ namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 
         protected override BankOperationsResponse DoHandle(StartBankRequest request)
         {
-            var banks = _bankRepo.FindByBuildingId(request.BusinessId);
+            var banks = _bankRepo.FindByBuildingId(request.BuildingId);
 
             var bankEntity = banks.FirstOrDefault(x => x.Id == request.BankId);
 
