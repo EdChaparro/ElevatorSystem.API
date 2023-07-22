@@ -21,7 +21,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
             //Setup
             var mockRepo = new Mock<IBuildingElevatorBankRepository>();
             var mockBankRegistry = new Mock<IBankServiceRegistry>();
-            var mockBackgroundService = new Mock<IBackgroundService>();
+            var mockBackgroundService = new Mock<IEntityBackgroundService<Bank>>();
 
             var buildingId = Guid.NewGuid();
 
@@ -61,7 +61,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks
             //Setup
             var mockRepo = new Mock<IBuildingElevatorBankRepository>();
             var mockBankRegistry = new Mock<IBankServiceRegistry>();
-            var mockBackgroundService = new Mock<IBackgroundService>();
+            var mockBackgroundService = new Mock<IEntityBackgroundService<Bank>>();
 
             var buildingId = Guid.NewGuid();
 
