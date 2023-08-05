@@ -101,12 +101,12 @@ namespace IntrepidProducts.WebApiTest.Controllers.Operations
 
             var controller = new OperationsController
                 (mockRequestHandlerProcessor.Object, mockLinkGenerator.Object)
+            {
+                ControllerContext = new ControllerContext
                 {
-                    ControllerContext = new ControllerContext
-                    {
-                        HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
-                    }
-                };
+                    HttpContext = new DefaultHttpContext() //Needed for HATEOAS URI generation
+                }
+            };
 
             var actionResult = controller.Put
                 (buildingId, bankId, ENGINE_PARAMETER);

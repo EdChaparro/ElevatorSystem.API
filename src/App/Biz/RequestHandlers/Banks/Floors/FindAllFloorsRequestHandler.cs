@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using IntrepidProducts.ElevatorService.Banks;
+﻿using IntrepidProducts.ElevatorService.Banks;
 using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks.Floors;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks.Floors;
@@ -7,6 +6,7 @@ using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.ElevatorSystemBiz.Mappers;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
+using System.Linq;
 
 namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks.Floors
 {

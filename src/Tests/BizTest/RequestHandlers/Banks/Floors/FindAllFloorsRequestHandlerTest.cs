@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using IntrepidProducts.ElevatorService;
+﻿using IntrepidProducts.ElevatorService;
 using IntrepidProducts.ElevatorService.Banks;
 using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Elevators;
@@ -11,6 +8,9 @@ using IntrepidProducts.Repo;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks.Floors
 {
@@ -154,7 +154,7 @@ namespace IntrepidProducts.ElevatorSystemBizTest.RequestHandlers.Banks.Floors
             var mockBankRepo = new Mock<IBuildingElevatorBankRepository>();
             mockBankRepo.Setup(x =>
                     x.FindByBuildingId(request.BuildingId))
-                .Returns(new List<BuildingElevatorBank> ());
+                .Returns(new List<BuildingElevatorBank>());
 
             var mockBankServiceRegistry = new Mock<IBankServiceRegistry>();
 

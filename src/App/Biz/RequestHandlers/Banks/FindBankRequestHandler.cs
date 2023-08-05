@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using IntrepidProducts.ElevatorService.Banks;
+﻿using IntrepidProducts.ElevatorService.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
+using System.Linq;
 
 namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks
 {
