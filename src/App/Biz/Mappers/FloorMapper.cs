@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using IntrepidProducts.ElevatorSystem.Banks;
+﻿using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Banks.Floors;
 using IntrepidProducts.ElevatorSystem.Shared.DTOs.Elevators;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
+using System.Collections.Generic;
 
 namespace IntrepidProducts.ElevatorSystemBiz.Mappers;
 

@@ -1,7 +1,7 @@
-using System.Linq;
 using IntrepidProducts.ElevatorSystem.Banks;
 using IntrepidProducts.ElevatorSystemBiz.Mappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace IntrepidProducts.ElevatorSystemBizTest.Mappers
 {

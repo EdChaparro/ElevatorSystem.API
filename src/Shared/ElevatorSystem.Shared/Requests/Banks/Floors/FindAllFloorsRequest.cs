@@ -1,6 +1,6 @@
-﻿using System;
-using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
+﻿using IntrepidProducts.ElevatorSystem.Shared.Requests.Buildings;
 using IntrepidProducts.RequestResponse.Requests;
+using System;
 
 namespace IntrepidProducts.ElevatorSystem.Shared.Requests.Banks.Floors
 {

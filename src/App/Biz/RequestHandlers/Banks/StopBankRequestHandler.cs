@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using IntrepidProducts.ElevatorService;
+﻿using IntrepidProducts.ElevatorService;
 using IntrepidProducts.ElevatorService.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Requests.Banks;
 using IntrepidProducts.ElevatorSystem.Shared.Responses;
@@ -9,6 +6,8 @@ using IntrepidProducts.ElevatorSystemBiz.Mappers;
 using IntrepidProducts.Repo;
 using IntrepidProducts.RequestResponseHandler.Handlers;
 using IntrepidProducts.Shared.ElevatorSystem.Entities;
+using System;
+using System.Linq;
 
 namespace IntrepidProducts.ElevatorSystemBiz.RequestHandlers.Banks;
 
